@@ -1,0 +1,87 @@
+<div class="page-header">
+  <div>
+    <h1>Propagation monitor</h1>
+    <p>
+      How long a committed change takes to reach connected clients in
+      <strong>{{ workspace.environmentName(workspace.selected() ?? '') }}</strong>. The numbers refresh every
+      second while this tab is visible.
+    </p>
+  </div>
+</div>
+
+@if (failure(); as problem) {
+<div class="issues" role="alert">The monitor could not read the server: {{ problem }}</div>
+}
+
+<section aria-labelledby="stats-title">
+  <h2 id="stats-title" class="sr-only">Current figures</h2>
+  <dl class="stats">
+    @for (figure of figures(); track figure.label) {
+    <div class="stat">
+      <dt>{{ figure.label }}</dt>
+      <dd>{{ figure.value }}</dd>
+    </div>
+    }
+  </dl>
+</section>
+
+<section class="card" aria-labelledby="chart-title">
+  <h2 id="chart-title">Commit to acknowledgement</h2>
+  @if (idle()) {
+  <p class="empty" role="status">
+    No acknowledgements yet. Change a flag while a client is connected and the timings appear here.
+  </p>
+  } @else {
+  <figure class="chart">
+    <svg
+      [attr.viewBox]="'-44 -8 ' + (width + 56) + ' ' + (height + 28)"
+      role="img"
+      aria-labelledby="chart-title chart-desc"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <desc id="chart-desc">
+        Line chart of p50, p95 and p99 propagation time in milliseconds over the last {{ history().length }}
+        readings.
+      </desc>
+      @for (line of gridLines(); track line.y) {
+      <line class="grid" x1="0" [attr.x2]="width" [attr.y1]="line.y" [attr.y2]="line.y" />
+      <text class="tick" x="-6" [attr.y]="line.y + 4" text-anchor="end">{{ line.label }}</text>
+      } @for (line of paths(); track line.key) {
+      <path [attr.d]="line.d" [class]="'series ' + line.className" fill="none" />
+      }
+    </svg>
+    <figcaption>
+      <ul class="legend">
+        @for (item of series; track item.key) {
+        <li><span class="swatch" [class]="'swatch ' + item.className"></span>{{ item.label }}</li>
+        }
+        <li class="muted">Milliseconds, newest on the right</li>
+      </ul>
+    </figcaption>
+  </figure>
+
+  <table class="data">
+    <caption class="sr-only">
+      Latest readings
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Time (UTC)</th>
+        <th scope="col">p50 ms</th>
+        <th scope="col">p95 ms</th>
+        <th scope="col">p99 ms</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (sample of recent(); track sample.at + $index) {
+      <tr>
+        <th scope="row">{{ sample.at }}</th>
+        <td>{{ formatMillis(sample.p50) }}</td>
+        <td>{{ formatMillis(sample.p95) }}</td>
+        <td>{{ formatMillis(sample.p99) }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }
+</section>
