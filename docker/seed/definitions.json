@@ -1,0 +1,124 @@
+{
+  "environments": ["dev", "staging", "prod"],
+  "segments": [
+    {
+      "key": "beta-testers",
+      "name": "Beta testers",
+      "included": ["visitor-beta"],
+      "excluded": [],
+      "rules": []
+    },
+    {
+      "key": "polish-visitors",
+      "name": "Polish visitors",
+      "included": [],
+      "excluded": [],
+      "rules": [[{ "attribute": "country", "operator": "equals", "values": ["PL"] }]]
+    }
+  ],
+  "flags": [
+    {
+      "key": "promo-banner",
+      "description": "Shows the promo banner above the shop header.",
+      "type": "boolean",
+      "variants": [
+        { "key": "on", "value": true },
+        { "key": "off", "value": false }
+      ],
+      "offVariant": "off",
+      "fallthrough": { "variant": "on" },
+      "rules": [],
+      "enabled": { "dev": true, "staging": true, "prod": false }
+    },
+    {
+      "key": "promo",
+      "description": "The promotion shown in the banner and applied to the cart total.",
+      "type": "json",
+      "variants": [
+        {
+          "key": "spring-sale",
+          "value": {
+            "headline": "Spring sale: 10% off brewing gear",
+            "code": "SPRING10",
+            "discountPercent": 10
+          }
+        },
+        {
+          "key": "free-returns",
+          "value": { "headline": "Free returns on every order", "code": "", "discountPercent": 0 }
+        }
+      ],
+      "offVariant": "free-returns",
+      "fallthrough": { "variant": "spring-sale" },
+      "rules": [],
+      "enabled": { "dev": true, "staging": true, "prod": true }
+    },
+    {
+      "key": "checkout-label",
+      "description": "The text on the checkout button.",
+      "type": "string",
+      "variants": [
+        { "key": "checkout", "value": "Checkout" },
+        { "key": "buy-now", "value": "Buy now" },
+        { "key": "pay-securely", "value": "Pay securely" }
+      ],
+      "offVariant": "checkout",
+      "fallthrough": { "variant": "checkout" },
+      "rules": [
+        {
+          "id": "pro-plan",
+          "order": 0,
+          "conditions": [{ "attribute": "plan", "operator": "equals", "values": ["pro"] }],
+          "serve": { "variant": "pay-securely" }
+        }
+      ],
+      "enabled": { "dev": true, "staging": true, "prod": true }
+    },
+    {
+      "key": "free-shipping-threshold",
+      "description": "Order value in euros from which shipping is free.",
+      "type": "number",
+      "variants": [
+        { "key": "low", "value": 50 },
+        { "key": "standard", "value": 75 },
+        { "key": "high", "value": 100 }
+      ],
+      "offVariant": "standard",
+      "fallthrough": { "variant": "high" },
+      "rules": [
+        {
+          "id": "home-market",
+          "order": 0,
+          "conditions": [{ "segment": "polish-visitors" }],
+          "serve": { "variant": "standard" }
+        }
+      ],
+      "enabled": { "dev": true, "staging": true, "prod": true }
+    },
+    {
+      "key": "beta-recommendations",
+      "description": "The recommendations page, a beta feature behind a route guard.",
+      "type": "boolean",
+      "variants": [
+        { "key": "on", "value": true },
+        { "key": "off", "value": false }
+      ],
+      "offVariant": "off",
+      "fallthrough": {
+        "rollout": [
+          { "variant": "on", "weight": 20000 },
+          { "variant": "off", "weight": 80000 }
+        ]
+      },
+      "rules": [
+        {
+          "id": "beta-segment",
+          "order": 0,
+          "conditions": [{ "segment": "beta-testers" }],
+          "serve": { "variant": "on" }
+        }
+      ],
+      "enabled": { "dev": true, "staging": true, "prod": false }
+    }
+  ]
+}
