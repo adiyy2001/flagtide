@@ -1,0 +1,40 @@
+{
+  "name": "flagwire",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "pnpm@12.8.1",
+  "engines": {
+    "node": "^24.15.0"
+  },
+  "scripts": {
+    "check:text": "node scripts/check-code-style.mjs",
+    "conformance": "node scripts/conformance.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "verify": "node scripts/verify.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@nx/eslint": "23.2.1",
+    "@nx/js": "23.2.1",
+    "@nx/vitest": "23.2.1",
+    "@types/node": "24.19.1",
+    "@types/semver": "7.8.0",
+    "@vitest/coverage-v8": "5.0.3",
+    "ajv": "8.20.0",
+    "eslint": "10.12.0",
+    "fast-check": "4.10.2",
+    "globals": "17.13.0",
+    "nx": "23.2.1",
+    "prettier": "3.9.9",
+    "semver": "7.8.5",
+    "tinybench": "6.2.0",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.0",
+    "vite": "8.3.2",
+    "vitest": "5.0.3"
+  }
+}

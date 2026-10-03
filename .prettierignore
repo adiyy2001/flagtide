@@ -1,0 +1,15 @@
+node_modules
+dist
+coverage
+.nx
+target
+pnpm-lock.yaml
+spec/vectors
+apps/server/.mvn
+apps/server/mvnw
+apps/server/mvnw.cmd
+BRIEF.md
+NOTES_FOR_ADRIAN.md
+*.java
+*.py
+*.md

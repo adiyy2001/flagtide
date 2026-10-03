@@ -1,0 +1,32 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "namedInputs": {
+    "sharedGlobals": [
+      "{workspaceRoot}/package.json",
+      "{workspaceRoot}/pnpm-lock.yaml",
+      "{workspaceRoot}/nx.json",
+      "{workspaceRoot}/tsconfig.base.json",
+      "{workspaceRoot}/eslint.config.mjs",
+      "{workspaceRoot}/.prettierrc.json"
+    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "spec": [
+      "{workspaceRoot}/spec/vectors/**/*",
+      "{workspaceRoot}/spec/schema/**/*",
+      "{workspaceRoot}/docs/evaluation-spec.md"
+    ]
+  },
+  "targetDefaults": {
+    "lint": { "cache": true, "inputs": ["default", "{workspaceRoot}/scripts/**/*"] },
+    "typecheck": { "cache": true, "inputs": ["default", "^default"] },
+    "test": {
+      "cache": true,
+      "inputs": ["default", "^default", "spec"],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
+    },
+    "build": { "cache": true, "inputs": ["default", "^default"] },
+    "bench": { "cache": false }
+  },
+  "defaultBase": "main",
+  "analytics": false
+}
