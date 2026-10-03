@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://flagwire.dev/schema/flag-config.schema.json",
+  "title": "Flag config, evaluation spec version 1",
+  "$ref": "#/$defs/flagConfig",
+  "$defs": {
+    "slug": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$" },
+    "scalar": { "type": ["string", "number", "boolean"] },
+    "jsonValue": {
+      "type": ["null", "boolean", "number", "string", "array", "object"],
+      "items": { "$ref": "#/$defs/jsonValue" },
+      "additionalProperties": { "$ref": "#/$defs/jsonValue" }
+    },
+    "weight": { "type": "integer", "minimum": 0, "maximum": 100000 },
+    "serve": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["variant"],
+          "additionalProperties": false,
+          "properties": { "variant": { "$ref": "#/$defs/slug" } }
+        },
+        {
+          "type": "object",
+          "required": ["rollout"],
+          "additionalProperties": false,
+          "properties": {
+            "rollout": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": ["variant", "weight"],
+                "additionalProperties": false,
+                "properties": {
+                  "variant": { "$ref": "#/$defs/slug" },
+                  "weight": { "$ref": "#/$defs/weight" }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "attributeCondition": {
+      "type": "object",
+      "required": ["attribute", "operator", "values"],
+      "additionalProperties": false,
+      "properties": {
+        "attribute": { "type": "string", "minLength": 1 },
+        "operator": {
+          "enum": [
+            "equals",
+            "in",
+            "contains",
+            "startsWith",
+            "lt",
+            "lte",
+            "gt",
+            "gte",
+            "semverEquals",
+            "semverLt",
+            "semverLte",
+            "semverGt",
+            "semverGte"
+          ]
+        },
+        "values": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/scalar" } },
+        "negate": { "type": "boolean" }
+      }
+    },
+    "segmentCondition": {
+      "type": "object",
+      "required": ["segment"],
+      "additionalProperties": false,
+      "properties": { "segment": { "$ref": "#/$defs/slug" }, "negate": { "type": "boolean" } }
+    },
+    "rule": {
+      "type": "object",
+      "required": ["id", "conditions", "serve"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "oneOf": [{ "$ref": "#/$defs/attributeCondition" }, { "$ref": "#/$defs/segmentCondition" }]
+          }
+        },
+        "serve": { "$ref": "#/$defs/serve" }
+      }
+    },
+    "variant": {
+      "type": "object",
+      "required": ["key", "value"],
+      "additionalProperties": false,
+      "properties": { "key": { "$ref": "#/$defs/slug" }, "value": { "$ref": "#/$defs/jsonValue" } }
+    },
+    "flagConfig": {
+      "type": "object",
+      "required": [
+        "key",
+        "type",
+        "enabled",
+        "killSwitch",
+        "salt",
+        "variants",
+        "offVariant",
+        "rules",
+        "fallthrough"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "key": { "$ref": "#/$defs/slug" },
+        "type": { "enum": ["boolean", "string", "number", "json"] },
+        "enabled": { "type": "boolean" },
+        "killSwitch": { "type": "boolean" },
+        "salt": { "type": "string", "pattern": "^[0-9a-f]{1,64}$" },
+        "variants": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/variant" } },
+        "offVariant": { "$ref": "#/$defs/slug" },
+        "rules": { "type": "array", "items": { "$ref": "#/$defs/rule" } },
+        "fallthrough": { "$ref": "#/$defs/serve" },
+        "prerequisites": { "type": "array" }
+      }
+    },
+    "segment": {
+      "type": "object",
+      "required": ["key", "included", "excluded", "rules"],
+      "additionalProperties": false,
+      "properties": {
+        "key": { "$ref": "#/$defs/slug" },
+        "included": { "type": "array", "items": { "type": "string" } },
+        "excluded": { "type": "array", "items": { "type": "string" } },
+        "rules": {
+          "type": "array",
+          "items": { "type": "array", "items": { "$ref": "#/$defs/attributeCondition" } }
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "required": ["key", "attributes"],
+      "additionalProperties": false,
+      "properties": { "key": { "type": "string" }, "attributes": { "type": "object" } }
+    },
+    "result": {
+      "type": "object",
+      "required": ["variantKey", "value", "reason", "ruleIndex", "ruleId", "bucket"],
+      "additionalProperties": false,
+      "properties": {
+        "variantKey": { "$ref": "#/$defs/slug" },
+        "value": { "$ref": "#/$defs/jsonValue" },
+        "reason": { "enum": ["KILL_SWITCH", "OFF", "RULE_MATCH", "FALLTHROUGH"] },
+        "ruleIndex": { "type": ["integer", "null"], "minimum": 0 },
+        "ruleId": { "type": ["string", "null"] },
+        "bucket": { "type": ["integer", "null"], "minimum": 0, "maximum": 99999 }
+      }
+    },
+    "evaluationCase": {
+      "type": "object",
+      "required": ["id", "description", "flag", "segments", "context", "expected"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 },
+        "flag": { "$ref": "#/$defs/flagConfig" },
+        "segments": { "type": "array", "items": { "$ref": "#/$defs/segment" } },
+        "context": { "$ref": "#/$defs/context" },
+        "expected": { "$ref": "#/$defs/result" }
+      }
+    }
+  }
+}

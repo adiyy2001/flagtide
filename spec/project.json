@@ -1,0 +1,26 @@
+{
+  "name": "spec",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "spec",
+  "tags": ["scope:spec"],
+  "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": { "command": "eslint spec", "cwd": "{workspaceRoot}" }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": { "command": "tsc -p spec/tsconfig.json", "cwd": "{workspaceRoot}" }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": { "command": "vitest run --config spec/vitest.config.ts", "cwd": "{workspaceRoot}" }
+    },
+    "generate": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": { "command": "python3 spec/tools/generate_vectors.py", "cwd": "{workspaceRoot}" }
+    }
+  }
+}
