@@ -1,0 +1,10 @@
+**/target/
+**/node_modules/
+.git/
+.nx/
+.angular/
+dist/
+coverage/
+tmp/
+libs/
+bench/

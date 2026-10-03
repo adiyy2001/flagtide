@@ -1,0 +1,56 @@
+name: flagwire
+
+services:
+  postgres:
+    image: postgres:18.6
+    environment:
+      POSTGRES_DB: flagwire
+      POSTGRES_USER: flagwire
+      POSTGRES_PASSWORD: flagwire
+    ports:
+      - "127.0.0.1:${FLAGWIRE_PORT_POSTGRES:-15432}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U flagwire -d flagwire"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+    restart: unless-stopped
+
+  server-a:
+    build:
+      context: .
+      dockerfile: docker/server.Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      JAVA_TOOL_OPTIONS: "-Xmx512m -XX:+ExitOnOutOfMemoryError"
+      QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://postgres:5432/flagwire
+      QUARKUS_DATASOURCE_USERNAME: flagwire
+      QUARKUS_DATASOURCE_PASSWORD: flagwire
+      FLAGWIRE_CORS_ORIGINS: ${FLAGWIRE_CORS_ORIGINS:-http://localhost:14200,http://127.0.0.1:14200,http://localhost:14300,http://127.0.0.1:14300}
+      FLAGWIRE_SEED_ENABLED: "true"
+      FLAGWIRE_SEED_PROJECT: demo
+      FLAGWIRE_SEED_NAME: Demo
+      FLAGWIRE_SEED_KEYS_DEV_ADMIN: fwa_demo_dev_admin_000000000000
+      FLAGWIRE_SEED_KEYS_DEV_SDK: fws_demo_dev_sdk_0000000000000
+      FLAGWIRE_SEED_KEYS_PROD_ADMIN: fwa_demo_prod_admin_00000000000
+      FLAGWIRE_SEED_KEYS_PROD_SDK: fws_demo_prod_sdk_000000000000
+    ports:
+      - "127.0.0.1:${FLAGWIRE_PORT_SERVER_A:-18081}:8080"
+    healthcheck:
+      test:
+        - CMD
+        - bash
+        - -c
+        - 'exec 3<>/dev/tcp/127.0.0.1/8080 && printf "GET /q/health/ready HTTP/1.0\r\nHost: localhost\r\n\r\n" >&3 && head -n 1 <&3 | grep -q " 200 "'
+      interval: 3s
+      timeout: 3s
+      retries: 40
+      start_period: 10s
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
