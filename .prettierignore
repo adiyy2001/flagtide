@@ -13,3 +13,4 @@ NOTES_FOR_ADRIAN.md
 *.java
 *.py
 *.md
+apps/server/openapi.json

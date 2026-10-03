@@ -36,7 +36,7 @@
       "executor": "nx:run-commands",
       "cache": true,
       "inputs": ["default", "spec"],
-      "outputs": ["{projectRoot}/domain/target", "{projectRoot}/target"],
+      "outputs": ["{projectRoot}/*/target"],
       "options": { "command": "node scripts/mvn.mjs verify", "cwd": "{workspaceRoot}" }
     },
     "clean": {
