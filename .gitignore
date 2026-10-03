@@ -31,3 +31,4 @@ cypress/videos/
 cypress/screenshots/
 bench/results/tmp/
 .jqwik-database
+bench/results/k6-summary.json

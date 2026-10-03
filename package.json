@@ -13,7 +13,8 @@
     "conformance": "node scripts/conformance.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "verify": "node scripts/verify.mjs"
+    "verify": "node scripts/verify.mjs",
+    "bench:load": "bash bench/run-load.sh"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
