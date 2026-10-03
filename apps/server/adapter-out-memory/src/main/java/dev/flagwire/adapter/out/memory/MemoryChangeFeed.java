@@ -12,7 +12,7 @@ public final class MemoryChangeFeed implements ChangeFeed {
   private final List<Consumer<ChangeNotification>> listeners = new CopyOnWriteArrayList<>();
 
   @Override
-  public Subscription subscribe(Consumer<ChangeNotification> listener) {
+  public Subscription subscribe(Consumer<ChangeNotification> listener, Runnable onResync) {
     this.listeners.add(listener);
     return () -> this.listeners.remove(listener);
   }

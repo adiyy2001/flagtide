@@ -1,6 +1,8 @@
 package dev.flagwire.application.propagation;
 
 import java.util.Arrays;
+import java.util.Map;
+import java.util.TreeMap;
 
 public final class LatencyHistogram {
 
@@ -12,6 +14,20 @@ public final class LatencyHistogram {
   public void record(long latencyMillis) {
     int index = (int) Math.min(Math.max(latencyMillis, 0), OVERFLOW_MILLIS);
     this.buckets[index]++;
+  }
+
+  public void add(int bucket, long count) {
+    this.buckets[Math.min(Math.max(bucket, 0), OVERFLOW_MILLIS)] += count;
+  }
+
+  public Map<Integer, Long> sparse() {
+    Map<Integer, Long> nonEmpty = new TreeMap<>();
+    for (int index = 0; index < this.buckets.length; index++) {
+      if (this.buckets[index] > 0) {
+        nonEmpty.put(index, this.buckets[index]);
+      }
+    }
+    return nonEmpty;
   }
 
   public void merge(LatencyHistogram other) {

@@ -1,6 +1,7 @@
 package dev.flagwire.adapter.out.memory;
 
 import dev.flagwire.application.port.out.TimeSource;
+import dev.flagwire.application.propagation.LocalPropagationStats;
 
 public record MemoryAdapters(
     MemoryDatabase transactions,
@@ -11,7 +12,7 @@ public record MemoryAdapters(
     MemoryAuditLog auditLog,
     MemoryChangeLog changeLog,
     MemoryChangeFeed changeFeed,
-    MemoryPropagationStats propagationStats) {
+    LocalPropagationStats propagationStats) {
 
   public static final int DEFAULT_RETENTION = 1000;
 
@@ -31,6 +32,6 @@ public record MemoryAdapters(
         new MemoryAuditLog(database),
         new MemoryChangeLog(database, feed, changeLogRetention),
         feed,
-        new MemoryPropagationStats(timeSource));
+        new LocalPropagationStats(timeSource));
   }
 }

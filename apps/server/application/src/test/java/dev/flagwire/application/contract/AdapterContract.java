@@ -4,6 +4,7 @@ import dev.flagwire.application.port.out.TimeSource;
 import dev.flagwire.application.testing.MutableTimeSource;
 import dev.flagwire.application.testing.Samples;
 import dev.flagwire.application.testing.TestAdapters;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 public abstract class AdapterContract {
@@ -19,5 +20,12 @@ public abstract class AdapterContract {
   void createFreshAdapters() {
     this.time = new MutableTimeSource(Samples.NOW);
     this.adapters = this.createAdapters(this.time, DEFAULT_RETENTION);
+  }
+
+  @AfterEach
+  void releaseAdapters() throws Exception {
+    if (this.adapters instanceof AutoCloseable closeable) {
+      closeable.close();
+    }
   }
 }

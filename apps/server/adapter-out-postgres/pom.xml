@@ -30,6 +30,14 @@
       <artifactId>quarkus-narayana-jta</artifactId>
     </dependency>
     <dependency>
+      <groupId>io.vertx</groupId>
+      <artifactId>vertx-pg-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.ongres.scram</groupId>
+      <artifactId>scram-client</artifactId>
+    </dependency>
+    <dependency>
       <groupId>com.google.errorprone</groupId>
       <artifactId>error_prone_annotations</artifactId>
       <scope>provided</scope>
@@ -67,6 +75,11 @@
       <artifactId>assertj-core</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.awaitility</groupId>
+      <artifactId>awaitility</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -97,6 +110,12 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <compilerArgs combine.self="override">
+            <arg>-Xlint:all,-serial,-classfile</arg>
+            <arg>-Werror</arg>
+          </compilerArgs>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>io.smallrye</groupId>
