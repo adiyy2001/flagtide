@@ -10,6 +10,9 @@
 
   <modules>
     <module>domain</module>
+    <module>application</module>
+    <module>adapter-out-memory</module>
+    <module>architecture</module>
   </modules>
 
   <properties>
@@ -33,6 +36,7 @@
     <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
 
     <jacoco.minimum.line.coverage>0.80</jacoco.minimum.line.coverage>
+    <jacoco.check.skip>false</jacoco.check.skip>
     <flagwire.vectors>${maven.multiModuleProjectDirectory}/../../spec/vectors</flagwire.vectors>
   </properties>
 
@@ -175,6 +179,7 @@
                 <goal>check</goal>
               </goals>
               <configuration>
+                <skip>${jacoco.check.skip}</skip>
                 <rules>
                   <rule>
                     <element>BUNDLE</element>
