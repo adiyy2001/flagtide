@@ -1,0 +1,38 @@
+{
+  "benchmark": "propagation-k6",
+  "targetP95Milliseconds": 300,
+  "hardware": {
+    "cpuModel": "12th Gen Intel(R) Core(TM) i7-12700H",
+    "logicalCores": 20,
+    "memoryGiB": 15.5,
+    "os": "linux 6.6.87.2-microsoft-standard-WSL2",
+    "docker": "29.1.3"
+  },
+  "setup": {
+    "instances": 2,
+    "heapPerInstance": "-Xmx512m",
+    "clients": 5000,
+    "rounds": 30,
+    "clockNote": "k6, servers and PostgreSQL run on one host, so commit and receipt share one clock"
+  },
+  "socketsConnected": 5000,
+  "socketsFailed": 0,
+  "socketsClosedEarly": 0,
+  "deltaFramesReceived": 150000,
+  "commitToReceiptMilliseconds": {
+    "p50": 40,
+    "p90": 76,
+    "p95": 89,
+    "p99": 144,
+    "max": 172,
+    "mean": 44.87268
+  },
+  "serverSideAcknowledgements": {
+    "connectedClients": 2500,
+    "samples": 150000,
+    "p50Millis": 44,
+    "p95Millis": 96,
+    "p99Millis": 159
+  },
+  "withinTarget": true
+}

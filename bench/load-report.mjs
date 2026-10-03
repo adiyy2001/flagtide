@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { describeHardware } from './hardware.mjs';
 
-const [summaryPath, outputPath] = process.argv.slice(2);
+const [summaryPath, outputPath, serverReportPath] = process.argv.slice(2);
 const summary = JSON.parse(readFileSync(summaryPath, 'utf8'));
 const latency = summary.metrics.commit_to_receipt_ms.values;
 const counter = (name) => summary.metrics[name]?.values.count ?? 0;
@@ -34,6 +34,7 @@ const report = {
     max: latency.max,
     mean: latency.avg,
   },
+  serverSideAcknowledgements: serverReportPath ? JSON.parse(readFileSync(serverReportPath, 'utf8')) : null,
   withinTarget: latency['p(95)'] < 300,
 };
 
@@ -46,6 +47,11 @@ process.stdout.write(
     `sockets connected ${report.socketsConnected}, failed ${report.socketsFailed}, closed early ${report.socketsClosedEarly}`,
     `delta frames received ${report.deltaFramesReceived}`,
     `commit to receipt: p50 ${ms.p50.toFixed(1)} ms, p95 ${ms.p95.toFixed(1)} ms, p99 ${ms.p99.toFixed(1)} ms, max ${ms.max.toFixed(1)} ms`,
+    ...(report.serverSideAcknowledgements
+      ? [
+          `server side ack to commit (monitor endpoint): p50 ${report.serverSideAcknowledgements.p50Millis} ms, p95 ${report.serverSideAcknowledgements.p95Millis} ms, p99 ${report.serverSideAcknowledgements.p99Millis} ms over ${report.serverSideAcknowledgements.samples} samples`,
+        ]
+      : []),
     `target p95 under ${report.targetP95Milliseconds} ms: ${report.withinTarget ? 'met' : 'missed'}`,
     '',
   ].join('\n'),

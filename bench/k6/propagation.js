@@ -75,6 +75,12 @@ export function setup() {
     jsonHeaders(adminKey),
   );
   check(created, { 'load flag exists': (response) => response.status === 201 || response.status === 409 });
+  const reset = http.put(
+    urlOf(servers[0], `/api/v1/projects/${project}/flags/${flagKey}/environments/dev/enabled`),
+    JSON.stringify({ enabled: false }),
+    jsonHeaders(adminKey),
+  );
+  check(reset, { 'load flag starts disabled': (response) => response.status === 200 });
 }
 
 function openSocket(server, clientId) {
