@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc/libs/angular-spec",
+    "lib": ["ES2024", "DOM"],
+    "types": ["vitest/globals"],
+    "paths": {
+      "@flagwire/core": ["../core/src/index.ts"],
+      "@flagwire/angular": ["./src/index.ts"],
+      "@flagwire/angular/overrides": ["./overrides/src/index.ts"]
+    }
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true
+  },
+  "include": ["src/**/*.ts", "overrides/src/**/*.ts"]
+}

@@ -1,5 +1,6 @@
 import js from '@eslint/js';
 import globals from 'globals';
+import angular from 'angular-eslint';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
@@ -31,6 +32,30 @@ export default tseslint.config(
       ],
       eqeqeq: 'error',
       'no-console': 'off',
+    },
+  },
+  {
+    files: ['libs/angular/**/*.ts'],
+    extends: [...angular.configs.tsRecommended],
+    processor: angular.processInlineTemplates,
+    rules: {
+      '@angular-eslint/directive-selector': [
+        'error',
+        { type: 'attribute', prefix: 'flagwire', style: 'camelCase' },
+      ],
+      '@angular-eslint/component-selector': [
+        'error',
+        { type: 'element', prefix: 'flagwire', style: 'kebab-case' },
+      ],
+    },
+  },
+  {
+    files: ['libs/angular/**/*.html'],
+    extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
+    rules: {
+      '@typescript-eslint/consistent-type-imports': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
     },
   },
   {

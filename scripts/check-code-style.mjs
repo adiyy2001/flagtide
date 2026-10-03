@@ -75,7 +75,7 @@ function checkScript(file, text, report) {
   scanComments(file, text, report);
 }
 
-const PUBLISHED_SOURCE = /^libs\/(core|angular)\/src\/(?!.*\.spec\.ts$)/u;
+const PUBLISHED_SOURCE = /^libs\/(core|angular)\/(overrides\/)?src\/(?!.*\.spec\.ts$)/u;
 
 function isTsdoc(file, text, range) {
   return (

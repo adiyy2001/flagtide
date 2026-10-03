@@ -1,0 +1,57 @@
+{
+  "name": "angular",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/angular/src",
+  "tags": ["scope:sdk"],
+  "implicitDependencies": ["core"],
+  "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "eslint libs/angular",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p libs/angular/tsconfig.typecheck.json",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ng test angular --coverage",
+        "cwd": "{workspaceRoot}/libs/angular"
+      },
+      "dependsOn": ["test-ssr"]
+    },
+    "test-ssr": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "vitest run --config libs/angular/vitest.ssr.config.mts",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "build": {
+      "dependsOn": ["^build", "core:build"],
+      "outputs": ["{workspaceRoot}/dist/libs/angular"],
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ng-packagr -p libs/angular/ng-package.json -c libs/angular/tsconfig.lib.prod.json && node scripts/prepare-package.mjs angular --license-only",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "pack-check": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node scripts/pack-check.mjs",
+        "cwd": "{workspaceRoot}"
+      },
+      "cache": false,
+      "dependsOn": ["build", "core:build"]
+    }
+  }
+}

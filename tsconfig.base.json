@@ -18,7 +18,9 @@
     "declaration": true,
     "sourceMap": true,
     "paths": {
-      "@flagwire/core": ["./libs/core/src/index.ts"]
+      "@flagwire/core": ["./libs/core/src/index.ts"],
+      "@flagwire/angular": ["./libs/angular/src/index.ts"],
+      "@flagwire/angular/overrides": ["./libs/angular/overrides/src/index.ts"]
     }
   }
 }
