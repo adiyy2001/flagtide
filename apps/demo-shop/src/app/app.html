@@ -1,0 +1,47 @@
+<a class="skip" href="#main" (click)="skipToContent($event, main)">Skip to content</a>
+
+<div class="banner" data-testid="promo-banner" *flagwireFlag="'promo-banner'">
+  <strong>{{ promo().headline }}</strong>
+  @if (promo().code !== '') {
+  <span>Use code <code>{{ promo().code }}</code></span>
+  }
+</div>
+
+<header class="top">
+  <a class="brand" routerLink="/">Brew Bench</a>
+  <nav aria-label="Main">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Shop</a>
+    <a
+      *flagwireFlag="'beta-recommendations'"
+      data-testid="nav-recommendations"
+      routerLink="/recommendations"
+      routerLinkActive="active"
+    >
+      Recommended <span class="tag">Beta</span>
+    </a>
+  </nav>
+  <div class="meta">
+    <shop-status-badge />
+    <span class="cart-count" data-testid="cart-count">Cart: {{ cart.count() }}</span>
+  </div>
+</header>
+
+<main id="main" tabindex="-1" #main>
+  <router-outlet />
+</main>
+
+<footer class="bottom">
+  <form method="get" class="visitor" aria-label="Browse as another visitor">
+    <label for="visitor-key">Browsing as</label>
+    <input id="visitor-key" name="visitor" type="text" maxlength="64" [value]="visitor.key" />
+    <input type="hidden" name="country" [value]="visitor.country" />
+    <input type="hidden" name="plan" [value]="visitor.plan" />
+    <button type="submit">Switch visitor</button>
+    <span class="attributes" data-testid="visitor-attributes"
+      >Country {{ visitor.country }}, plan {{ visitor.plan }}</span
+    >
+  </form>
+  <p class="note">Demo shop for flagwire. Nothing here is for sale.</p>
+</footer>
+
+<flagwire-overrides-panel />

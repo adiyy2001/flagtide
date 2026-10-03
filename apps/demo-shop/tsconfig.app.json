@@ -1,0 +1,20 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc/apps/demo-shop",
+    "lib": ["ES2024", "DOM"],
+    "types": ["node"],
+    "paths": {
+      "@flagwire/core": ["../../libs/core/src/index.ts"],
+      "@flagwire/angular": ["../../libs/angular/src/index.ts"],
+      "@flagwire/angular/overrides": ["../../libs/angular/overrides/src/index.ts"]
+    }
+  },
+  "angularCompilerOptions": {
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  },
+  "files": ["src/main.ts", "src/main.server.ts", "src/server.ts"],
+  "include": ["src/**/*.d.ts"]
+}

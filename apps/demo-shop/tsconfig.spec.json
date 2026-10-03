@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc/apps/demo-shop-spec",
+    "types": ["vitest/globals", "node"]
+  },
+  "files": [],
+  "include": ["src/**/*.ts"]
+}

@@ -1,0 +1,56 @@
+{
+  "name": "demo-shop",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/demo-shop/src",
+  "tags": ["scope:app"],
+  "implicitDependencies": ["core", "angular"],
+  "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "eslint apps/demo-shop",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p apps/demo-shop/tsconfig.typecheck.json",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ng test demo-shop --coverage",
+        "cwd": "{workspaceRoot}/apps/demo-shop"
+      }
+    },
+    "build": {
+      "outputs": ["{workspaceRoot}/dist/apps/demo-shop"],
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ng build demo-shop --configuration=production",
+        "cwd": "{workspaceRoot}/apps/demo-shop"
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ng serve demo-shop",
+        "cwd": "{workspaceRoot}/apps/demo-shop"
+      },
+      "cache": false
+    },
+    "integration": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "dependsOn": ["build"],
+      "options": {
+        "command": "vitest run --config apps/demo-shop/vitest.integration.config.mts",
+        "cwd": "{workspaceRoot}"
+      }
+    }
+  }
+}

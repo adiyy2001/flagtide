@@ -1,0 +1,74 @@
+{
+  "$schema": "../../node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "cli": {
+    "analytics": false
+  },
+  "projects": {
+    "demo-shop": {
+      "projectType": "application",
+      "root": ".",
+      "sourceRoot": "src",
+      "prefix": "shop",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "src/main.ts",
+            "server": "src/main.server.ts",
+            "outputMode": "server",
+            "ssr": { "entry": "src/server.ts" },
+            "security": { "allowedHosts": ["127.0.0.1", "localhost", "demo-shop"] },
+            "tsConfig": "tsconfig.app.json",
+            "outputPath": "../../dist/apps/demo-shop",
+            "index": "src/index.html",
+            "assets": [{ "glob": "**/*", "input": "public" }],
+            "styles": ["src/styles.scss"],
+            "polyfills": []
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "all",
+              "budgets": [
+                { "type": "initial", "maximumWarning": "350kB", "maximumError": "600kB" },
+                { "type": "anyComponentStyle", "maximumWarning": "6kB", "maximumError": "12kB" }
+              ]
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "options": { "host": "127.0.0.1", "port": 14300 },
+          "configurations": {
+            "production": { "buildTarget": "demo-shop:build:production" },
+            "development": { "buildTarget": "demo-shop:build:development" }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "runner": "vitest",
+            "include": ["**/*.spec.ts"],
+            "buildTarget": "demo-shop:build:development",
+            "coverageThresholds": {
+              "statements": 80,
+              "branches": 75,
+              "functions": 80,
+              "lines": 80
+            },
+            "coverageInclude": ["src/app/**/*.ts"],
+            "coverageExclude": ["**/*.spec.ts", "src/test-support/**"]
+          }
+        }
+      }
+    }
+  }
+}

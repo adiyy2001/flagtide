@@ -1,0 +1,75 @@
+<div class="layout">
+  <section aria-labelledby="products-heading">
+    <h1 id="products-heading">Coffee gear</h1>
+    <ul class="grid">
+      @for (product of products; track product.id) {
+      <li class="card" [style.--hue]="product.hue">
+        <div class="swatch" aria-hidden="true"></div>
+        <h2>{{ product.name }}</h2>
+        <p class="description">{{ product.description }}</p>
+        <div class="buy">
+          <span class="price">{{ money(product.priceCents) }}</span>
+          <button type="button" [attr.data-testid]="'add-' + product.id" (click)="add(product.id)">
+            Add<span class="sr"> {{ product.name }} to the cart</span>
+          </button>
+        </div>
+      </li>
+      }
+    </ul>
+  </section>
+
+  <aside class="cart" aria-labelledby="cart-heading">
+    <h2 id="cart-heading">Your cart</h2>
+    @if (cart.lines().length === 0) {
+    <p class="empty">Nothing here yet.</p>
+    } @else {
+    <ul class="lines">
+      @for (line of cart.lines(); track line.product.id) {
+      <li>
+        <span>{{ line.quantity }} x {{ line.product.name }}</span>
+        <span>{{ money(line.product.priceCents * line.quantity) }}</span>
+        <button type="button" class="link" (click)="cart.remove(line.product.id)">
+          Remove<span class="sr"> one {{ line.product.name }}</span>
+        </button>
+      </li>
+      }
+    </ul>
+    <dl class="totals">
+      <dt>Subtotal</dt>
+      <dd>{{ money(cart.subtotalCents()) }}</dd>
+      @if (discountPercent() > 0) {
+      <dt>Promo, {{ discountPercent() }}%</dt>
+      <dd data-testid="discount">-{{ money(discountCents()) }}</dd>
+      }
+      <dt>Total</dt>
+      <dd class="total" data-testid="total">{{ money(totalCents()) }}</dd>
+    </dl>
+    }
+
+    <div class="shipping" data-testid="shipping">
+      <label for="shipping-progress">
+        @if (shipping().free) { Free shipping unlocked } @else { {{ money(shipping().remainingCents) }} more
+        for free shipping }
+        <span class="threshold" data-testid="threshold"
+          >(free from {{ money(freeShippingThreshold() * 100) }})</span
+        >
+      </label>
+      <progress id="shipping-progress" max="1" [value]="shipping().share"></progress>
+    </div>
+
+    <button
+      type="button"
+      class="checkout"
+      data-testid="checkout"
+      [disabled]="cart.count() === 0"
+      (click)="placeOrder()"
+    >
+      {{ checkoutLabel() }}
+    </button>
+    @if (ordered()) {
+    <p class="ordered" role="status" data-testid="ordered">
+      Order placed. This is a demo, nothing was charged.
+    </p>
+    }
+  </aside>
+</div>

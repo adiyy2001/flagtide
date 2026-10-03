@@ -1,0 +1,4 @@
+{
+  "sdkKey": "fws_demo_dev_sdk_0000000000000",
+  "streamUrl": "ws://127.0.0.1:18082/sdk/v1/stream"
+}
