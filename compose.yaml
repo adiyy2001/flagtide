@@ -106,6 +106,42 @@ services:
       retries: 20
     restart: unless-stopped
 
+  seed:
+    image: node:24.21.0-alpine
+    depends_on:
+      server-a:
+        condition: service_healthy
+    environment:
+      FLAGWIRE_SEED_API: http://server-a:8080
+      FLAGWIRE_SEED_PROJECT: demo
+      FLAGWIRE_SEED_ADMIN_KEYS: '{"dev":"fwa_demo_dev_admin_000000000000","staging":"fwa_demo_staging_admin_00000000","prod":"fwa_demo_prod_admin_00000000000"}'
+    volumes:
+      - ./docker/seed:/seed:ro
+    command: ['node', '/seed/seed.mjs']
+    restart: 'no'
+
+  demo-shop:
+    build:
+      context: .
+      dockerfile: docker/demo-shop.Dockerfile
+    depends_on:
+      server-b:
+        condition: service_healthy
+      seed:
+        condition: service_completed_successfully
+    environment:
+      FLAGWIRE_SHOP_SDK_KEY: fws_demo_dev_sdk_0000000000000
+      FLAGWIRE_SHOP_STREAM_URL: ws://127.0.0.1:${FLAGWIRE_PORT_SERVER_B:-18082}/sdk/v1/stream
+      FLAGWIRE_SHOP_SNAPSHOT_URL: http://server-b:8080
+    ports:
+      - '127.0.0.1:${FLAGWIRE_PORT_DEMO_SHOP:-14300}:8080'
+    healthcheck:
+      test: ['CMD', 'wget', '-q', '-O', '/dev/null', 'http://127.0.0.1:8080/healthz']
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
   k6:
     image: grafana/k6:2.3.0
     profiles: ['load']
