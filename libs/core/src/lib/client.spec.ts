@@ -124,6 +124,14 @@ describe('FlagwireClient', () => {
     expect(client.flagKeys()).toEqual(['new']);
   });
 
+  it('persists a given initial snapshot so the next start works without the server', () => {
+    const store = createMemoryStore();
+    build({ store, initialSnapshot: { version: 9, flags: [booleanFlag('new')], segments: [] } });
+    const next = build({ store });
+    expect(next.client.version).toBe(9);
+    expect(next.client.value('new', false)).toBe(true);
+  });
+
   it('hydrates from a snapshot and announces it', () => {
     const { client } = build();
     let announced = 0;

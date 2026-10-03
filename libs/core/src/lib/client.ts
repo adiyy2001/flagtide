@@ -78,6 +78,9 @@ export class FlagwireClient {
     this.currentContext = options.context ?? anonymousContext(store);
     this.overrides = new FlagOverrides(store, `${snapshotStorageKey(options.sdkKey)}:overrides`);
     this.flagStore = new FlagStore(options.initialSnapshot ?? this.storage.load() ?? undefined);
+    if (options.initialSnapshot !== undefined) {
+      this.storage.save(options.initialSnapshot);
+    }
     this.flagStore.changes$.subscribe(() => {
       const snapshot = this.flagStore.snapshot();
       if (snapshot !== null) {
