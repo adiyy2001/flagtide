@@ -305,6 +305,32 @@
         },
         "type" : "object"
       },
+      "Propagation" : {
+        "description" : "Change delivery latency in milliseconds over the last minute, merged across instances",
+        "properties" : {
+          "connectedClients" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "p50Millis" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "p95Millis" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "p99Millis" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "samples" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        },
+        "type" : "object"
+      },
       "ProvisionedEnvironment" : {
         "properties" : {
           "key" : {
@@ -804,6 +830,80 @@
         },
         "summary" : "List the keys of an environment",
         "tags" : [ "Projects" ]
+      }
+    },
+    "/api/v1/projects/{project}/environments/{environment}/propagation" : {
+      "get" : {
+        "description" : "Percentiles of the time from commit to client acknowledgement, merged across all instances over the last minute.",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "environment",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "project",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Propagation"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "400" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Malformed or invalid input"
+          },
+          "401" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Missing or unknown key"
+          },
+          "403" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "The key may not do this"
+          },
+          "404" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Not found"
+          }
+        },
+        "summary" : "How fast changes reach connected SDK clients",
+        "tags" : [ "Propagation" ]
       }
     },
     "/api/v1/projects/{project}/environments/{environment}/segments" : {
@@ -2028,6 +2128,8 @@
     "name" : "Flags"
   }, {
     "name" : "Projects"
+  }, {
+    "name" : "Propagation"
   }, {
     "name" : "SDK"
   }, {
