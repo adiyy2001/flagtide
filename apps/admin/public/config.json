@@ -1,0 +1,8 @@
+{
+  "apiUrl": "http://127.0.0.1:18081",
+  "project": "demo",
+  "adminKeys": {
+    "dev": "fwa_demo_dev_admin_000000000000",
+    "prod": "fwa_demo_prod_admin_00000000000"
+  }
+}

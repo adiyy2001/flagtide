@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc/apps/admin-spec",
+    "types": ["vitest/globals"]
+  },
+  "files": [],
+  "include": ["src/**/*.ts"]
+}

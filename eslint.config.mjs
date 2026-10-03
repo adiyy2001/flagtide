@@ -59,6 +59,31 @@ export default tseslint.config(
     },
   },
   {
+    files: ['apps/admin/**/*.ts'],
+    extends: [...angular.configs.tsRecommended],
+    processor: angular.processInlineTemplates,
+    rules: {
+      '@angular-eslint/directive-selector': [
+        'error',
+        { type: 'attribute', prefix: 'admin', style: 'camelCase' },
+      ],
+      '@angular-eslint/component-selector': [
+        'error',
+        { type: 'element', prefix: 'admin', style: 'kebab-case' },
+      ],
+      '@typescript-eslint/no-invalid-void-type': 'off',
+      '@typescript-eslint/no-extraneous-class': ['error', { allowWithDecorator: true }],
+    },
+  },
+  {
+    files: ['apps/admin/**/*.html'],
+    extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
+    rules: {
+      '@typescript-eslint/consistent-type-imports': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
+  {
     files: ['bench/k6/**/*.js'],
     languageOptions: {
       globals: { __ENV: 'readonly', __VU: 'readonly', __ITER: 'readonly' },

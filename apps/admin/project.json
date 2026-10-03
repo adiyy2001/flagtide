@@ -1,0 +1,44 @@
+{
+  "name": "admin",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/admin/src",
+  "tags": ["scope:app"],
+  "implicitDependencies": ["core"],
+  "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": { "command": "eslint apps/admin", "cwd": "{workspaceRoot}" }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": { "command": "tsc -p apps/admin/tsconfig.typecheck.json", "cwd": "{workspaceRoot}" }
+    },
+    "api-check": {
+      "executor": "nx:run-commands",
+      "options": { "command": "node scripts/generate-admin-api.mjs --check", "cwd": "{workspaceRoot}" },
+      "inputs": [
+        "{workspaceRoot}/apps/server/openapi.json",
+        "{workspaceRoot}/apps/admin/src/app/api/schema.ts"
+      ]
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": { "command": "ng test admin --coverage", "cwd": "{workspaceRoot}/apps/admin" },
+      "dependsOn": ["api-check"]
+    },
+    "build": {
+      "outputs": ["{workspaceRoot}/dist/apps/admin"],
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ng build admin --configuration=production",
+        "cwd": "{workspaceRoot}/apps/admin"
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": { "command": "ng serve admin", "cwd": "{workspaceRoot}/apps/admin" },
+      "cache": false
+    }
+  }
+}
