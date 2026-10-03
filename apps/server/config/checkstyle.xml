@@ -10,7 +10,7 @@
     <property name="message" value="Comments are not allowed, rename things instead." />
   </module>
   <module name="RegexpSingleline">
-    <property name="format" value="[–—]" />
+    <property name="format" value="[&#x2013;&#x2014;]" />
     <property name="message" value="No en or em dashes." />
   </module>
   <module name="NewlineAtEndOfFile" />
