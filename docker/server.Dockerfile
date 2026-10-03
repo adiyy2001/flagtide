@@ -7,6 +7,7 @@ COPY apps/server/application apps/server/application
 COPY apps/server/adapter-out-memory apps/server/adapter-out-memory
 COPY apps/server/adapter-out-postgres apps/server/adapter-out-postgres
 COPY apps/server/adapter-in-rest apps/server/adapter-in-rest
+COPY apps/server/adapter-in-websocket apps/server/adapter-in-websocket
 COPY apps/server/bootstrap apps/server/bootstrap
 COPY apps/server/architecture/pom.xml apps/server/architecture/pom.xml
 WORKDIR /build/apps/server

@@ -26,6 +26,7 @@ services:
       postgres:
         condition: service_healthy
     environment:
+      FLAGWIRE_INSTANCE_ID: server-a
       JAVA_TOOL_OPTIONS: '-Xmx512m -XX:+ExitOnOutOfMemoryError'
       QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://postgres:5432/flagwire
       QUARKUS_DATASOURCE_USERNAME: flagwire
@@ -51,6 +52,58 @@ services:
       retries: 40
       start_period: 10s
     restart: unless-stopped
+
+  server-b:
+    build:
+      context: .
+      dockerfile: docker/server.Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+      server-a:
+        condition: service_healthy
+    environment:
+      FLAGWIRE_INSTANCE_ID: server-b
+      JAVA_TOOL_OPTIONS: '-Xmx512m -XX:+ExitOnOutOfMemoryError'
+      QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://postgres:5432/flagwire
+      QUARKUS_DATASOURCE_USERNAME: flagwire
+      QUARKUS_DATASOURCE_PASSWORD: flagwire
+      FLAGWIRE_CORS_ORIGINS: ${FLAGWIRE_CORS_ORIGINS:-http://localhost:14200,http://127.0.0.1:14200,http://localhost:14300,http://127.0.0.1:14300}
+      FLAGWIRE_SEED_ENABLED: 'false'
+    ports:
+      - '127.0.0.1:${FLAGWIRE_PORT_SERVER_B:-18082}:8080'
+    healthcheck:
+      test:
+        - CMD
+        - bash
+        - -c
+        - 'exec 3<>/dev/tcp/127.0.0.1/8080 && printf "GET /q/health/ready HTTP/1.0\r\nHost: localhost\r\n\r\n" >&3 && head -n 1 <&3 | grep -q " 200 "'
+      interval: 3s
+      timeout: 3s
+      retries: 40
+      start_period: 10s
+    restart: unless-stopped
+
+  k6:
+    image: grafana/k6:2.3.0
+    profiles: ['load']
+    user: '${FLAGWIRE_UID:-1000}:${FLAGWIRE_GID:-1000}'
+    depends_on:
+      server-a:
+        condition: service_healthy
+      server-b:
+        condition: service_healthy
+    environment:
+      SERVERS: server-a:8080,server-b:8080
+      VUS: ${FLAGWIRE_LOAD_VUS:-50}
+      SOCKETS_PER_VU: ${FLAGWIRE_LOAD_SOCKETS_PER_VU:-100}
+      ROUNDS: ${FLAGWIRE_LOAD_ROUNDS:-30}
+    volumes:
+      - ./bench/k6:/scripts:ro
+      - ./bench/results:/results
+    ulimits:
+      nofile: 262144
+    command: ['run', '--quiet', '/scripts/propagation.js']
 
 volumes:
   postgres-data:
