@@ -7,11 +7,17 @@
   "targets": {
     "lint": {
       "executor": "nx:run-commands",
-      "options": { "command": "eslint libs/core bench", "cwd": "{workspaceRoot}" }
+      "options": {
+        "command": "eslint libs/core bench",
+        "cwd": "{workspaceRoot}"
+      }
     },
     "typecheck": {
       "executor": "nx:run-commands",
-      "options": { "command": "tsc -p libs/core/tsconfig.json", "cwd": "{workspaceRoot}" }
+      "options": {
+        "command": "tsc -p libs/core/tsconfig.json",
+        "cwd": "{workspaceRoot}"
+      }
     },
     "test": {
       "executor": "nx:run-commands",
@@ -23,17 +29,40 @@
     "build": {
       "executor": "nx:run-commands",
       "outputs": ["{workspaceRoot}/dist/libs/core"],
-      "options": { "command": "tsc -p libs/core/tsconfig.lib.json", "cwd": "{workspaceRoot}" }
+      "options": {
+        "command": "tsc -p libs/core/tsconfig.lib.json && node scripts/prepare-package.mjs core",
+        "cwd": "{workspaceRoot}"
+      },
+      "inputs": [
+        "default",
+        "^default",
+        "{workspaceRoot}/LICENSE",
+        "{workspaceRoot}/scripts/prepare-package.mjs"
+      ]
     },
     "conformance": {
       "executor": "nx:run-commands",
       "cache": false,
-      "options": { "command": "tsx libs/core/test-support/conformance-cli.ts", "cwd": "{workspaceRoot}" }
+      "options": {
+        "command": "tsx libs/core/test-support/conformance-cli.ts",
+        "cwd": "{workspaceRoot}"
+      }
     },
     "bench": {
       "executor": "nx:run-commands",
       "cache": false,
-      "options": { "command": "tsx bench/sdk-eval/run.ts", "cwd": "{workspaceRoot}" }
+      "options": {
+        "command": "tsx bench/sdk-eval/run.ts",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "integration": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": {
+        "command": "vitest run --config libs/core/vitest.integration.config.ts",
+        "cwd": "{workspaceRoot}"
+      }
     }
   }
 }

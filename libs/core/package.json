@@ -1,0 +1,28 @@
+{
+  "name": "@flagwire/core",
+  "version": "0.1.0",
+  "description": "Framework-agnostic feature flag engine: local evaluation that matches the server, and a WebSocket connection manager with jittered backoff.",
+  "license": "MIT",
+  "author": "Adrian Turbiński",
+  "keywords": [
+    "feature-flags",
+    "feature-toggles",
+    "websocket",
+    "rxjs",
+    "murmurhash3"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "peerDependencies": {
+    "rxjs": "^7.8.0"
+  }
+}
