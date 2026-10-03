@@ -1,0 +1,2036 @@
+{
+  "components" : {
+    "schemas" : {
+      "ApiKey" : {
+        "description" : "Admin keys are stored hashed and never shown again",
+        "properties" : {
+          "environment" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "string"
+          },
+          "kind" : {
+            "type" : "string"
+          },
+          "label" : {
+            "type" : "string"
+          },
+          "sdkKey" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "AuditEntry" : {
+        "properties" : {
+          "action" : {
+            "type" : "string"
+          },
+          "after" : {
+            "$ref" : "#/components/schemas/com.fasterxml.jackson.databind.JsonNode"
+          },
+          "at" : {
+            "type" : "string"
+          },
+          "author" : {
+            "type" : "string"
+          },
+          "before" : {
+            "$ref" : "#/components/schemas/com.fasterxml.jackson.databind.JsonNode"
+          },
+          "entityKey" : {
+            "type" : "string"
+          },
+          "entityType" : {
+            "type" : "string"
+          },
+          "environment" : {
+            "type" : "string"
+          },
+          "environmentVersion" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "id" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "Condition" : {
+        "description" : "Either an attribute condition (attribute, operator, values) or a segment condition (segment)",
+        "properties" : {
+          "attribute" : {
+            "type" : "string"
+          },
+          "negate" : {
+            "type" : "boolean"
+          },
+          "negated" : {
+            "type" : "boolean"
+          },
+          "operator" : {
+            "type" : "string"
+          },
+          "segment" : {
+            "type" : "string"
+          },
+          "values" : {
+            "items" : {
+              "$ref" : "#/components/schemas/com.fasterxml.jackson.databind.JsonNode"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
+      },
+      "CreateEnvironment" : {
+        "properties" : {
+          "key" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "CreateFlag" : {
+        "properties" : {
+          "description" : {
+            "type" : "string"
+          },
+          "fallthroughVariant" : {
+            "type" : "string"
+          },
+          "key" : {
+            "type" : "string"
+          },
+          "offVariant" : {
+            "type" : "string"
+          },
+          "type" : {
+            "enum" : [ "boolean", "string", "number", "json" ],
+            "type" : "string"
+          },
+          "variants" : {
+            "items" : {
+              "$ref" : "#/components/schemas/Variant"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
+      },
+      "Enabled" : {
+        "properties" : {
+          "enabled" : {
+            "type" : "boolean"
+          }
+        },
+        "type" : "object"
+      },
+      "Environment" : {
+        "properties" : {
+          "key" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "EnvironmentConfig" : {
+        "properties" : {
+          "enabled" : {
+            "type" : "boolean"
+          },
+          "fallthrough" : {
+            "$ref" : "#/components/schemas/Serve"
+          },
+          "killSwitch" : {
+            "type" : "boolean"
+          },
+          "offVariant" : {
+            "type" : "string"
+          },
+          "rules" : {
+            "items" : {
+              "$ref" : "#/components/schemas/Rule"
+            },
+            "type" : "array"
+          },
+          "salt" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "EnvironmentSettings" : {
+        "properties" : {
+          "enabled" : {
+            "type" : "boolean"
+          },
+          "fallthrough" : {
+            "$ref" : "#/components/schemas/Serve"
+          },
+          "offVariant" : {
+            "type" : "string"
+          },
+          "rules" : {
+            "items" : {
+              "$ref" : "#/components/schemas/Rule"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
+      },
+      "FieldProblem" : {
+        "properties" : {
+          "field" : {
+            "type" : "string"
+          },
+          "message" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "Flag" : {
+        "properties" : {
+          "archived" : {
+            "type" : "boolean"
+          },
+          "createdAt" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "environments" : {
+            "additionalProperties" : {
+              "$ref" : "#/components/schemas/EnvironmentConfig"
+            },
+            "type" : "object"
+          },
+          "key" : {
+            "type" : "string"
+          },
+          "revision" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "updatedAt" : {
+            "type" : "string"
+          },
+          "variants" : {
+            "items" : {
+              "$ref" : "#/components/schemas/Variant"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
+      },
+      "IssuedKey" : {
+        "description" : "The secret is shown once and cannot be read again",
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "kind" : {
+            "type" : "string"
+          },
+          "label" : {
+            "type" : "string"
+          },
+          "secret" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "Problem" : {
+        "description" : "RFC 9457 problem details",
+        "properties" : {
+          "detail" : {
+            "type" : "string"
+          },
+          "errors" : {
+            "items" : {
+              "$ref" : "#/components/schemas/FieldProblem"
+            },
+            "type" : "array"
+          },
+          "status" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "title" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "Project" : {
+        "properties" : {
+          "createdAt" : {
+            "type" : "string"
+          },
+          "environments" : {
+            "items" : {
+              "$ref" : "#/components/schemas/Environment"
+            },
+            "type" : "array"
+          },
+          "key" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "revision" : {
+            "format" : "int64",
+            "type" : "integer"
+          }
+        },
+        "type" : "object"
+      },
+      "ProvisionedEnvironment" : {
+        "properties" : {
+          "key" : {
+            "type" : "string"
+          },
+          "keys" : {
+            "items" : {
+              "$ref" : "#/components/schemas/IssuedKey"
+            },
+            "type" : "array"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "RolloutEntry" : {
+        "properties" : {
+          "variant" : {
+            "type" : "string"
+          },
+          "weight" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        },
+        "type" : "object"
+      },
+      "Rule" : {
+        "properties" : {
+          "conditions" : {
+            "items" : {
+              "$ref" : "#/components/schemas/Condition"
+            },
+            "type" : "array"
+          },
+          "id" : {
+            "type" : "string"
+          },
+          "order" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "serve" : {
+            "$ref" : "#/components/schemas/Serve"
+          }
+        },
+        "type" : "object"
+      },
+      "SaveSegment" : {
+        "properties" : {
+          "excluded" : {
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "included" : {
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "rules" : {
+            "items" : {
+              "items" : {
+                "$ref" : "#/components/schemas/Condition"
+              },
+              "type" : "array"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
+      },
+      "Segment" : {
+        "properties" : {
+          "createdAt" : {
+            "type" : "string"
+          },
+          "environment" : {
+            "type" : "string"
+          },
+          "excluded" : {
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "included" : {
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "key" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "revision" : {
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "rules" : {
+            "items" : {
+              "items" : {
+                "$ref" : "#/components/schemas/Condition"
+              },
+              "type" : "array"
+            },
+            "type" : "array"
+          },
+          "updatedAt" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "Serve" : {
+        "description" : "Serves one variant, or a weighted rollout whose weights sum to 100000",
+        "properties" : {
+          "rollout" : {
+            "items" : {
+              "$ref" : "#/components/schemas/RolloutEntry"
+            },
+            "type" : "array"
+          },
+          "variant" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "Snapshot" : {
+        "description" : "Every active flag and segment of one environment",
+        "properties" : {
+          "committedAtMs" : {
+            "description" : "Commit time of that version in epoch milliseconds, absent at version 0",
+            "format" : "int64",
+            "type" : "integer"
+          },
+          "flags" : {
+            "items" : {
+              "$ref" : "#/components/schemas/com.fasterxml.jackson.databind.JsonNode"
+            },
+            "type" : "array"
+          },
+          "segments" : {
+            "items" : {
+              "$ref" : "#/components/schemas/com.fasterxml.jackson.databind.JsonNode"
+            },
+            "type" : "array"
+          },
+          "v" : {
+            "description" : "Environment version this snapshot reflects",
+            "format" : "int64",
+            "type" : "integer"
+          }
+        },
+        "type" : "object"
+      },
+      "UpdateFlag" : {
+        "properties" : {
+          "description" : {
+            "type" : "string"
+          },
+          "variants" : {
+            "items" : {
+              "$ref" : "#/components/schemas/Variant"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
+      },
+      "Variant" : {
+        "properties" : {
+          "key" : {
+            "type" : "string"
+          },
+          "value" : {
+            "$ref" : "#/components/schemas/com.fasterxml.jackson.databind.JsonNode",
+            "description" : "Any JSON value of the flag type"
+          }
+        },
+        "type" : "object"
+      },
+      "com.fasterxml.jackson.databind.JsonNode" : {
+        "description" : "Any JSON value"
+      }
+    },
+    "securitySchemes" : {
+      "bearerKey" : {
+        "description" : "An admin key or SDK key of one environment",
+        "scheme" : "bearer",
+        "type" : "http"
+      }
+    }
+  },
+  "info" : {
+    "description" : "Feature flags per project and environment. Admin keys (fwa_) write, SDK keys (fws_) read the snapshot. Edits may send If-Match with the ETag of the flag or segment. A stale tag answers 409.",
+    "title" : "flagwire admin API",
+    "version" : "1.0.0"
+  },
+  "openapi" : "3.1.0",
+  "paths" : {
+    "/api/v1/projects/{project}" : {
+      "get" : {
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "project",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Project"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "400" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Malformed or invalid input"
+          },
+          "401" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Missing or unknown key"
+          },
+          "403" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "The key may not do this"
+          }
+        },
+        "summary" : "Read the project and its environments",
+        "tags" : [ "Projects" ]
+      }
+    },
+    "/api/v1/projects/{project}/audit" : {
+      "get" : {
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "project",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "entity",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "environment",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "schema" : {
+            "default" : 50,
+            "format" : "int32",
+            "type" : "integer"
+          }
+        }, {
+          "in" : "query",
+          "name" : "offset",
+          "schema" : {
+            "default" : 0,
+            "format" : "int32",
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/AuditEntry"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "400" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Malformed or invalid input"
+          },
+          "401" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Missing or unknown key"
+          },
+          "403" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "The key may not do this"
+          }
+        },
+        "summary" : "Read the audit log, newest first",
+        "tags" : [ "Audit" ]
+      }
+    },
+    "/api/v1/projects/{project}/environments" : {
+      "post" : {
+        "description" : "Creates the environment with an admin key and an SDK key. The secrets are in this response only.",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "project",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CreateEnvironment"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProvisionedEnvironment"
+                }
+              }
+            },
+            "description" : "Created"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "401" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Missing or unknown key"
+          },
+          "403" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "The key may not do this"
+          },
+          "409" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Conflict with the current state or a stale If-Match"
+          }
+        },
+        "summary" : "Add an environment",
+        "tags" : [ "Projects" ]
+      }
+    },
+    "/api/v1/projects/{project}/environments/{environment}/keys" : {
+      "get" : {
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "environment",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "project",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/ApiKey"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "400" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Malformed or invalid input"
+          },
+          "401" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Missing or unknown key"
+          },
+          "403" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "The key may not do this"
+          },
+          "404" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Not found"
+          }
+        },
+        "summary" : "List the keys of an environment",
+        "tags" : [ "Projects" ]
+      }
+    },
+    "/api/v1/projects/{project}/environments/{environment}/segments" : {
+      "get" : {
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "environment",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "project",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/Segment"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "400" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Malformed or invalid input"
+          },
+          "401" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Missing or unknown key"
+          },
+          "403" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "The key may not do this"
+          },
+          "404" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Not found"
+          }
+        },
+        "summary" : "List the segments of an environment",
+        "tags" : [ "Segments" ]
+      }
+    },
+    "/api/v1/projects/{project}/environments/{environment}/segments/{key}" : {
+      "delete" : {
+        "description" : "Answers 409 while an active flag still refers to the segment.",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "environment",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "key",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "project",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "description" : "Entity tag of the revision the edit is based on. A stale tag gives 409. Optional.",
+          "in" : "header",
+          "name" : "If-Match",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
+          "400" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Malformed or invalid input"
+          },
+          "401" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Missing or unknown key"
+          },
+          "403" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "The key may not do this"
+          },
+          "404" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Not found"
+          },
+          "409" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Conflict with the current state or a stale If-Match"
+          }
+        },
+        "summary" : "Delete a segment",
+        "tags" : [ "Segments" ]
+      },
+      "get" : {
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "environment",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "key",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "project",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Segment"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "400" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Malformed or invalid input"
+          },
+          "401" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Missing or unknown key"
+          },
+          "403" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "The key may not do this"
+          },
+          "404" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Not found"
+          }
+        },
+        "summary" : "Read a segment",
+        "tags" : [ "Segments" ]
+      },
+      "put" : {
+        "description" : "Answers 201 when the segment is new and 200 when it was replaced.",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "environment",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "key",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "project",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "description" : "Entity tag of the revision the edit is based on. A stale tag gives 409. Optional.",
+          "in" : "header",
+          "name" : "If-Match",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SaveSegment"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Segment"
+                }
+              }
+            },
+            "description" : "Replaced",
+            "headers" : {
+              "ETag" : { }
+            }
+          },
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Segment"
+                }
+              }
+            },
+            "description" : "Created",
+            "headers" : {
+              "ETag" : { }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "401" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Missing or unknown key"
+          },
+          "403" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "The key may not do this"
+          },
+          "404" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Not found"
+          },
+          "409" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Conflict with the current state or a stale If-Match"
+          }
+        },
+        "summary" : "Create or replace a segment",
+        "tags" : [ "Segments" ]
+      }
+    },
+    "/api/v1/projects/{project}/flags" : {
+      "get" : {
+        "description" : "Sorted by key. Archived flags are hidden by default.",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "project",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "includeArchived",
+          "schema" : {
+            "default" : false,
+            "type" : "boolean"
+          }
+        }, {
+          "in" : "query",
+          "name" : "q",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "query",
+          "name" : "type",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/Flag"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "400" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Malformed or invalid input"
+          },
+          "401" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Missing or unknown key"
+          },
+          "403" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "The key may not do this"
+          }
+        },
+        "summary" : "List flags",
+        "tags" : [ "Flags" ]
+      },
+      "post" : {
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "project",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CreateFlag"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Flag"
+                }
+              }
+            },
+            "description" : "Created",
+            "headers" : {
+              "ETag" : {
+                "description" : "Entity tag of the new revision"
+              },
+              "Location" : { }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "401" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Missing or unknown key"
+          },
+          "403" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "The key may not do this"
+          },
+          "409" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "The key exists"
+          }
+        },
+        "summary" : "Create a flag in every environment of the project",
+        "tags" : [ "Flags" ]
+      }
+    },
+    "/api/v1/projects/{project}/flags/{key}" : {
+      "get" : {
+        "description" : "The ETag header carries the revision.",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "key",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "project",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Flag"
+                }
+              }
+            },
+            "description" : "The flag",
+            "headers" : {
+              "ETag" : { }
+            }
+          },
+          "400" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Malformed or invalid input"
+          },
+          "401" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Missing or unknown key"
+          },
+          "403" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "The key may not do this"
+          },
+          "404" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Not found"
+          }
+        },
+        "summary" : "Read a flag",
+        "tags" : [ "Flags" ]
+      },
+      "put" : {
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "key",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "project",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "description" : "Entity tag of the revision the edit is based on. A stale tag gives 409. Optional.",
+          "in" : "header",
+          "name" : "If-Match",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/UpdateFlag"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Flag"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "401" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Missing or unknown key"
+          },
+          "403" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "The key may not do this"
+          },
+          "404" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Not found"
+          },
+          "409" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Conflict with the current state or a stale If-Match"
+          }
+        },
+        "summary" : "Change description and variants",
+        "tags" : [ "Flags" ]
+      }
+    },
+    "/api/v1/projects/{project}/flags/{key}/archive" : {
+      "post" : {
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "key",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "project",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "description" : "Entity tag of the revision the edit is based on. A stale tag gives 409. Optional.",
+          "in" : "header",
+          "name" : "If-Match",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Flag"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "400" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Malformed or invalid input"
+          },
+          "401" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Missing or unknown key"
+          },
+          "403" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "The key may not do this"
+          },
+          "404" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Not found"
+          },
+          "409" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Conflict with the current state or a stale If-Match"
+          }
+        },
+        "summary" : "Archive a flag",
+        "tags" : [ "Flags" ]
+      }
+    },
+    "/api/v1/projects/{project}/flags/{key}/environments/{environment}" : {
+      "put" : {
+        "description" : "Needs the admin key of that environment.",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "environment",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "key",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "project",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "description" : "Entity tag of the revision the edit is based on. A stale tag gives 409. Optional.",
+          "in" : "header",
+          "name" : "If-Match",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/EnvironmentSettings"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Flag"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "401" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Missing or unknown key"
+          },
+          "403" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "The key may not do this"
+          },
+          "404" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Not found"
+          },
+          "409" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Conflict with the current state or a stale If-Match"
+          }
+        },
+        "summary" : "Replace the targeting of a flag in one environment",
+        "tags" : [ "Flags" ]
+      }
+    },
+    "/api/v1/projects/{project}/flags/{key}/environments/{environment}/enabled" : {
+      "put" : {
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "environment",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "key",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "project",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "description" : "Entity tag of the revision the edit is based on. A stale tag gives 409. Optional.",
+          "in" : "header",
+          "name" : "If-Match",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Enabled"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Flag"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          },
+          "401" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Missing or unknown key"
+          },
+          "403" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "The key may not do this"
+          },
+          "404" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Not found"
+          },
+          "409" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Conflict with the current state or a stale If-Match"
+          }
+        },
+        "summary" : "Switch a flag on or off in one environment",
+        "tags" : [ "Flags" ]
+      }
+    },
+    "/api/v1/projects/{project}/flags/{key}/environments/{environment}/kill-switch" : {
+      "delete" : {
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "environment",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "key",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "project",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Flag"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "400" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Malformed or invalid input"
+          },
+          "401" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Missing or unknown key"
+          },
+          "403" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "The key may not do this"
+          },
+          "404" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Not found"
+          },
+          "409" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Conflict with the current state or a stale If-Match"
+          }
+        },
+        "summary" : "Release the kill switch",
+        "tags" : [ "Flags" ]
+      },
+      "post" : {
+        "description" : "Serves the off variant in that environment regardless of targeting.",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "environment",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "key",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "in" : "path",
+          "name" : "project",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Flag"
+                }
+              }
+            },
+            "description" : "OK"
+          },
+          "400" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Malformed or invalid input"
+          },
+          "401" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Missing or unknown key"
+          },
+          "403" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "The key may not do this"
+          },
+          "404" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Not found"
+          },
+          "409" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Conflict with the current state or a stale If-Match"
+          }
+        },
+        "summary" : "Engage the kill switch",
+        "tags" : [ "Flags" ]
+      }
+    },
+    "/sdk/v1/snapshot" : {
+      "get" : {
+        "description" : "The ETag is the environment version. A matching If-None-Match answers 304 with no body.",
+        "parameters" : [ {
+          "in" : "header",
+          "name" : "If-None-Match",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Snapshot"
+                }
+              }
+            },
+            "description" : "The snapshot",
+            "headers" : {
+              "ETag" : { }
+            }
+          },
+          "304" : {
+            "description" : "The environment version is unchanged"
+          },
+          "400" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Malformed or invalid input"
+          },
+          "401" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "Missing or unknown key"
+          },
+          "403" : {
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                }
+              }
+            },
+            "description" : "The key may not do this"
+          }
+        },
+        "summary" : "Every active flag and segment of the key's environment",
+        "tags" : [ "SDK" ]
+      }
+    }
+  },
+  "security" : [ {
+    "bearerKey" : [ ]
+  } ],
+  "tags" : [ {
+    "name" : "Audit"
+  }, {
+    "name" : "Flags"
+  }, {
+    "name" : "Projects"
+  }, {
+    "name" : "SDK"
+  }, {
+    "name" : "Segments"
+  } ]
+}
