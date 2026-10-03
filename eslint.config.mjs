@@ -33,4 +33,10 @@ export default tseslint.config(
       'no-console': 'off',
     },
   },
+  {
+    files: ['bench/k6/**/*.js'],
+    languageOptions: {
+      globals: { __ENV: 'readonly', __VU: 'readonly', __ITER: 'readonly' },
+    },
+  },
 );
