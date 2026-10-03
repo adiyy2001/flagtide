@@ -1,0 +1,54 @@
+<a class="skip" href="#main" (click)="skipToContent($event)">Skip to content</a>
+<header class="top">
+  <div class="brand">
+    <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false">
+      <rect width="32" height="32" rx="7" fill="currentColor" />
+      <path
+        d="M10 7v18M10 9h11l-3 4.5 3 4.5H10"
+        fill="none"
+        stroke="var(--mat-sys-on-primary)"
+        stroke-width="2.4"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+    <span class="name">flagwire admin</span>
+    @if (workspace.project(); as project) {
+    <span class="project">{{ project.name }}</span>
+    }
+  </div>
+  @if (workspace.environments().length > 0) {
+  <mat-form-field class="environment" subscriptSizing="dynamic" appearance="outline">
+    <mat-label>Environment</mat-label>
+    <mat-select [value]="workspace.selected()" (valueChange)="selectEnvironment($event)">
+      @for (environment of workspace.environments(); track environment.key) {
+      <mat-option [value]="environment.key">{{ environment.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  }
+</header>
+<nav class="side" aria-label="Main">
+  <ul>
+    @for (item of navigation; track item.path) {
+    <li>
+      <a [routerLink]="item.path" routerLinkActive="active" ariaCurrentWhenActive="page">{{ item.label }}</a>
+    </li>
+    }
+  </ul>
+</nav>
+<main id="main" #main tabindex="-1">
+  @if (workspace.loadError(); as problem) {
+  <div class="banner" role="alert">
+    <strong>The admin API is not reachable.</strong>
+    {{ problem }}
+    <button type="button" class="link" (click)="workspace.load()">Try again</button>
+  </div>
+  } @if (workspace.selected() !== null && !workspace.selectedHasKey()) {
+  <div class="banner warn" role="status">
+    No admin key for {{ workspace.environmentName(workspace.selected() ?? '') }}: you can read but not change
+    anything there. Add the key on the <a routerLink="/environments">Environments</a> page.
+  </div>
+  }
+  <router-outlet />
+</main>
