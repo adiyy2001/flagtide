@@ -11,7 +11,10 @@
       "cache": true,
       "inputs": ["default", "spec"],
       "outputs": ["{projectRoot}/domain/target"],
-      "options": { "command": "node scripts/mvn.mjs -q package -DskipTests -Djacoco.skip=true", "cwd": "{workspaceRoot}" }
+      "options": {
+        "command": "node scripts/mvn.mjs -q package -DskipTests -Djacoco.skip=true",
+        "cwd": "{workspaceRoot}"
+      }
     },
     "test": {
       "executor": "nx:run-commands",
@@ -19,7 +22,10 @@
     },
     "lint": {
       "executor": "nx:run-commands",
-      "options": { "command": "node scripts/mvn.mjs spotless:check checkstyle:check@checkstyle", "cwd": "{workspaceRoot}" }
+      "options": {
+        "command": "node scripts/mvn.mjs spotless:check checkstyle:check@checkstyle",
+        "cwd": "{workspaceRoot}"
+      }
     },
     "format": {
       "executor": "nx:run-commands",

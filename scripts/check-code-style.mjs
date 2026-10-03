@@ -63,7 +63,11 @@ function checkScript(file, text, report) {
       report(file, source.getLineAndCharacterOfPosition(node.getStart(source)).line + 1, 'any type');
     }
     if (node.kind === ts.SyntaxKind.NonNullExpression) {
-      report(file, source.getLineAndCharacterOfPosition(node.getStart(source)).line + 1, 'non-null assertion');
+      report(
+        file,
+        source.getLineAndCharacterOfPosition(node.getStart(source)).line + 1,
+        'non-null assertion',
+      );
     }
     ts.forEachChild(node, visit);
   };
@@ -75,7 +79,10 @@ function scanComments(file, text, report) {
   const seen = new Set();
   const walk = (node) => {
     const full = node.getFullStart();
-    for (const ranges of [ts.getLeadingCommentRanges(text, full), ts.getTrailingCommentRanges(text, node.getEnd())]) {
+    for (const ranges of [
+      ts.getLeadingCommentRanges(text, full),
+      ts.getTrailingCommentRanges(text, node.getEnd()),
+    ]) {
       for (const range of ranges ?? []) {
         if (!seen.has(range.pos)) {
           seen.add(range.pos);
