@@ -1,0 +1,10 @@
+export type { FlagwireConfig } from './lib/config';
+export { FlagwireFlagDirective } from './lib/flag.directive';
+export type { FlagwireFlagContext } from './lib/flag.directive';
+export { flagwireGuard } from './lib/flag.guard';
+export type { FlagwireGuardOptions } from './lib/flag.guard';
+export { Flagwire } from './lib/flagwire';
+export { FlagwireStatus } from './lib/flagwire-status';
+export { injectFlag } from './lib/inject-flag';
+export { provideFlagwire } from './lib/provide-flagwire';
+export type { ConnectionStatus, EvaluationContext, JsonValue } from '@flagwire/core';

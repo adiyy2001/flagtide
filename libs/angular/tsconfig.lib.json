@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc/libs/angular",
+    "declaration": true,
+    "declarationMap": false,
+    "sourceMap": false,
+    "inlineSources": false,
+    "types": [],
+    "lib": ["ES2024", "DOM"],
+    "paths": {
+      "@flagwire/core": ["../../dist/libs/core/index.d.ts"],
+      "@flagwire/angular": ["./src/index.ts"]
+    }
+  },
+  "angularCompilerOptions": {
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  },
+  "include": ["src/**/*.ts", "overrides/src/**/*.ts"],
+  "exclude": ["**/*.spec.ts"]
+}
