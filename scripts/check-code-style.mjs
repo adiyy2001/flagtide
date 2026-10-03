@@ -75,6 +75,14 @@ function checkScript(file, text, report) {
   scanComments(file, text, report);
 }
 
+const PUBLISHED_SOURCE = /^libs\/(core|angular)\/src\/(?!.*\.spec\.ts$)/u;
+
+function isTsdoc(file, text, range) {
+  return (
+    PUBLISHED_SOURCE.test(file) && text.startsWith('/**', range.pos) && !text.startsWith('/**/', range.pos)
+  );
+}
+
 function scanComments(file, text, report) {
   const seen = new Set();
   const walk = (node) => {
@@ -86,7 +94,7 @@ function scanComments(file, text, report) {
       for (const range of ranges ?? []) {
         if (!seen.has(range.pos)) {
           seen.add(range.pos);
-          if (!(range.pos === 0 && text.startsWith('#!'))) {
+          if (!(range.pos === 0 && text.startsWith('#!')) && !isTsdoc(file, text, range)) {
             report(file, lineOf(text, range.pos), 'code comment');
           }
         }
@@ -98,7 +106,7 @@ function scanComments(file, text, report) {
   walk(source);
   const eof = source.endOfFileToken;
   for (const range of ts.getLeadingCommentRanges(text, eof.getFullStart()) ?? []) {
-    if (!seen.has(range.pos)) {
+    if (!seen.has(range.pos) && !isTsdoc(file, text, range)) {
       report(file, lineOf(text, range.pos), 'code comment');
     }
   }
