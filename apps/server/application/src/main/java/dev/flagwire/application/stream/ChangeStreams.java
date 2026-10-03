@@ -5,7 +5,6 @@ import dev.flagwire.application.port.out.ChangeNotification;
 import dev.flagwire.application.port.out.PropagationStats;
 import dev.flagwire.application.port.out.TimeSource;
 import dev.flagwire.application.security.Principal;
-import dev.flagwire.application.usecase.BuildSnapshot;
 import dev.flagwire.domain.value.EnvironmentRef;
 import dev.flagwire.domain.value.EnvironmentVersion;
 import java.util.Map;
@@ -15,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class ChangeStreams {
 
   private final ChangeLog changeLog;
-  private final BuildSnapshot buildSnapshot;
+  private final SnapshotSource snapshots;
   private final PropagationStats stats;
   private final TimeSource timeSource;
   private final int ringCapacity;
@@ -23,7 +22,7 @@ public final class ChangeStreams {
 
   public ChangeStreams(
       ChangeLog changeLog,
-      BuildSnapshot buildSnapshot,
+      SnapshotSource snapshots,
       PropagationStats stats,
       TimeSource timeSource,
       int ringCapacity) {
@@ -31,7 +30,7 @@ public final class ChangeStreams {
       throw new IllegalArgumentException("the ring keeps at least one entry");
     }
     this.changeLog = changeLog;
-    this.buildSnapshot = buildSnapshot;
+    this.snapshots = snapshots;
     this.stats = stats;
     this.timeSource = timeSource;
     this.ringCapacity = ringCapacity;
@@ -45,7 +44,7 @@ public final class ChangeStreams {
             reference,
             key ->
                 new EnvironmentStream(
-                    key, this.changeLog, this.buildSnapshot, this.stats, this.ringCapacity));
+                    key, this.changeLog, this.snapshots, this.stats, this.ringCapacity));
     EnvironmentStream.Member member = stream.join(client, since);
     this.stats.clientConnected(reference);
     return new StreamRegistration(

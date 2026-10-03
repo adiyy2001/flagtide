@@ -28,7 +28,8 @@ public class StreamWiring {
       PropagationStats stats,
       TimeSource timeSource,
       @ConfigProperty(name = "flagwire.propagation.ring-capacity") int ringCapacity) {
-    return new ChangeStreams(changeLog, buildSnapshot, stats, timeSource, ringCapacity);
+    return new ChangeStreams(
+        changeLog, buildSnapshot::forEnvironment, stats, timeSource, ringCapacity);
   }
 
   @Produces

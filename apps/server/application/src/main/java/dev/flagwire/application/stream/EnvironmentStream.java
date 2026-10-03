@@ -4,7 +4,6 @@ import dev.flagwire.application.change.ChangeLogEntry;
 import dev.flagwire.application.port.out.ChangeLog;
 import dev.flagwire.application.port.out.PropagationStats;
 import dev.flagwire.application.sync.Snapshot;
-import dev.flagwire.application.usecase.BuildSnapshot;
 import dev.flagwire.domain.value.EnvironmentRef;
 import dev.flagwire.domain.value.EnvironmentVersion;
 import java.time.Duration;
@@ -35,7 +34,7 @@ final class EnvironmentStream {
 
   private final EnvironmentRef reference;
   private final ChangeLog changeLog;
-  private final BuildSnapshot buildSnapshot;
+  private final SnapshotSource snapshots;
   private final PropagationStats stats;
   private final int capacity;
 
@@ -49,12 +48,12 @@ final class EnvironmentStream {
   EnvironmentStream(
       EnvironmentRef reference,
       ChangeLog changeLog,
-      BuildSnapshot buildSnapshot,
+      SnapshotSource snapshots,
       PropagationStats stats,
       int capacity) {
     this.reference = reference;
     this.changeLog = changeLog;
-    this.buildSnapshot = buildSnapshot;
+    this.snapshots = snapshots;
     this.stats = stats;
     this.capacity = capacity;
   }
@@ -203,7 +202,7 @@ final class EnvironmentStream {
     if (this.cachedSnapshot != null && this.cachedSnapshot.version() == this.latest) {
       return this.cachedSnapshot;
     }
-    Snapshot snapshot = this.buildSnapshot.forEnvironment(this.reference);
+    Snapshot snapshot = this.snapshots.forEnvironment(this.reference);
     this.cachedSnapshot = new Frame(Frames.snapshot(snapshot), snapshot.version().value());
     return this.cachedSnapshot;
   }

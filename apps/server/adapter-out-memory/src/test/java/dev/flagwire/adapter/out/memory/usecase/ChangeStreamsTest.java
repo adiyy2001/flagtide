@@ -42,7 +42,7 @@ class ChangeStreamsTest {
   private ChangeStreams streamsWithCapacity(Flagwire target, int capacity) {
     return new ChangeStreams(
         target.adapters.changeLog(),
-        target.buildSnapshot,
+        target.buildSnapshot::forEnvironment,
         target.adapters.propagationStats(),
         target.time,
         capacity);
