@@ -78,9 +78,10 @@ public final class PostgresPropagationStats implements PropagationStats {
       merged.merge(row.latencies());
       connected += row.connected();
     }
-    return PropagationReport.of(connected, merged);
+    return merged.report(connected);
   }
 
+  @Override
   public void publish() {
     this.database.query(
         handle -> {
@@ -90,6 +91,7 @@ public final class PostgresPropagationStats implements PropagationStats {
         });
   }
 
+  @Override
   public void withdraw() {
     this.database.query(
         handle -> handle.createUpdate(WITHDRAW).bind("instance", this.instanceId).execute());

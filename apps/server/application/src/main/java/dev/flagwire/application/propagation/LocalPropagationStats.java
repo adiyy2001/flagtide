@@ -45,7 +45,7 @@ public class LocalPropagationStats implements PropagationStats {
 
   @Override
   public PropagationReport report(EnvironmentRef environment) {
-    return PropagationReport.of(this.connectedClients(environment), this.window(environment));
+    return this.window(environment).report(this.connectedClients(environment));
   }
 
   public Set<EnvironmentRef> environments() {

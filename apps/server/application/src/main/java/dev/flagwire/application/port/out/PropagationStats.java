@@ -11,4 +11,8 @@ public interface PropagationStats {
   void recordAcknowledgement(EnvironmentRef environment, long latencyMillis);
 
   PropagationReport report(EnvironmentRef environment);
+
+  default void publish() {}
+
+  default void withdraw() {}
 }

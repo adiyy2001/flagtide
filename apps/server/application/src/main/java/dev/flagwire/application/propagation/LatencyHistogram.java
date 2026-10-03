@@ -1,5 +1,6 @@
 package dev.flagwire.application.propagation;
 
+import dev.flagwire.application.port.out.PropagationReport;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
@@ -58,5 +59,17 @@ public final class LatencyHistogram {
       }
     }
     return OVERFLOW_MILLIS;
+  }
+
+  public PropagationReport report(int connectedClients) {
+    if (this.count() == 0) {
+      return PropagationReport.empty(connectedClients);
+    }
+    return new PropagationReport(
+        connectedClients,
+        this.count(),
+        this.percentile(0.50),
+        this.percentile(0.95),
+        this.percentile(0.99));
   }
 }
