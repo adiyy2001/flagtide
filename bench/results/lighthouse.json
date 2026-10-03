@@ -1,0 +1,71 @@
+{
+  "tool": "lighthouse",
+  "lighthouseVersion": "13.5.0",
+  "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.0.0 Safari/537.36",
+  "hardware": {
+    "cpuModel": "12th Gen Intel(R) Core(TM) i7-12700H",
+    "logicalCores": 20,
+    "memoryGiB": 15.5,
+    "os": "linux 6.6.87.2-microsoft-standard-WSL2",
+    "docker": "29.1.3"
+  },
+  "minimumAccessibility": 95,
+  "pages": [
+    {
+      "page": "admin-audit",
+      "url": "http://127.0.0.1:14200/audit",
+      "accessibility": 100,
+      "bestPractices": 100,
+      "failingAudits": []
+    },
+    {
+      "page": "admin-environments",
+      "url": "http://127.0.0.1:14200/environments",
+      "accessibility": 100,
+      "bestPractices": 100,
+      "failingAudits": []
+    },
+    {
+      "page": "admin-flag-editor",
+      "url": "http://127.0.0.1:14200/flags/promo-banner",
+      "accessibility": 100,
+      "bestPractices": 100,
+      "failingAudits": []
+    },
+    {
+      "page": "admin-flags",
+      "url": "http://127.0.0.1:14200/flags",
+      "accessibility": 100,
+      "bestPractices": 100,
+      "failingAudits": []
+    },
+    {
+      "page": "admin-propagation",
+      "url": "http://127.0.0.1:14200/propagation",
+      "accessibility": 100,
+      "bestPractices": 100,
+      "failingAudits": []
+    },
+    {
+      "page": "admin-segments",
+      "url": "http://127.0.0.1:14200/segments",
+      "accessibility": 100,
+      "bestPractices": 100,
+      "failingAudits": []
+    },
+    {
+      "page": "shop-recommendations",
+      "url": "http://127.0.0.1:14300/recommendations?visitor=visitor-beta",
+      "accessibility": 100,
+      "bestPractices": 100,
+      "failingAudits": []
+    },
+    {
+      "page": "shop-storefront",
+      "url": "http://127.0.0.1:14300/",
+      "accessibility": 100,
+      "bestPractices": 100,
+      "failingAudits": []
+    }
+  ]
+}
