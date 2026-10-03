@@ -1,0 +1,42 @@
+{
+  "name": "server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/server",
+  "tags": ["scope:server"],
+  "implicitDependencies": ["spec"],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "inputs": ["default", "spec"],
+      "outputs": ["{projectRoot}/domain/target"],
+      "options": { "command": "node scripts/mvn.mjs -q package -DskipTests -Djacoco.skip=true", "cwd": "{workspaceRoot}" }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": { "command": "node scripts/mvn.mjs test", "cwd": "{workspaceRoot}" }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": { "command": "node scripts/mvn.mjs spotless:check checkstyle:check@checkstyle", "cwd": "{workspaceRoot}" }
+    },
+    "format": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": { "command": "node scripts/mvn.mjs spotless:apply", "cwd": "{workspaceRoot}" }
+    },
+    "verify": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "inputs": ["default", "spec"],
+      "outputs": ["{projectRoot}/domain/target", "{projectRoot}/target"],
+      "options": { "command": "node scripts/mvn.mjs verify", "cwd": "{workspaceRoot}" }
+    },
+    "clean": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": { "command": "node scripts/mvn.mjs clean", "cwd": "{workspaceRoot}" }
+    }
+  }
+}
