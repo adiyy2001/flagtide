@@ -37,6 +37,8 @@ services:
       FLAGWIRE_SEED_NAME: Demo
       FLAGWIRE_SEED_KEYS_DEV_ADMIN: fwa_demo_dev_admin_000000000000
       FLAGWIRE_SEED_KEYS_DEV_SDK: fws_demo_dev_sdk_0000000000000
+      FLAGWIRE_SEED_KEYS_STAGING_ADMIN: fwa_demo_staging_admin_00000000
+      FLAGWIRE_SEED_KEYS_STAGING_SDK: fws_demo_staging_sdk_000000000
       FLAGWIRE_SEED_KEYS_PROD_ADMIN: fwa_demo_prod_admin_00000000000
       FLAGWIRE_SEED_KEYS_PROD_SDK: fws_demo_prod_sdk_000000000000
     ports:
@@ -82,6 +84,26 @@ services:
       timeout: 3s
       retries: 40
       start_period: 10s
+    restart: unless-stopped
+
+  admin:
+    build:
+      context: .
+      dockerfile: docker/admin.Dockerfile
+    depends_on:
+      server-a:
+        condition: service_healthy
+    environment:
+      FLAGWIRE_ADMIN_API_URL: http://127.0.0.1:${FLAGWIRE_PORT_SERVER_A:-18081}
+      FLAGWIRE_ADMIN_PROJECT: demo
+      FLAGWIRE_ADMIN_KEYS: '{"dev":"fwa_demo_dev_admin_000000000000","staging":"fwa_demo_staging_admin_00000000","prod":"fwa_demo_prod_admin_00000000000"}'
+    ports:
+      - '127.0.0.1:${FLAGWIRE_PORT_ADMIN:-14200}:8080'
+    healthcheck:
+      test: ['CMD', 'wget', '-q', '-O', '/dev/null', 'http://127.0.0.1:8080/']
+      interval: 3s
+      timeout: 3s
+      retries: 20
     restart: unless-stopped
 
   k6:

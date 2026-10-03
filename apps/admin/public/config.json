@@ -3,6 +3,7 @@
   "project": "demo",
   "adminKeys": {
     "dev": "fwa_demo_dev_admin_000000000000",
+    "staging": "fwa_demo_staging_admin_00000000",
     "prod": "fwa_demo_prod_admin_00000000000"
   }
 }

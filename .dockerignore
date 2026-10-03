@@ -6,5 +6,4 @@
 dist/
 coverage/
 tmp/
-libs/
 bench/
