@@ -7,7 +7,7 @@
   "targets": {
     "lint": {
       "executor": "nx:run-commands",
-      "options": { "command": "eslint libs/core", "cwd": "{workspaceRoot}" }
+      "options": { "command": "eslint libs/core bench", "cwd": "{workspaceRoot}" }
     },
     "typecheck": {
       "executor": "nx:run-commands",

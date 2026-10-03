@@ -1,0 +1,40 @@
+{
+  "benchmark": "sdk-eval",
+  "runtime": "node",
+  "targetMicroseconds": 5,
+  "hardware": {
+    "cpuModel": "12th Gen Intel(R) Core(TM) i7-12700H",
+    "logicalCores": 20,
+    "memoryGiB": 15.5,
+    "os": "linux 6.6.87.2-microsoft-standard-WSL2",
+    "node": "v24.21.0",
+    "v8": "13.6.233.17-node.53"
+  },
+  "heapUsedMiB": 2124,
+  "results": [
+    {
+      "scenario": "kill switch",
+      "meanMicroseconds": 0.045,
+      "p99Microseconds": 0.082,
+      "operationsPerSecond": 24565774,
+      "samples": 22000990,
+      "withinTarget": true
+    },
+    {
+      "scenario": "percentage rollout",
+      "meanMicroseconds": 0.794,
+      "p99Microseconds": 2.485,
+      "operationsPerSecond": 1756885,
+      "samples": 1259248,
+      "withinTarget": true
+    },
+    {
+      "scenario": "targeted rules with segment and rollout",
+      "meanMicroseconds": 0.633,
+      "p99Microseconds": 3.249,
+      "operationsPerSecond": 2936666,
+      "samples": 1579440,
+      "withinTarget": true
+    }
+  ]
+}
