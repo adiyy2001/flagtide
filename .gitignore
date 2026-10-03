@@ -30,3 +30,4 @@ test-results/
 cypress/videos/
 cypress/screenshots/
 bench/results/tmp/
+.jqwik-database
