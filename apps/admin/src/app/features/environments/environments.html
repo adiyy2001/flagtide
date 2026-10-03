@@ -1,0 +1,148 @@
+<div class="page-header">
+  <div>
+    <h1>Environments</h1>
+    <p>
+      Each environment has its own SDK key, which ships to browsers, and its own admin key for writes. Admin
+      keys are stored hashed on the server, so they are shown once when issued.
+    </p>
+  </div>
+</div>
+
+@if (issued(); as environment) {
+<section class="card issued" aria-labelledby="issued-title" role="status">
+  <h2 id="issued-title">Environment {{ environment.name }} created</h2>
+  <p>Copy the admin key now. The server keeps only a hash of it, so it cannot be shown again.</p>
+  @for (key of environment.keys; track key.id) {
+  <div class="secret">
+    <span class="label">{{ key.kind === 'admin' ? 'Admin key' : 'SDK key' }}</span>
+    <code class="mono">{{ key.secret }}</code>
+    <button
+      mat-stroked-button
+      type="button"
+      (click)="copy(key.secret, key.kind === 'admin' ? 'Admin key' : 'SDK key')"
+    >
+      <admin-icon name="copy" /> Copy
+    </button>
+  </div>
+  } @if (rememberIssued()) {
+  <p class="muted">
+    The admin key is saved in this browser so the admin can write to {{ environment.name }}.
+  </p>
+  }
+  <button mat-flat-button type="button" (click)="dismissIssued()">I have copied the keys</button>
+</section>
+}
+
+<section class="card" aria-labelledby="list-title">
+  <h2 id="list-title">Keys</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Environment</th>
+          <th scope="col">SDK key</th>
+          <th scope="col">Admin key in this admin</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (environment of workspace.environments(); track environment.key) {
+        <tr>
+          <th scope="row">
+            {{ environment.name }}
+            <div class="mono muted">{{ environment.key }}</div>
+          </th>
+          <td>
+            @for (key of sdkKeys()[environment.key] ?? []; track key.id) {
+            <div class="secret inline">
+              <code class="mono">{{ key.sdkKey }}</code>
+              <button
+                mat-icon-button
+                type="button"
+                [attr.aria-label]="'Copy SDK key ' + key.label + ' of ' + environment.name"
+                (click)="copy(key.sdkKey ?? '', 'SDK key')"
+              >
+                <admin-icon name="copy" />
+              </button>
+            </div>
+            } @empty {
+            <span class="muted">No SDK key to show</span>
+            }
+          </td>
+          <td>
+            @switch (adminKeySource(environment.key)) { @case ('config') {
+            <span class="chip strong">Set in config.json</span>
+            } @case ('saved') {
+            <span class="chip strong">Saved in this browser</span>
+            <button mat-button type="button" (click)="forgetKey(environment.key)">Forget</button>
+            } @default {
+            <span class="chip danger">Missing: read only</span>
+            } }
+            <div class="key-entry">
+              <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                <mat-label>Use an admin key for {{ environment.name }}</mat-label>
+                <input
+                  matInput
+                  type="password"
+                  class="mono"
+                  autocomplete="off"
+                  spellcheck="false"
+                  [value]="keyDraft(environment.key)"
+                  (input)="setKeyDraft(environment.key, $event)"
+                  (keydown.enter)="saveKey(environment.key)"
+                />
+              </mat-form-field>
+              <button
+                mat-stroked-button
+                type="button"
+                [disabled]="keyDraft(environment.key).trim() === ''"
+                (click)="saveKey(environment.key)"
+              >
+                Save in this browser
+              </button>
+            </div>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="card" aria-labelledby="create-title">
+  <h2 id="create-title">Create an environment</h2>
+  <form class="create" (submit)="$event.preventDefault(); create()" novalidate>
+    <div>
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" [class.invalid]="keyIssue() !== null">
+        <mat-label>Key</mat-label>
+        <input
+          matInput
+          class="mono"
+          autocomplete="off"
+          spellcheck="false"
+          [value]="newKey()"
+          [attr.aria-invalid]="keyIssue() !== null"
+          [attr.aria-describedby]="keyIssue() !== null ? 'environment-key-error' : null"
+          (input)="setText('newKey', $event)"
+        />
+      </mat-form-field>
+      @if (keyIssue(); as issue) {
+      <p class="field-error" id="environment-key-error">{{ issue }}</p>
+      }
+    </div>
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>Name</mat-label>
+      <input matInput autocomplete="off" [value]="newName()" (input)="setText('newName', $event)" />
+    </mat-form-field>
+    <mat-checkbox [checked]="rememberIssued()" (change)="rememberIssued.set($event.checked)">
+      Save the new admin key in this browser
+    </mat-checkbox>
+    <button mat-flat-button type="submit" [disabled]="!canCreate() || creatorEnvironment() === null">
+      Create environment
+    </button>
+  </form>
+  @if (creatorEnvironment() === null) {
+  <p class="muted">Creating an environment needs an admin key for the selected environment.</p>
+  } @if (createError(); as problem) {
+  <div class="issues-box" role="alert">{{ problem }}</div>
+  }
+</section>

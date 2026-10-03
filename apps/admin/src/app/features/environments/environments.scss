@@ -1,0 +1,85 @@
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    text-align: left;
+    vertical-align: top;
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
+  }
+
+  thead th {
+    font: var(--mat-sys-label-medium);
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  tbody th {
+    font-weight: 600;
+  }
+}
+
+.secret {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+
+  code {
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    background: var(--mat-sys-surface-container-high);
+    word-break: break-all;
+  }
+
+  .label {
+    min-width: 5.5rem;
+    font: var(--mat-sys-label-large);
+  }
+
+  &.inline {
+    margin-bottom: 0;
+  }
+}
+
+.issued {
+  border-color: var(--mat-sys-primary);
+}
+
+.key-entry {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+
+  mat-form-field {
+    width: 18rem;
+  }
+}
+
+.create {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.75rem 1rem;
+
+  mat-checkbox,
+  button {
+    margin-top: 0.5rem;
+  }
+}
+
+.issues-box {
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--mat-sys-error-container);
+  color: var(--mat-sys-on-error-container);
+}
