@@ -6,6 +6,7 @@ import dev.flagwire.application.security.Principal;
 import dev.flagwire.domain.access.ApiKeyKind;
 import dev.flagwire.domain.value.EnvironmentKey;
 import dev.flagwire.domain.value.EnvironmentRef;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +40,7 @@ public final class ListApiKeys {
                     key.environment(),
                     key.label(),
                     key.kind() == ApiKeyKind.SDK ? Optional.of(key.lookup()) : Optional.empty()))
+        .sorted(Comparator.comparing(KeyView::kind).thenComparing(KeyView::id))
         .toList();
   }
 }
