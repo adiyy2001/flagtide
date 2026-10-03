@@ -27,7 +27,7 @@ export { murmur3x86_32, murmur3x86_32OfText } from './lib/murmur3.js';
 export { FlagOverrides } from './lib/overrides.js';
 export { parseServerFrame, parseSnapshotBody } from './lib/protocol.js';
 export type * from './lib/protocol.js';
-export { flagTypeOf, resolveFlag } from './lib/resolve.js';
+export { flagTypeOf, jsonEquals, resolveFlag } from './lib/resolve.js';
 export type { Resolution, ResolutionReason } from './lib/resolve.js';
 export { compareSemanticVersions, parseSemanticVersion } from './lib/semver.js';
 export type { SemanticVersion } from './lib/semver.js';

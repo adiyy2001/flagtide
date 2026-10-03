@@ -124,6 +124,16 @@ describe('FlagwireClient', () => {
     expect(client.flagKeys()).toEqual(['new']);
   });
 
+  it('hydrates from a snapshot and announces it', () => {
+    const { client } = build();
+    let announced = 0;
+    client.changes$.subscribe(() => (announced += 1));
+    client.hydrate({ version: 3, flags: [booleanFlag('a')], segments: [] });
+    expect(client.version).toBe(3);
+    expect(client.value('a', false)).toBe(true);
+    expect(announced).toBe(1);
+  });
+
   it('exposes the connection errors and status stream', () => {
     const { client, sockets } = build();
     const statuses: string[] = [];

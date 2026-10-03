@@ -111,10 +111,9 @@ type BrowserSocket = {
 type SocketConstructor = new (url: string) => BrowserSocket;
 
 /** A socket factory on top of the `WebSocket` constructor of the runtime (browsers, Node 22 and later). */
-export function createBrowserSocketFactory(
-  constructor: SocketConstructor | undefined = (globalThis as { WebSocket?: SocketConstructor }).WebSocket,
-): SocketFactory {
+export function createBrowserSocketFactory(override?: SocketConstructor): SocketFactory {
   return (url, handlers) => {
+    const constructor = override ?? (globalThis as { WebSocket?: SocketConstructor }).WebSocket;
     if (constructor === undefined) {
       throw new Error('WebSocket is not available in this runtime');
     }
@@ -133,7 +132,7 @@ export function createBrowserSocketFactory(
 
 /** Online and visibility state from `window` and `document`. Outside a browser it reports online and never changes. */
 export function createBrowserEnvironment(): NetworkEnvironment {
-  if (typeof window === 'undefined' || typeof document === 'undefined') {
+  if (!('window' in globalThis) || !('document' in globalThis)) {
     return ALWAYS_ONLINE;
   }
   return {

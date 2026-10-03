@@ -138,6 +138,11 @@ export class FlagwireClient {
     return this.flagStore.snapshot();
   }
 
+  /** Replaces the held state, for example with a snapshot fetched on the server or one handed over by the server. */
+  hydrate(snapshot: FlagSnapshot): void {
+    this.flagStore.hydrate(snapshot);
+  }
+
   flagKeys(): readonly string[] {
     return this.flagStore.flagKeys();
   }

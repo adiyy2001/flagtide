@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { booleanFlag, variantFlag } from '../../test-support/fixtures.js';
-import { flagTypeOf, resolveFlag } from './resolve.js';
+import { flagTypeOf, jsonEquals, resolveFlag } from './resolve.js';
 
 const context = { key: 'user-1', attributes: {} };
 const noSegments = new Map();
@@ -70,5 +70,26 @@ describe('flagTypeOf', () => {
     [{ a: 1 }, 'json'],
   ] as const)('%j is %s', (value, type) => {
     expect(flagTypeOf(value)).toBe(type);
+  });
+});
+
+describe('jsonEquals', () => {
+  it.each([
+    [1, 1, true],
+    ['a', 'a', true],
+    ['a', 'b', false],
+    [null, null, true],
+    [null, {}, false],
+    [{ a: 1, b: [1, { c: 2 }] }, { b: [1, { c: 2 }], a: 1 }, true],
+    [{ a: 1 }, { a: 2 }, false],
+    [{ a: 1 }, { a: 1, b: 2 }, false],
+    [{ a: 1, b: 2 }, { a: 1 }, false],
+    [[1, 2], [2, 1], false],
+    [[1], [1, 2], false],
+    [[], {}, false],
+    [{}, [], false],
+    [1, '1', false],
+  ] as const)('%j and %j: %s', (left, right, expected) => {
+    expect(jsonEquals(left, right)).toBe(expected);
   });
 });

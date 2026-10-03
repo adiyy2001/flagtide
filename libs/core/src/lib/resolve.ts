@@ -64,3 +64,28 @@ export function resolveFlag<T extends JsonValue>(
     bucket: result.bucket,
   };
 }
+
+/** Structural equality of two JSON values. Object key order does not matter, array order does. */
+export function jsonEquals(left: JsonValue, right: JsonValue): boolean {
+  if (left === right) {
+    return true;
+  }
+  if (typeof left !== 'object' || typeof right !== 'object' || left === null || right === null) {
+    return false;
+  }
+  if (Array.isArray(left) || Array.isArray(right)) {
+    return (
+      Array.isArray(left) &&
+      Array.isArray(right) &&
+      left.length === right.length &&
+      left.every((item, index) => jsonEquals(item, right[index] ?? null))
+    );
+  }
+  const leftObject = left as { readonly [key: string]: JsonValue };
+  const rightObject = right as { readonly [key: string]: JsonValue };
+  const leftEntries = Object.entries(leftObject);
+  return (
+    leftEntries.length === Object.keys(rightObject).length &&
+    leftEntries.every(([key, value]) => key in rightObject && jsonEquals(value, rightObject[key] ?? null))
+  );
+}
