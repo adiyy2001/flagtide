@@ -10,30 +10,30 @@
     "node": "v24.21.0",
     "v8": "13.6.233.17-node.53"
   },
-  "heapUsedMiB": 2124,
+  "heapUsedMiB": 2306,
   "results": [
     {
       "scenario": "kill switch",
-      "meanMicroseconds": 0.045,
-      "p99Microseconds": 0.082,
-      "operationsPerSecond": 24565774,
-      "samples": 22000990,
+      "meanMicroseconds": 0.048,
+      "p99Microseconds": 0.098,
+      "operationsPerSecond": 23477764,
+      "samples": 20884842,
       "withinTarget": true
     },
     {
       "scenario": "percentage rollout",
-      "meanMicroseconds": 0.794,
-      "p99Microseconds": 2.485,
-      "operationsPerSecond": 1756885,
-      "samples": 1259248,
+      "meanMicroseconds": 0.457,
+      "p99Microseconds": 0.834,
+      "operationsPerSecond": 2330959,
+      "samples": 2186033,
       "withinTarget": true
     },
     {
       "scenario": "targeted rules with segment and rollout",
-      "meanMicroseconds": 0.633,
-      "p99Microseconds": 3.249,
-      "operationsPerSecond": 2936666,
-      "samples": 1579440,
+      "meanMicroseconds": 0.386,
+      "p99Microseconds": 0.99,
+      "operationsPerSecond": 3966553,
+      "samples": 2591609,
       "withinTarget": true
     }
   ]

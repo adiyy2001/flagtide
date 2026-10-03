@@ -1,0 +1,42 @@
+{
+  "benchmark": "sdk-eval",
+  "runtime": "chromium",
+  "browserVersion": "153.0.8010.12",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36",
+  "note": "performance.now() is clamped in a page that is not cross-origin isolated, so single call latencies fall below the timer resolution and p99 reads 0. The mean is taken over many calls and is reliable.",
+  "targetMicroseconds": 5,
+  "hardware": {
+    "cpuModel": "12th Gen Intel(R) Core(TM) i7-12700H",
+    "logicalCores": 20,
+    "memoryGiB": 15.5,
+    "os": "linux 6.6.87.2-microsoft-standard-WSL2",
+    "node": "v24.21.0",
+    "v8": "13.6.233.17-node.53"
+  },
+  "results": [
+    {
+      "scenario": "kill switch",
+      "meanMicroseconds": 0.081,
+      "p99Microseconds": 0,
+      "operationsPerSecond": 12303882,
+      "samples": 12315070,
+      "withinTarget": true
+    },
+    {
+      "scenario": "percentage rollout",
+      "meanMicroseconds": 0.366,
+      "p99Microseconds": 0,
+      "operationsPerSecond": 2722540,
+      "samples": 2732181,
+      "withinTarget": true
+    },
+    {
+      "scenario": "targeted rules with segment and rollout",
+      "meanMicroseconds": 0.362,
+      "p99Microseconds": 0,
+      "operationsPerSecond": 2751954,
+      "samples": 2761088,
+      "withinTarget": true
+    }
+  ]
+}

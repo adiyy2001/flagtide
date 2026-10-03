@@ -52,7 +52,7 @@
       "executor": "nx:run-commands",
       "cache": false,
       "options": {
-        "command": "tsx bench/sdk-eval/run.ts",
+        "command": "tsx bench/sdk-eval/run.ts && tsx bench/sdk-eval/run-browser.ts",
         "cwd": "{workspaceRoot}"
       }
     },
