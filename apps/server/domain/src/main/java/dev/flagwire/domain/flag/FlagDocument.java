@@ -15,6 +15,7 @@ import dev.flagwire.domain.value.VariantKey;
 import dev.flagwire.domain.value.Weight;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public final class FlagDocument {
@@ -28,7 +29,7 @@ public final class FlagDocument {
     return Json.object()
         .text("key", flag.key().value())
         .text("description", flag.description())
-        .text("type", flag.type().name().toLowerCase())
+        .text("type", flag.type().name().toLowerCase(Locale.ROOT))
         .bool("archived", flag.archived())
         .number("revision", flag.revision().value())
         .text("createdAt", flag.createdAt().toString())
@@ -42,7 +43,7 @@ public final class FlagDocument {
     return Json.object()
         .text("key", flag.key().value())
         .text("description", flag.description())
-        .text("type", flag.type().name().toLowerCase())
+        .text("type", flag.type().name().toLowerCase(Locale.ROOT))
         .bool("archived", flag.archived())
         .put("variants", Json.array(flag.variants(), FlagDocument::variantToJson))
         .build();
@@ -159,7 +160,7 @@ public final class FlagDocument {
 
   private static FlagType typeFromName(String name) {
     try {
-      return FlagType.valueOf(name.toUpperCase());
+      return FlagType.valueOf(name.toUpperCase(Locale.ROOT));
     } catch (IllegalArgumentException unknown) {
       throw FlagwireException.invalid("flag.type", "unknown flag type " + name);
     }
