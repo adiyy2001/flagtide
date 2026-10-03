@@ -3,7 +3,13 @@
   "compilerOptions": {
     "outDir": "../../dist/libs/core",
     "rootDir": "src",
-    "tsBuildInfoFile": "../../dist/libs/core/tsconfig.lib.tsbuildinfo"
+    "tsBuildInfoFile": "../../dist/libs/core/tsconfig.lib.tsbuildinfo",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2024", "DOM"],
+    "types": [],
+    "sourceMap": false,
+    "declarationMap": false
   },
   "include": ["src/**/*.ts"],
   "exclude": ["src/**/*.spec.ts"]

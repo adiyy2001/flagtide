@@ -1,8 +1,8 @@
 import fc from 'fast-check';
 import { describe, expect, it } from 'vitest';
-import { bucketOf } from './bucket';
-import { evaluate } from './evaluate';
-import type { FlagConfig } from './types';
+import { bucketOf } from './bucket.js';
+import { evaluate } from './evaluate.js';
+import type { FlagConfig } from './types.js';
 
 const BINS = 100;
 const KEYS = 1_000_000;

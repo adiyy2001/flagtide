@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { murmur3x86_32, murmur3x86_32OfText } from './murmur3';
+import { murmur3x86_32, murmur3x86_32OfText } from './murmur3.js';
 
 function bytes(...values: number[]): Uint8Array {
   return Uint8Array.from(values);

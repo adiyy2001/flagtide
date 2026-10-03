@@ -1,3 +1,4 @@
+/** A parsed semantic version 2.0.0. Numeric parts stay strings so that values beyond 2^53 compare correctly. */
 export interface SemanticVersion {
   readonly major: string;
   readonly minor: string;
@@ -13,6 +14,7 @@ const SEMVER_PATTERN = new RegExp(
 
 const NUMERIC_IDENTIFIER = /^[0-9]+$/;
 
+/** Parses a version such as `1.2.3-rc.1+build5`, or returns `null` when the text is not a valid semantic version. */
 export function parseSemanticVersion(text: string): SemanticVersion | null {
   const match = SEMVER_PATTERN.exec(text);
   if (match === null) {
@@ -79,6 +81,7 @@ function comparePrerelease(left: readonly string[], right: readonly string[]): n
   return left.length < right.length ? -1 : 1;
 }
 
+/** Orders two versions by semver precedence: negative when `left` is lower, zero when equal, positive when higher. Build metadata is ignored. */
 export function compareSemanticVersions(left: SemanticVersion, right: SemanticVersion): number {
   return (
     compareDigitStrings(left.major, right.major) ||

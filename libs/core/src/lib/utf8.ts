@@ -33,6 +33,7 @@ function encodedLength(codePoint: number): number {
   return codePoint < 0x10000 ? 3 : 4;
 }
 
+/** Number of bytes `text` takes in UTF-8, counting a lone surrogate as the three bytes of U+FFFD. */
 export function utf8Length(text: string): number {
   let length = 0;
   let index = 0;
@@ -50,6 +51,7 @@ export function utf8Length(text: string): number {
   return length;
 }
 
+/** Encodes text as UTF-8. A lone surrogate becomes U+FFFD, the same as `TextEncoder` and unlike Java's `getBytes`. */
 export function encodeUtf8(text: string): Uint8Array {
   const bytes = new Uint8Array(utf8Length(text));
   let offset = 0;

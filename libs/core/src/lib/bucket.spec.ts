@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { BUCKET_SPACE, bucketOf } from './bucket';
-import { murmur3x86_32OfText } from './murmur3';
+import { BUCKET_SPACE, bucketOf } from './bucket.js';
+import { murmur3x86_32OfText } from './murmur3.js';
 
 describe('bucketOf', () => {
   it('hashes flagKey.salt.contextKey and takes the unsigned value modulo 100000', () => {

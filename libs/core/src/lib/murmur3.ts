@@ -1,4 +1,4 @@
-import { encodeUtf8 } from './utf8';
+import { encodeUtf8 } from './utf8.js';
 
 const C1 = 0xcc9e2d51;
 const C2 = 0x1b873593;
@@ -21,6 +21,7 @@ function finalMix(hash: number): number {
   return h;
 }
 
+/** MurmurHash3 x86 32-bit of the given bytes, as an unsigned 32-bit integer. */
 export function murmur3x86_32(bytes: Uint8Array, seed = 0): number {
   const length = bytes.length;
   const blockEnd = length - (length & 3);
@@ -48,6 +49,7 @@ export function murmur3x86_32(bytes: Uint8Array, seed = 0): number {
   return finalMix(h ^ length) >>> 0;
 }
 
+/** MurmurHash3 x86 32-bit of the UTF-8 bytes of `text`, as an unsigned 32-bit integer. */
 export function murmur3x86_32OfText(text: string, seed = 0): number {
   return murmur3x86_32(encodeUtf8(text), seed);
 }

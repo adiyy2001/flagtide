@@ -1,7 +1,7 @@
 import fc from 'fast-check';
 import semver from 'semver';
 import { describe, expect, it } from 'vitest';
-import { compareSemanticVersions, parseSemanticVersion } from './semver';
+import { compareSemanticVersions, parseSemanticVersion } from './semver.js';
 
 function compareText(left: string, right: string): number {
   const parsedLeft = parseSemanticVersion(left);

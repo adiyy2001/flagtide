@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { InvalidFlagConfigError, evaluate, indexSegments } from './evaluate';
-import type { FlagConfig, Rule, Serve } from './types';
+import { InvalidFlagConfigError, evaluate, indexSegments } from './evaluate.js';
+import type { FlagConfig, Rule, Serve } from './types.js';
 
 function flag(overrides: Partial<FlagConfig> = {}): FlagConfig {
   return {

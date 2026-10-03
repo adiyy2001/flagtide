@@ -1,6 +1,6 @@
-import { bucketOf } from './bucket';
-import { compareSemanticVersions, parseSemanticVersion } from './semver';
-import type { SemanticVersion } from './semver';
+import { bucketOf } from './bucket.js';
+import { compareSemanticVersions, parseSemanticVersion } from './semver.js';
+import type { SemanticVersion } from './semver.js';
 import type {
   AttributeCondition,
   Condition,
@@ -16,7 +16,7 @@ import type {
   SegmentIndex,
   Serve,
   WeightedVariant,
-} from './types';
+} from './types.js';
 
 const NO_SEGMENTS: SegmentIndex = new Map();
 
@@ -25,8 +25,10 @@ const MISS = 1;
 const HIT = 2;
 type ElementOutcome = typeof NOT_APPLICABLE | typeof MISS | typeof HIT;
 
+/** Thrown when a flag config breaks the invariants of the format, for example a rollout whose weights miss a bucket. */
 export class InvalidFlagConfigError extends Error {}
 
+/** Builds the lookup that {@link evaluate} needs for segment conditions. */
 export function indexSegments(segments: readonly Segment[]): SegmentIndex {
   return new Map(segments.map((segment) => [segment.key, segment]));
 }
@@ -248,6 +250,10 @@ function serveResult(
   return result(flag, pickWeighted(serve.rollout, bucket), reason, ruleIndex, ruleId, bucket);
 }
 
+/**
+ * Evaluates a flag for a context following `docs/evaluation-spec.md`. The Java server runs the same algorithm and
+ * both pass the same conformance vectors.
+ */
 export function evaluate(
   flag: FlagConfig,
   context: EvaluationContext,

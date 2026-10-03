@@ -1,6 +1,6 @@
 import fc from 'fast-check';
 import { describe, expect, it } from 'vitest';
-import { encodeUtf8, utf8Length } from './utf8';
+import { encodeUtf8, utf8Length } from './utf8.js';
 
 const nativeEncoder = new TextEncoder();
 
