@@ -18,7 +18,10 @@ import dev.flagwire.domain.value.Percentage;
 import dev.flagwire.domain.value.RuleId;
 import dev.flagwire.domain.value.SegmentKey;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
 class FlagDocumentTest {
@@ -84,13 +87,11 @@ class FlagDocumentTest {
     JsonFields original = JsonFields.of("f", FlagDocument.toJson(richFlag()));
     JsonValue.JsonObject tampered =
         new JsonValue.JsonObject(
-            java.util.stream.Stream.concat(
+            Stream.concat(
                     original.members().entrySet().stream()
                         .filter(entry -> !entry.getKey().equals("type")),
-                    java.util.stream.Stream.of(java.util.Map.entry("type", Json.text("float"))))
-                .collect(
-                    java.util.stream.Collectors.toMap(
-                        java.util.Map.Entry::getKey, java.util.Map.Entry::getValue)));
+                    Stream.of(Map.entry("type", Json.text("float"))))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
 
     assertThatThrownBy(() -> FlagDocument.fromJson(tampered))
         .hasMessageContaining("unknown flag type float");

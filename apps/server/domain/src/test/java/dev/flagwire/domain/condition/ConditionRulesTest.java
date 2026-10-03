@@ -14,6 +14,7 @@ import dev.flagwire.domain.evaluation.Condition;
 import dev.flagwire.domain.evaluation.Operator;
 import dev.flagwire.domain.value.SegmentKey;
 import java.util.List;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -80,10 +81,7 @@ class ConditionRulesTest {
 
   @Test
   void rejectsMoreThanAThousandValues() {
-    List<Scalar> many =
-        java.util.stream.IntStream.range(0, 1001)
-            .<Scalar>mapToObj(i -> new NumberValue(i))
-            .toList();
+    List<Scalar> many = IntStream.range(0, 1001).<Scalar>mapToObj(i -> new NumberValue(i)).toList();
 
     assertThatThrownBy(
             () -> ConditionRules.validate(new Condition.Attribute("a", Operator.IN, many, false)))

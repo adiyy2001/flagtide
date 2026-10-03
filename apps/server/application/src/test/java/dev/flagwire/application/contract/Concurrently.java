@@ -9,18 +9,18 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.function.Supplier;
 
-final class Concurrently {
+public final class Concurrently {
 
-  record Outcome<T>(T value, Throwable failure) {
+  public record Outcome<T>(T value, Throwable failure) {
 
-    boolean succeeded() {
+    public boolean succeeded() {
       return this.failure == null;
     }
   }
 
   private Concurrently() {}
 
-  static <T> List<Outcome<T>> run(int threads, Supplier<T> work) {
+  public static <T> List<Outcome<T>> run(int threads, Supplier<T> work) {
     ExecutorService executor = Executors.newFixedThreadPool(threads);
     try {
       CountDownLatch ready = new CountDownLatch(threads);

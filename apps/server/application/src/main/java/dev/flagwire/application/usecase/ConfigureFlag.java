@@ -15,6 +15,7 @@ import dev.flagwire.domain.segment.Segment;
 import dev.flagwire.domain.value.EnvironmentKey;
 import dev.flagwire.domain.value.EnvironmentRef;
 import dev.flagwire.domain.value.FlagKey;
+import dev.flagwire.domain.value.ProjectKey;
 import dev.flagwire.domain.value.Revision;
 import dev.flagwire.domain.value.SegmentKey;
 import java.util.Optional;
@@ -65,8 +66,7 @@ public final class ConfigureFlag {
         });
   }
 
-  private Set<SegmentKey> segmentKeys(
-      dev.flagwire.domain.value.ProjectKey project, EnvironmentKey environment) {
+  private Set<SegmentKey> segmentKeys(ProjectKey project, EnvironmentKey environment) {
     return this.segments.findAll(new EnvironmentRef(project, environment)).stream()
         .map(Segment::key)
         .collect(Collectors.toSet());

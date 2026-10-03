@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalInt;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 class EvaluatorTest {
@@ -69,8 +70,7 @@ class EvaluatorTest {
             "r", List.of(new Condition.SegmentMembership("beta", false)), new Serve.Single("on"));
     FlagConfig config = flag(new Serve.Single("off"), List.of(rule));
     Map<String, Segment> segments =
-        Segment.indexByKey(
-            List.of(new Segment("beta", java.util.Set.of("u"), java.util.Set.of(), List.of())));
+        Segment.indexByKey(List.of(new Segment("beta", Set.of("u"), Set.of(), List.of())));
 
     assertThat(EVALUATOR.evaluate(config, CONTEXT, segments).reason()).isEqualTo(Reason.RULE_MATCH);
     assertThat(

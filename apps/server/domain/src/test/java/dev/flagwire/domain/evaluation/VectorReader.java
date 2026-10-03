@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.StreamSupport;
 
 final class VectorReader {
@@ -78,7 +79,7 @@ final class VectorReader {
         optionalInt(node.get("bucket")));
   }
 
-  static <T> List<T> list(JsonNode array, java.util.function.Function<JsonNode, T> mapper) {
+  static <T> List<T> list(JsonNode array, Function<JsonNode, T> mapper) {
     return StreamSupport.stream(array.spliterator(), false).map(mapper).toList();
   }
 

@@ -17,6 +17,7 @@ import dev.flagwire.domain.value.Revision;
 import dev.flagwire.domain.value.SegmentKey;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
 
@@ -116,9 +117,7 @@ class SegmentTest {
   @Test
   void limitsTheSizeOfASegment() {
     Set<String> tooMany =
-        IntStream.range(0, 10_001)
-            .mapToObj(index -> "u" + index)
-            .collect(java.util.stream.Collectors.toSet());
+        IntStream.range(0, 10_001).mapToObj(index -> "u" + index).collect(Collectors.toSet());
     List<List<Condition.Attribute>> tooManyGroups =
         IntStream.range(0, 51).mapToObj(index -> List.of(POLAND)).toList();
 
