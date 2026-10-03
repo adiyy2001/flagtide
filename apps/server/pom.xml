@@ -13,6 +13,8 @@
     <module>application</module>
     <module>adapter-out-memory</module>
     <module>adapter-out-postgres</module>
+    <module>adapter-in-rest</module>
+    <module>bootstrap</module>
     <module>architecture</module>
   </modules>
 
@@ -25,6 +27,7 @@
     <assertj.version>3.27.7</assertj.version>
     <jqwik.version>1.10.1</jqwik.version>
     <jdbi.version>3.55.0</jdbi.version>
+    <jandex-maven-plugin.version>3.6.0</jandex-maven-plugin.version>
     <archunit.version>1.5.1</archunit.version>
 
     <maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
@@ -92,6 +95,19 @@
               <arg>-Werror</arg>
             </compilerArgs>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>io.smallrye</groupId>
+          <artifactId>jandex-maven-plugin</artifactId>
+          <version>${jandex-maven-plugin.version}</version>
+          <executions>
+            <execution>
+              <id>make-index</id>
+              <goals>
+                <goal>jandex</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
