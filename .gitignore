@@ -32,3 +32,4 @@ cypress/screenshots/
 bench/results/tmp/
 .jqwik-database
 bench/results/k6-summary.json
+__pycache__/
