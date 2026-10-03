@@ -3,9 +3,11 @@ package dev.flagwire.bootstrap;
 import dev.flagwire.adapter.out.memory.MemoryAdapters;
 import dev.flagwire.application.port.out.ApiKeyStore;
 import dev.flagwire.application.port.out.AuditLog;
+import dev.flagwire.application.port.out.ChangeFeed;
 import dev.flagwire.application.port.out.ChangeLog;
 import dev.flagwire.application.port.out.FlagRepository;
 import dev.flagwire.application.port.out.ProjectRepository;
+import dev.flagwire.application.port.out.PropagationStats;
 import dev.flagwire.application.port.out.SegmentRepository;
 import dev.flagwire.application.port.out.TimeSource;
 import dev.flagwire.application.port.out.TransactionRunner;
@@ -65,5 +67,17 @@ public class MemoryPersistence {
   @Singleton
   ChangeLog changeLog(MemoryAdapters adapters) {
     return adapters.changeLog();
+  }
+
+  @Produces
+  @Singleton
+  ChangeFeed changeFeed(MemoryAdapters adapters) {
+    return adapters.changeFeed();
+  }
+
+  @Produces
+  @Singleton
+  PropagationStats propagationStats(MemoryAdapters adapters) {
+    return adapters.propagationStats();
   }
 }

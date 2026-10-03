@@ -28,6 +28,11 @@
     </dependency>
     <dependency>
       <groupId>dev.flagwire</groupId>
+      <artifactId>flagwire-adapter-in-websocket</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>dev.flagwire</groupId>
       <artifactId>flagwire-adapter-out-memory</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -77,6 +82,16 @@
       <artifactId>assertj-core</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>testcontainers-postgresql</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.awaitility</groupId>
+      <artifactId>awaitility</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -114,6 +129,23 @@
             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
             <maven.home>${maven.home}</maven.home>
             <flagwire.server.root>${maven.multiModuleProjectDirectory}</flagwire.server.root>
+          </systemPropertyVariables>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <systemPropertyVariables>
+            <flagwire.server.jar>${project.build.directory}/quarkus-app/quarkus-run.jar</flagwire.server.jar>
           </systemPropertyVariables>
         </configuration>
       </plugin>

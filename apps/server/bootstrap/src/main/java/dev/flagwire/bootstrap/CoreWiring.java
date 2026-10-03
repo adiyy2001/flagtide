@@ -7,6 +7,9 @@ import dev.flagwire.application.support.SecureIdGenerator;
 import dev.flagwire.application.support.SystemTimeSource;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Singleton;
+import java.util.Optional;
+import java.util.UUID;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 public class CoreWiring {
 
@@ -26,5 +29,13 @@ public class CoreWiring {
   @Singleton
   Authorizer authorizer() {
     return new Authorizer();
+  }
+
+  @Produces
+  @Singleton
+  InstanceId instanceId(
+      @ConfigProperty(name = "flagwire.instance.id") Optional<String> configured) {
+    return new InstanceId(
+        configured.filter(id -> !id.isBlank()).orElseGet(() -> UUID.randomUUID().toString()));
   }
 }

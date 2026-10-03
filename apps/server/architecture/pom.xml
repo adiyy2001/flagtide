@@ -50,6 +50,12 @@
     </dependency>
     <dependency>
       <groupId>dev.flagwire</groupId>
+      <artifactId>flagwire-adapter-in-websocket</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>dev.flagwire</groupId>
       <artifactId>flagwire-bootstrap</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
@@ -93,7 +99,7 @@
               <goal>unpack-dependencies</goal>
             </goals>
             <configuration>
-              <includeArtifactIds>flagwire-domain,flagwire-application,flagwire-adapter-out-memory,flagwire-adapter-out-postgres,flagwire-adapter-in-rest,flagwire-bootstrap</includeArtifactIds>
+              <includeArtifactIds>flagwire-domain,flagwire-application,flagwire-adapter-out-memory,flagwire-adapter-out-postgres,flagwire-adapter-in-rest,flagwire-adapter-in-websocket,flagwire-bootstrap</includeArtifactIds>
               <excludeTransitive>true</excludeTransitive>
               <excludes>META-INF/**</excludes>
               <outputDirectory>${project.build.outputDirectory}</outputDirectory>
@@ -120,6 +126,7 @@
                   <includes>
                     <include>domain/target/jacoco.exec</include>
                     <include>application/target/jacoco.exec</include>
+                    <include>adapter-in-websocket/target/jacoco.exec</include>
                     <include>adapter-out-memory/target/jacoco.exec</include>
                     <include>adapter-out-postgres/target/jacoco.exec</include>
                     <include>bootstrap/target/jacoco.exec</include>
