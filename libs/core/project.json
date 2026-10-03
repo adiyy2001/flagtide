@@ -1,0 +1,39 @@
+{
+  "name": "core",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/core/src",
+  "tags": ["scope:sdk"],
+  "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": { "command": "eslint libs/core", "cwd": "{workspaceRoot}" }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": { "command": "tsc -p libs/core/tsconfig.json", "cwd": "{workspaceRoot}" }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "vitest run --coverage --config libs/core/vitest.config.ts",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "outputs": ["{workspaceRoot}/dist/libs/core"],
+      "options": { "command": "tsc -p libs/core/tsconfig.lib.json", "cwd": "{workspaceRoot}" }
+    },
+    "conformance": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": { "command": "tsx libs/core/test-support/conformance-cli.ts", "cwd": "{workspaceRoot}" }
+    },
+    "bench": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": { "command": "tsx bench/sdk-eval/run.ts", "cwd": "{workspaceRoot}" }
+    }
+  }
+}
