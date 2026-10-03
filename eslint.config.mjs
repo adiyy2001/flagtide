@@ -108,6 +108,23 @@ export default tseslint.config(
     },
   },
   {
+    files: ['apps/e2e/cypress/**/*.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        cy: 'readonly',
+        Cypress: 'readonly',
+        describe: 'readonly',
+        it: 'readonly',
+        before: 'readonly',
+        after: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        expect: 'readonly',
+      },
+    },
+  },
+  {
     files: ['bench/k6/**/*.js'],
     languageOptions: {
       globals: { __ENV: 'readonly', __VU: 'readonly', __ITER: 'readonly' },

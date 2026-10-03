@@ -1,0 +1,40 @@
+{
+  "name": "e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/e2e/cypress",
+  "tags": ["scope:e2e"],
+  "implicitDependencies": ["core"],
+  "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "eslint apps/e2e docker/seed",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p apps/e2e/tsconfig.json",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node --test \"apps/e2e/unit/*.test.mjs\"",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "e2e": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "dependsOn": [{ "projects": ["core"], "target": "build" }],
+      "options": {
+        "command": "cypress run --browser chrome --config-file cypress.config.mjs",
+        "cwd": "{workspaceRoot}/apps/e2e"
+      }
+    }
+  }
+}
