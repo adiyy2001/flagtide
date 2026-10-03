@@ -1,0 +1,44 @@
+.condition {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.5rem 0.75rem;
+}
+
+.kind {
+  width: 9rem;
+}
+
+.attribute {
+  width: 11rem;
+}
+
+.operator {
+  width: 11rem;
+}
+
+.type {
+  width: 8.5rem;
+}
+
+.values {
+  flex: 1 1 14rem;
+  min-width: 12rem;
+}
+
+.segment {
+  flex: 1 1 14rem;
+  max-width: 20rem;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.negate {
+  margin-top: 0.125rem;
+}
+
+.field-error {
+  margin-bottom: 0;
+}

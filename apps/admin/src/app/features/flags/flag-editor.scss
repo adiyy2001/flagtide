@@ -1,0 +1,22 @@
+.back {
+  margin: 0 0 0.5rem;
+}
+
+.description {
+  width: min(100%, 40rem);
+  margin-bottom: 1rem;
+}
+
+.actions.end {
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-left: 0.5rem;
+  border-radius: 50%;
+  background: var(--mat-sys-tertiary);
+}

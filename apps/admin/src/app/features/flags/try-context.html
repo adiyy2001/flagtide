@@ -1,0 +1,44 @@
+<section class="try" [attr.aria-labelledby]="idPrefix() + '-title'">
+  <h3 [id]="idPrefix() + '-title'">Try a context</h3>
+  <p class="muted">
+    Runs the draft above, including unsaved edits, through the same evaluator the browser SDK uses.
+  </p>
+  <div class="inputs">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="key">
+      <mat-label>Context key</mat-label>
+      <input
+        matInput
+        class="mono"
+        autocomplete="off"
+        spellcheck="false"
+        [value]="contextKey()"
+        (input)="setKey($event)"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="attributes">
+      <mat-label>Attributes (JSON)</mat-label>
+      <textarea
+        matInput
+        class="mono"
+        rows="4"
+        spellcheck="false"
+        [value]="attributesText()"
+        (input)="setAttributes($event)"
+      ></textarea>
+    </mat-form-field>
+  </div>
+  <div class="outcome" role="status" aria-live="polite">
+    @if (result(); as result) {
+    <p>
+      Serves <strong class="mono">{{ result.variantKey }}</strong> with value
+      <code>{{ valueText(result) }}</code>
+    </p>
+    <p class="muted">
+      {{ explanation(result) }} @if (result.ruleId !== null) { (rule <strong>{{ result.ruleId }}</strong>) }
+      @if (result.bucket !== null) { . Bucket {{ result.bucket }} of 100000. }
+    </p>
+    } @else {
+    <p class="muted">{{ problem() }}</p>
+    }
+  </div>
+</section>

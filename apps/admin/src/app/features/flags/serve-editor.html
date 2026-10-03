@@ -1,0 +1,111 @@
+<fieldset class="serve">
+  <legend>{{ label() }}</legend>
+  <mat-radio-group
+    class="mode"
+    [value]="serve().mode"
+    (change)="setMode($event.value)"
+    [attr.aria-label]="label() + ' mode'"
+  >
+    <mat-radio-button value="variant">One variant</mat-radio-button>
+    <mat-radio-button value="rollout">Percentage rollout</mat-radio-button>
+  </mat-radio-group>
+
+  @if (serve().mode === 'variant') {
+  <mat-form-field
+    appearance="outline"
+    subscriptSizing="dynamic"
+    class="variant"
+    [class.invalid]="variantIssues().length > 0"
+  >
+    <mat-label>Variant</mat-label>
+    <mat-select [value]="serve().variant" (valueChange)="setVariant($event)" [id]="idPrefix() + '-variant'">
+      @for (key of variantKeys(); track key) {
+      <mat-option [value]="key">{{ key }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  @for (message of variantIssues(); track message) {
+  <p class="field-error">{{ message }}</p>
+  } } @else {
+  <div class="bar" role="img" [attr.aria-label]="'Rollout split: ' + remainingText()">
+    @for (slice of slices(); track $index; let index = $index) {
+    <span class="slice" [style.width.%]="slice.width" [attr.data-index]="index % 6"></span>
+    }
+  </div>
+  @for (entry of serve().rollout; track entry.uid; let index = $index) {
+  <div class="entry" role="group" [attr.aria-label]="'Rollout entry ' + (index + 1)">
+    <mat-form-field
+      appearance="outline"
+      subscriptSizing="dynamic"
+      [class.invalid]="messages(index, 'variant').length > 0"
+    >
+      <mat-label>Variant</mat-label>
+      <mat-select [value]="entry.variant" (valueChange)="updateEntry(index, { variant: $event })">
+        @for (key of variantKeys(); track key) {
+        <mat-option [value]="key">{{ key }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field
+      appearance="outline"
+      subscriptSizing="dynamic"
+      class="percent"
+      [class.invalid]="messages(index, 'percent').length > 0"
+    >
+      <mat-label>Percent</mat-label>
+      <input
+        matInput
+        inputmode="decimal"
+        autocomplete="off"
+        [id]="idPrefix() + '-percent-' + index"
+        [value]="entry.percent"
+        [attr.aria-invalid]="messages(index, 'percent').length > 0"
+        (input)="setPercent(index, $event)"
+      />
+      <span matTextSuffix>%</span>
+    </mat-form-field>
+    <button
+      mat-button
+      type="button"
+      class="fill"
+      (click)="fill(index)"
+      [attr.aria-label]="'Give entry ' + (index + 1) + ' the remaining percentage'"
+    >
+      Fill
+    </button>
+    <button
+      mat-icon-button
+      type="button"
+      [attr.aria-label]="'Remove rollout entry ' + (index + 1)"
+      [disabled]="serve().rollout.length <= 1"
+      (click)="removeEntry(index)"
+    >
+      <admin-icon name="delete" />
+    </button>
+    @for (message of messages(index, 'variant'); track message) {
+    <p class="field-error wide">{{ message }}</p>
+    } @for (message of messages(index, 'percent'); track message) {
+    <p class="field-error wide">{{ message }}</p>
+    }
+  </div>
+  }
+  <div class="summary">
+    <span class="remaining" [class.ok]="balanced()" role="status" aria-live="polite"
+      >{{ remainingText() }}</span
+    >
+    <button mat-stroked-button type="button" (click)="addEntry()" [disabled]="!canAddEntry()">
+      <admin-icon name="plus" /> Add variant
+    </button>
+    <button
+      mat-stroked-button
+      type="button"
+      (click)="splitEvenly()"
+      [disabled]="serve().rollout.length === 0"
+    >
+      Split evenly
+    </button>
+  </div>
+  @for (message of rolloutIssues(); track message) {
+  <p class="field-error">{{ message }}</p>
+  } }
+</fieldset>

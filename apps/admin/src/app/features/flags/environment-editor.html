@@ -1,0 +1,123 @@
+@if (draft(); as draft) { @if (config(); as config) {
+<div class="head">
+  <mat-slide-toggle [checked]="draft.enabled" [disabled]="!canWrite()" (change)="setEnabled($event.checked)">
+    Flag is {{ draft.enabled ? 'on' : 'off' }}
+  </mat-slide-toggle>
+  <div class="kill">
+    @if (config.killSwitch) {
+    <span class="chip danger">Kill switch engaged: everyone gets the off variant</span>
+    <button
+      mat-stroked-button
+      type="button"
+      [disabled]="!canWrite()"
+      (click)="killSwitchRequested.emit(false)"
+    >
+      Release kill switch
+    </button>
+    } @else {
+    <button
+      mat-stroked-button
+      type="button"
+      class="engage"
+      [disabled]="!canWrite()"
+      (click)="killSwitchRequested.emit(true)"
+    >
+      Engage kill switch
+    </button>
+    }
+  </div>
+  <span class="muted salt">Salt <code>{{ config.salt }}</code></span>
+</div>
+
+<mat-form-field
+  appearance="outline"
+  subscriptSizing="dynamic"
+  class="off"
+  [class.invalid]="offIssues().length > 0"
+>
+  <mat-label>Off variant</mat-label>
+  <mat-select [value]="draft.offVariant" (valueChange)="setOffVariant($event)" [disabled]="!canWrite()">
+    @for (key of variantKeys(); track key) {
+    <mat-option [value]="key">{{ key }}</mat-option>
+    }
+  </mat-select>
+  <mat-hint>Served while the flag is off or the kill switch is engaged</mat-hint>
+</mat-form-field>
+
+<h3>Targeting rules</h3>
+<p class="muted">
+  Rules are checked from top to bottom and the first match wins. Drag a rule or use the arrow buttons to
+  reorder.
+</p>
+@if (draft.rules.length === 0) {
+<p class="empty-rules">No rules: every context gets the default rule.</p>
+}
+<div class="rules" cdkDropList [cdkDropListData]="draft.rules" (cdkDropListDropped)="drop($event)">
+  @for (rule of draft.rules; track rule.uid; let index = $index) {
+  <admin-rule-editor
+    cdkDrag
+    class="rule"
+    [rule]="rule"
+    [index]="index"
+    [count]="draft.rules.length"
+    [variantKeys]="variantKeys()"
+    [segmentKeys]="segmentKeys()"
+    [issues]="issues()"
+    [idPrefix]="'env-' + environment() + '-rule-' + rule.uid"
+    (ruleChange)="setRule(index, $event)"
+    (movedUp)="moveRule(index, index - 1)"
+    (movedDown)="moveRule(index, index + 1)"
+    (removed)="removeRule(index)"
+  />
+  }
+</div>
+<button mat-stroked-button type="button" class="add-rule" (click)="addRule()" [disabled]="!canWrite()">
+  <admin-icon name="plus" /> Add rule
+</button>
+
+<h3 class="default-title">Default rule</h3>
+<admin-serve-editor
+  label="When no rule matches, serve"
+  [serve]="draft.fallthrough"
+  [variantKeys]="variantKeys()"
+  [issues]="issues()"
+  path="fallthrough"
+  [idPrefix]="'env-' + environment() + '-fallthrough'"
+  (serveChange)="setFallthrough($event)"
+/>
+
+<admin-try-context
+  [config]="tryConfig()"
+  [segments]="tryContextSegments()"
+  [idPrefix]="'env-' + environment() + '-try'"
+/>
+
+<div class="save-bar">
+  @if (issueLines().length > 0) {
+  <ul class="issues" [id]="'env-' + environment() + '-issues'" aria-label="Problems to fix before saving">
+    @for (line of issueLines(); track $index) {
+    <li>{{ line }}</li>
+    }
+  </ul>
+  }
+  <div class="buttons">
+    @if (!canWrite()) {
+    <span class="muted">Read only: no admin key for {{ environmentName() }}.</span>
+    }
+    <button mat-button type="button" [disabled]="!dirty() || saving()" (click)="discarded.emit()">
+      Discard changes
+    </button>
+    <button
+      mat-flat-button
+      type="button"
+      [disabled]="!canSave()"
+      [attr.aria-describedby]="issueLines().length > 0 ? 'env-' + environment() + '-issues' : null"
+      (click)="saved.emit()"
+    >
+      Save {{ environmentName() }}
+    </button>
+  </div>
+</div>
+} @else {
+<p class="muted">This flag has no configuration in {{ environmentName() }}.</p>
+} }

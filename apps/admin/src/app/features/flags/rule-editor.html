@@ -1,0 +1,92 @@
+<section class="rule" [attr.aria-label]="title() + ' ' + rule().id">
+  <header>
+    <span class="handle" cdkDragHandle aria-hidden="true" title="Drag to reorder"
+      ><admin-icon name="drag"
+    /></span>
+    <h4>{{ title() }}</h4>
+    <mat-form-field
+      appearance="outline"
+      subscriptSizing="dynamic"
+      class="name"
+      [class.invalid]="nameIssues().length > 0"
+    >
+      <mat-label>Name</mat-label>
+      <input
+        matInput
+        autocomplete="off"
+        spellcheck="false"
+        [id]="idPrefix() + '-name'"
+        [value]="rule().id"
+        [attr.aria-invalid]="nameIssues().length > 0"
+        [attr.aria-describedby]="nameIssues().length > 0 ? idPrefix() + '-name-error' : null"
+        (input)="setName($event)"
+      />
+    </mat-form-field>
+    <div class="move">
+      <button
+        mat-icon-button
+        type="button"
+        [attr.aria-label]="'Move ' + title() + ' up'"
+        [disabled]="index() === 0"
+        (click)="movedUp.emit()"
+      >
+        <admin-icon name="up" />
+      </button>
+      <button
+        mat-icon-button
+        type="button"
+        [attr.aria-label]="'Move ' + title() + ' down'"
+        [disabled]="index() === count() - 1"
+        (click)="movedDown.emit()"
+      >
+        <admin-icon name="down" />
+      </button>
+      <button mat-icon-button type="button" [attr.aria-label]="'Remove ' + title()" (click)="removed.emit()">
+        <admin-icon name="delete" />
+      </button>
+    </div>
+  </header>
+  @for (message of nameIssues(); track message) {
+  <p class="field-error" [id]="idPrefix() + '-name-error'">{{ message }}</p>
+  }
+
+  <div class="body">
+    <h5>When every condition matches</h5>
+    @if (rule().conditions.length === 0) {
+    <p class="muted none">No conditions: this rule matches every context.</p>
+    } @for (condition of rule().conditions; track condition.uid; let position = $index) {
+    <admin-condition-editor
+      [condition]="condition"
+      [segmentKeys]="segmentKeys()"
+      [issues]="issues()"
+      [path]="path() + '.conditions.' + position"
+      [idPrefix]="idPrefix() + '-condition-' + position"
+      [label]="'condition ' + (position + 1) + ' of ' + title()"
+      (conditionChange)="setCondition(position, $event)"
+      (removed)="removeCondition(position)"
+    />
+    }
+    <div class="add">
+      <button mat-stroked-button type="button" (click)="addCondition('attribute')">
+        <admin-icon name="plus" /> Add condition
+      </button>
+      <button
+        mat-stroked-button
+        type="button"
+        (click)="addCondition('segment')"
+        [disabled]="segmentKeys().length === 0"
+      >
+        <admin-icon name="plus" /> Add segment condition
+      </button>
+    </div>
+    <admin-serve-editor
+      label="Then serve"
+      [serve]="rule().serve"
+      [variantKeys]="variantKeys()"
+      [issues]="issues()"
+      [path]="path() + '.serve'"
+      [idPrefix]="idPrefix() + '-serve'"
+      (serveChange)="setServe($event)"
+    />
+  </div>
+</section>

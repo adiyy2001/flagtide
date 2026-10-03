@@ -1,0 +1,35 @@
+.variants {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+  justify-items: start;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(10rem, 14rem) minmax(12rem, 1fr) auto;
+  gap: 0.75rem;
+  align-items: start;
+  width: 100%;
+}
+
+.remove {
+  margin-top: 0.5rem;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: minmax(0, 1fr) auto;
+
+    .value {
+      grid-column: 1 / -1;
+      order: 3;
+    }
+  }
+}

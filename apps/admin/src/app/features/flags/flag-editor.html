@@ -1,0 +1,119 @@
+<p class="back"><a routerLink="/flags">All flags</a></p>
+
+@if (loading() && !state()) {
+<p role="status">Loading the flag</p>
+} @if (failure(); as problem) {
+<div class="issues" role="alert">The flag could not be loaded: {{ problem }}</div>
+} @if (state(); as state) { @if (state.flag(); as flag) {
+<div class="page-header">
+  <div>
+    <h1 class="mono">{{ flag.key }}</h1>
+    <p>
+      <span class="chip strong">{{ flag.type }}</span>
+      @if (flag.archived) {
+      <span class="chip danger">Archived</span>
+      }
+      <span class="muted">Revision {{ flag.revision }}</span>
+    </p>
+  </div>
+  <div class="actions">
+    <button
+      mat-stroked-button
+      type="button"
+      [disabled]="flag.archived || definitionKeyEnvironment() === null"
+      (click)="archive(state)"
+    >
+      Archive flag
+    </button>
+  </div>
+</div>
+
+<section class="card" aria-labelledby="definition-title">
+  <h2 id="definition-title">Definition</h2>
+  <p class="muted">
+    The description and the variants are shared by every environment. A variant that an environment still
+    serves cannot be removed.
+  </p>
+  <mat-form-field appearance="outline" subscriptSizing="dynamic" class="description">
+    <mat-label>Description</mat-label>
+    <textarea
+      matInput
+      rows="2"
+      [value]="state.definition().description"
+      [disabled]="flag.archived"
+      (input)="setDescription(state, $event)"
+    ></textarea>
+  </mat-form-field>
+  <h3>Variants</h3>
+  <admin-variants-editor
+    [type]="flag.type"
+    [variants]="state.definition().variants"
+    [issues]="state.definitionIssues()"
+    idPrefix="definition-variant"
+    (variantsChange)="setVariants(state, $event)"
+  />
+  @if (definitionLines().length > 0) {
+  <ul class="issues" aria-label="Problems to fix before saving the definition">
+    @for (line of definitionLines(); track $index) {
+    <li>{{ line }}</li>
+    }
+  </ul>
+  }
+  <div class="actions end">
+    @if (definitionKeyEnvironment() === null) {
+    <span class="muted">Read only: no admin key is set.</span>
+    }
+    <button
+      mat-button
+      type="button"
+      [disabled]="!state.definitionDirty() || saving() !== null"
+      (click)="discard(state, 'definition')"
+    >
+      Discard changes
+    </button>
+    <button
+      mat-flat-button
+      type="button"
+      [disabled]="!state.definitionDirty() || state.definitionIssues().length > 0 || saving() !== null || definitionKeyEnvironment() === null || flag.archived"
+      (click)="saveDefinition(state)"
+    >
+      Save definition
+    </button>
+  </div>
+</section>
+
+<section class="card" aria-labelledby="environments-title">
+  <h2 id="environments-title">Environments</h2>
+  <mat-tab-group
+    [selectedIndex]="selectedIndex()"
+    (selectedIndexChange)="selectTab($event)"
+    animationDuration="0ms"
+    mat-stretch-tabs="false"
+    mat-align-tabs="start"
+  >
+    @for (environment of environments(); track environment.key) {
+    <mat-tab>
+      <ng-template mat-tab-label>
+        {{ environment.name }} @if (state.dirtyEnvironments().includes(environment.key)) {
+        <span class="dot" aria-hidden="true"></span>
+        <span class="sr-only">(unsaved changes)</span>
+        }
+      </ng-template>
+      <ng-template matTabContent>
+        <admin-environment-editor
+          [state]="state"
+          [environment]="environment.key"
+          [environmentName]="environment.name"
+          [canWrite]="canWrite(environment.key) && !flag.archived"
+          [saving]="saving() === sectionOf(environment.key)"
+          [segments]="segmentsOf(environment.key)"
+          (saved)="saveEnvironment(state, environment.key)"
+          (discarded)="discard(state, sectionOf(environment.key))"
+          (killSwitchRequested)="toggleKillSwitch(state, environment.key, $event)"
+        />
+      </ng-template>
+    </mat-tab>
+    }
+  </mat-tab-group>
+</section>
+} }

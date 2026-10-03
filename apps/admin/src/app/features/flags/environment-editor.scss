@@ -1,0 +1,83 @@
+:host {
+  display: block;
+  padding-top: 1rem;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.kill {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.engage {
+  --mat-button-outlined-label-text-color: var(--mat-sys-error);
+}
+
+.salt {
+  margin-left: auto;
+}
+
+.off {
+  width: min(100%, 22rem);
+  margin-bottom: 1rem;
+}
+
+.rules {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.rule.cdk-drag-preview {
+  box-shadow: var(--mat-sys-level3);
+}
+
+.rule.cdk-drag-placeholder {
+  opacity: 0.35;
+}
+
+.empty-rules {
+  margin: 0 0 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px dashed var(--mat-sys-outline);
+  border-radius: 0.5rem;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.default-title {
+  margin-top: 1.5rem;
+}
+
+.save-bar {
+  position: sticky;
+  bottom: 0;
+  margin: 1.5rem -1.25rem -1rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--mat-sys-surface-container-low);
+  border-top: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 0 0 0.75rem 0.75rem;
+  z-index: 2;
+
+  .issues {
+    margin-bottom: 0.5rem;
+    max-height: 9rem;
+    overflow: auto;
+  }
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}

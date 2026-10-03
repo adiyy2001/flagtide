@@ -1,0 +1,97 @@
+<fieldset class="variants">
+  <legend class="sr-only">Variants</legend>
+  @for (variant of variants(); track variant.uid; let index = $index) {
+  <div class="row" role="group" [attr.aria-label]="'Variant ' + (index + 1)">
+    <div class="cell key">
+      <mat-form-field
+        appearance="outline"
+        subscriptSizing="dynamic"
+        [class.invalid]="messages(index, 'key').length > 0"
+      >
+        <mat-label>Key</mat-label>
+        <input
+          matInput
+          class="mono"
+          autocomplete="off"
+          spellcheck="false"
+          [id]="idPrefix() + '-key-' + index"
+          [value]="variant.key"
+          [attr.aria-invalid]="messages(index, 'key').length > 0"
+          [attr.aria-describedby]="messages(index, 'key').length > 0 ? idPrefix() + '-key-error-' + index : null"
+          (input)="setKey(index, $event)"
+        />
+      </mat-form-field>
+      @for (message of messages(index, 'key'); track message) {
+      <p class="field-error" [id]="idPrefix() + '-key-error-' + index">{{ message }}</p>
+      }
+    </div>
+    <div class="cell value">
+      @switch (type()) { @case ('boolean') {
+      <mat-form-field
+        appearance="outline"
+        subscriptSizing="dynamic"
+        [class.invalid]="messages(index, 'value').length > 0"
+      >
+        <mat-label>Value</mat-label>
+        <mat-select [value]="variant.valueText" (valueChange)="update(index, { valueText: $event })">
+          <mat-option value="true">true</mat-option>
+          <mat-option value="false">false</mat-option>
+        </mat-select>
+      </mat-form-field>
+      } @case ('json') {
+      <mat-form-field
+        appearance="outline"
+        subscriptSizing="dynamic"
+        [class.invalid]="messages(index, 'value').length > 0"
+      >
+        <mat-label>Value (JSON)</mat-label>
+        <textarea
+          matInput
+          class="mono"
+          rows="4"
+          spellcheck="false"
+          [id]="idPrefix() + '-value-' + index"
+          [value]="variant.valueText"
+          [attr.aria-invalid]="messages(index, 'value').length > 0"
+          [attr.aria-describedby]="messages(index, 'value').length > 0 ? idPrefix() + '-value-error-' + index : null"
+          (input)="setValue(index, $event)"
+        ></textarea>
+      </mat-form-field>
+      } @default {
+      <mat-form-field
+        appearance="outline"
+        subscriptSizing="dynamic"
+        [class.invalid]="messages(index, 'value').length > 0"
+      >
+        <mat-label>{{ type() === 'number' ? 'Value (number)' : 'Value' }}</mat-label>
+        <input
+          matInput
+          autocomplete="off"
+          [attr.inputmode]="type() === 'number' ? 'decimal' : null"
+          [id]="idPrefix() + '-value-' + index"
+          [value]="variant.valueText"
+          [attr.aria-invalid]="messages(index, 'value').length > 0"
+          [attr.aria-describedby]="messages(index, 'value').length > 0 ? idPrefix() + '-value-error-' + index : null"
+          (input)="setValue(index, $event)"
+        />
+      </mat-form-field>
+      } } @for (message of messages(index, 'value'); track message) {
+      <p class="field-error" [id]="idPrefix() + '-value-error-' + index">{{ message }}</p>
+      }
+    </div>
+    <button
+      mat-icon-button
+      type="button"
+      class="remove"
+      [attr.aria-label]="'Remove variant ' + (variant.key || index + 1)"
+      [disabled]="variants().length <= 1"
+      (click)="remove(index)"
+    >
+      <admin-icon name="delete" />
+    </button>
+  </div>
+  } @for (message of generalIssues(); track message) {
+  <p class="field-error">{{ message }}</p>
+  }
+  <button mat-stroked-button type="button" (click)="add()"><admin-icon name="plus" /> Add variant</button>
+</fieldset>

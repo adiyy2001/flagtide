@@ -1,0 +1,59 @@
+:host {
+  display: block;
+}
+
+.rule {
+  background: var(--mat-sys-surface-container-low);
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem 1rem;
+}
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+}
+
+h4 {
+  margin: 0;
+  font: var(--mat-sys-title-small);
+}
+
+h5 {
+  margin: 0.5rem 0;
+  font: var(--mat-sys-label-large);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.handle {
+  display: inline-flex;
+  cursor: grab;
+  color: var(--mat-sys-on-surface-variant);
+  padding: 0.25rem;
+}
+
+.name {
+  width: 14rem;
+}
+
+.move {
+  margin-left: auto;
+}
+
+.body {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.add {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.none {
+  margin: 0;
+}

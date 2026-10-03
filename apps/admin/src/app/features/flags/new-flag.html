@@ -1,0 +1,101 @@
+<p class="back"><a routerLink="/flags">All flags</a></p>
+<div class="page-header">
+  <div>
+    <h1>New flag</h1>
+    <p>
+      The flag is created in every environment, switched off. You set targeting per environment afterwards.
+    </p>
+  </div>
+</div>
+
+<form class="card" (submit)="$event.preventDefault(); create()" novalidate>
+  <div class="grid">
+    <div>
+      <mat-form-field
+        appearance="outline"
+        subscriptSizing="dynamic"
+        class="field"
+        [class.invalid]="keyMessages().length > 0"
+      >
+        <mat-label>Key</mat-label>
+        <input
+          matInput
+          class="mono"
+          autocomplete="off"
+          spellcheck="false"
+          id="new-flag-key"
+          [value]="key()"
+          [attr.aria-invalid]="keyMessages().length > 0"
+          [attr.aria-describedby]="keyMessages().length > 0 ? 'new-flag-key-error' : 'new-flag-key-hint'"
+          (input)="setKey($event)"
+        />
+        <mat-hint id="new-flag-key-hint">Lowercase letters, digits, hyphens and underscores</mat-hint>
+      </mat-form-field>
+      @for (message of keyMessages(); track message) {
+      <p class="field-error" id="new-flag-key-error">{{ message }}</p>
+      }
+    </div>
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="field">
+      <mat-label>Type</mat-label>
+      <mat-select [value]="type()" (valueChange)="setType($event)">
+        @for (type of types; track type) {
+        <mat-option [value]="type">{{ type }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <mat-form-field appearance="outline" subscriptSizing="dynamic" class="wide">
+    <mat-label>Description</mat-label>
+    <textarea matInput rows="2" [value]="description()" (input)="setDescription($event)"></textarea>
+  </mat-form-field>
+
+  <h2>Variants</h2>
+  <admin-variants-editor
+    [type]="type()"
+    [variants]="variants()"
+    [issues]="issues()"
+    idPrefix="new-variant"
+    (variantsChange)="variants.set($event)"
+  />
+
+  <div class="grid defaults">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="field">
+      <mat-label>Off variant</mat-label>
+      <mat-select [value]="offVariant()" (valueChange)="offVariant.set($event)">
+        @for (variant of variantKeys(); track variant) {
+        <mat-option [value]="variant">{{ variant }}</mat-option>
+        }
+      </mat-select>
+      <mat-hint>Served while the flag is off</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="field">
+      <mat-label>Default variant</mat-label>
+      <mat-select [value]="fallthroughVariant()" (valueChange)="fallthroughVariant.set($event)">
+        @for (variant of variantKeys(); track variant) {
+        <mat-option [value]="variant">{{ variant }}</mat-option>
+        }
+      </mat-select>
+      <mat-hint>Served when the flag is on and no rule matches</mat-hint>
+    </mat-form-field>
+  </div>
+
+  @if (touched() && lines().length > 0) {
+  <ul class="issues" aria-label="Problems to fix">
+    @for (line of lines(); track $index) {
+    <li>{{ line }}</li>
+    }
+  </ul>
+  } @for (message of serverIssues(); track message) {
+  <div class="issues-box" role="alert">{{ message }}</div>
+  }
+
+  <div class="actions end">
+    @if (via() === null) {
+    <span class="muted"
+      >Read only: no admin key for {{ workspace.environmentName(workspace.selected() ?? '') }}.</span
+    >
+    }
+    <a mat-button routerLink="/flags">Cancel</a>
+    <button mat-flat-button type="submit" [disabled]="saving() || via() === null">Create flag</button>
+  </div>
+</form>

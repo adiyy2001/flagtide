@@ -1,0 +1,41 @@
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+
+  .grow {
+    flex: 1 1 18rem;
+  }
+}
+
+.count {
+  margin: 0 0 0.75rem;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 0.75rem;
+}
+
+table {
+  width: 100%;
+  background: transparent;
+}
+
+.key {
+  font-weight: 600;
+}
+
+.description {
+  font: var(--mat-sys-body-small);
+  max-width: 32rem;
+}
+
+.state {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

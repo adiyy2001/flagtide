@@ -1,0 +1,116 @@
+<div class="page-header">
+  <div>
+    <h1>Flags</h1>
+    <p>
+      Search, filter and switch flags. The state column shows
+      <strong>{{ workspace.environmentName(environment()) }}</strong>, change it with the environment
+      selector.
+    </p>
+  </div>
+  <div class="actions">
+    <button mat-stroked-button type="button" (click)="load()" [disabled]="loading()">
+      <admin-icon name="refresh" /> Refresh
+    </button>
+    <a mat-flat-button routerLink="/flags/new"> <admin-icon name="plus" /> New flag </a>
+  </div>
+</div>
+
+<form class="filters" role="search" aria-label="Filter flags" (submit)="$event.preventDefault()">
+  <mat-form-field appearance="outline" subscriptSizing="dynamic" class="grow">
+    <mat-label>Search by key or description</mat-label>
+    <input matInput type="search" autocomplete="off" [value]="filter().text" (input)="setText($event)" />
+  </mat-form-field>
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
+    <mat-label>Type</mat-label>
+    <mat-select [value]="filter().type" (valueChange)="setType($event)">
+      <mat-option value="all">All types</mat-option>
+      @for (type of types; track type) {
+      <mat-option [value]="type">{{ type }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
+    <mat-label>State</mat-label>
+    <mat-select [value]="filter().state" (valueChange)="setState($event)">
+      <mat-option value="all">Not archived</mat-option>
+      <mat-option value="enabled">On</mat-option>
+      <mat-option value="disabled">Off</mat-option>
+      <mat-option value="killed">Kill switch engaged</mat-option>
+      <mat-option value="archived">Archived</mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+
+<p class="count" role="status" aria-live="polite">
+  @if (loading()) { Loading flags } @else { Showing {{ visible().length }} of {{ flags().length }} flags }
+</p>
+
+@if (failure(); as problem) {
+<div class="issues" role="alert">Flags could not be loaded: {{ problem }}</div>
+} @if (!loading() && flags().length === 0 && !failure()) {
+<div class="card empty">
+  <p>This project has no flags yet.</p>
+  <a mat-flat-button routerLink="/flags/new">Create the first flag</a>
+</div>
+} @else if (!loading() && visible().length === 0 && !failure()) {
+<div class="card empty">
+  <p>No flag matches the filter.</p>
+  @if (filtered()) {
+  <button mat-stroked-button type="button" (click)="clearFilter()">Clear the filter</button>
+  }
+</div>
+} @else if (visible().length > 0) {
+<div class="table-wrap">
+  <table mat-table [dataSource]="visible()" [trackBy]="trackByKey" aria-label="Flags">
+    <ng-container matColumnDef="flag">
+      <th mat-header-cell *matHeaderCellDef scope="col">Flag</th>
+      <td mat-cell *matCellDef="let flag">
+        <a class="key mono" [routerLink]="['/flags', flag.key]">{{ flag.key }}</a>
+        @if (flag.description) {
+        <div class="muted description">{{ flag.description }}</div>
+        }
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef scope="col">Type</th>
+      <td mat-cell *matCellDef="let flag"><span class="chip">{{ flag.type }}</span></td>
+    </ng-container>
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef scope="col">
+        State in {{ workspace.environmentName(environment()) }}
+      </th>
+      <td mat-cell *matCellDef="let flag">
+        @if (configOf(flag); as config) {
+        <div class="state">
+          <mat-slide-toggle
+            [checked]="config.enabled"
+            [disabled]="flag.archived || isBusy(flag) || !canWrite()"
+            (change)="toggle(flag, $event)"
+            [attr.aria-label]="'Enable ' + flag.key + ' in ' + workspace.environmentName(environment())"
+          >
+            {{ config.enabled ? 'On' : 'Off' }}
+          </mat-slide-toggle>
+          @if (config.killSwitch) {
+          <span class="chip danger">Kill switch</span>
+          } @if (flag.archived) {
+          <span class="chip">Archived</span>
+          }
+        </div>
+        } @else {
+        <span class="muted">Not configured</span>
+        }
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="rules">
+      <th mat-header-cell *matHeaderCellDef scope="col">Rules</th>
+      <td mat-cell *matCellDef="let flag">{{ ruleCount(flag) }}</td>
+    </ng-container>
+    <ng-container matColumnDef="updated">
+      <th mat-header-cell *matHeaderCellDef scope="col">Updated</th>
+      <td mat-cell *matCellDef="let flag" class="muted">{{ updated(flag) }}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+  </table>
+</div>
+}

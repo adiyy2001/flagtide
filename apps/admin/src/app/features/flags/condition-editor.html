@@ -1,0 +1,103 @@
+<div class="condition" role="group" [attr.aria-label]="label()">
+  @if (allowSegment()) {
+  <mat-form-field appearance="outline" subscriptSizing="dynamic" class="kind">
+    <mat-label>Match on</mat-label>
+    <mat-select [value]="condition().kind" (valueChange)="setKind($event)">
+      <mat-option value="attribute">Attribute</mat-option>
+      <mat-option value="segment">Segment</mat-option>
+    </mat-select>
+  </mat-form-field>
+  } @if (condition().kind === 'segment') {
+  <div class="cell segment">
+    <mat-form-field
+      appearance="outline"
+      subscriptSizing="dynamic"
+      [class.invalid]="messages('segment').length > 0"
+    >
+      <mat-label>Segment</mat-label>
+      <mat-select [value]="condition().segment" (valueChange)="patch({ segment: $event })">
+        @for (key of segmentKeys(); track key) {
+        <mat-option [value]="key">{{ key }}</mat-option>
+        } @if (condition().segment && !segmentKeys().includes(condition().segment)) {
+        <mat-option [value]="condition().segment">{{ condition().segment }} (missing)</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    @for (message of messages('segment'); track message) {
+    <p class="field-error">{{ message }}</p>
+    }
+  </div>
+  } @else {
+  <div class="cell attribute">
+    <mat-form-field
+      appearance="outline"
+      subscriptSizing="dynamic"
+      [class.invalid]="messages('attribute').length > 0"
+    >
+      <mat-label>Attribute</mat-label>
+      <input
+        matInput
+        class="mono"
+        autocomplete="off"
+        spellcheck="false"
+        [id]="idPrefix() + '-attribute'"
+        [value]="condition().attribute"
+        [attr.aria-invalid]="messages('attribute').length > 0"
+        [attr.aria-describedby]="messages('attribute').length > 0 ? idPrefix() + '-attribute-error' : null"
+        (input)="setText('attribute', $event)"
+      />
+    </mat-form-field>
+    @for (message of messages('attribute'); track message) {
+    <p class="field-error" [id]="idPrefix() + '-attribute-error'">{{ message }}</p>
+    }
+  </div>
+  <mat-form-field appearance="outline" subscriptSizing="dynamic" class="operator">
+    <mat-label>Operator</mat-label>
+    <mat-select [value]="condition().operator" (valueChange)="setOperator($event)">
+      @for (operator of operators; track operator.operator) {
+      <mat-option [value]="operator.operator">{{ operator.label }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  @if (showsType()) {
+  <mat-form-field appearance="outline" subscriptSizing="dynamic" class="type">
+    <mat-label>Value type</mat-label>
+    <mat-select [value]="condition().scalarType" (valueChange)="patch({ scalarType: $event })">
+      @for (type of scalarTypes; track type) {
+      <mat-option [value]="type">{{ type }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  }
+  <div class="cell values">
+    <mat-form-field
+      appearance="outline"
+      subscriptSizing="dynamic"
+      [class.invalid]="messages('values').length > 0"
+    >
+      <mat-label>Value</mat-label>
+      <input
+        matInput
+        autocomplete="off"
+        spellcheck="false"
+        [id]="idPrefix() + '-values'"
+        [value]="condition().valuesText"
+        [attr.aria-invalid]="messages('values').length > 0"
+        [attr.aria-describedby]="idPrefix() + '-values-hint' + (messages('values').length > 0 ? ' ' + idPrefix() + '-values-error' : '')"
+        (input)="setText('valuesText', $event)"
+      />
+      <mat-hint [id]="idPrefix() + '-values-hint'">{{ hint() }}</mat-hint>
+    </mat-form-field>
+    @for (message of messages('values'); track message) {
+    <p class="field-error" [id]="idPrefix() + '-values-error'">{{ message }}</p>
+    }
+  </div>
+  }
+
+  <mat-checkbox [checked]="condition().negate" (change)="patch({ negate: $event.checked })" class="negate">
+    Negate
+  </mat-checkbox>
+  <button mat-icon-button type="button" [attr.aria-label]="'Remove ' + label()" (click)="removed.emit()">
+    <admin-icon name="delete" />
+  </button>
+</div>
