@@ -1,0 +1,196 @@
+<div class="page-header">
+  <div>
+    <h1>Segments</h1>
+    <p>
+      Reusable groups of contexts for <strong>{{ workspace.environmentName(environment()) }}</strong>. A flag
+      rule can match on membership of a segment.
+    </p>
+  </div>
+  <div class="actions">
+    <button mat-flat-button type="button" (click)="open('new')" [disabled]="!canWrite()">
+      <admin-icon name="plus" /> New segment
+    </button>
+  </div>
+</div>
+
+@if (failure(); as problem) {
+<div class="issues" role="alert">Segments could not be loaded: {{ problem }}</div>
+}
+
+<div class="layout">
+  <nav class="list card" aria-label="Segments">
+    @if (loading()) {
+    <p role="status" class="muted">Loading segments</p>
+    } @else if (segments().length === 0) {
+    <p class="muted">No segments in this environment yet.</p>
+    } @else {
+    <ul>
+      @for (segment of segments(); track segment.key) {
+      <li>
+        <button
+          type="button"
+          class="item"
+          [class.active]="activeKey() === segment.key"
+          [attr.aria-current]="activeKey() === segment.key ? 'true' : null"
+          (click)="open(segment)"
+        >
+          <span class="name">{{ segment.name || segment.key }}</span>
+          <span class="mono muted">{{ segment.key }}</span>
+        </button>
+      </li>
+      }
+    </ul>
+    }
+  </nav>
+
+  @if (draft(); as draft) {
+  <form class="editor card" (submit)="$event.preventDefault(); save()" novalidate>
+    <h2>{{ isNew() ? 'New segment' : draft.name || draft.key }}</h2>
+    <div class="two">
+      <div>
+        <mat-form-field
+          appearance="outline"
+          subscriptSizing="dynamic"
+          class="full"
+          [class.invalid]="messages('key').length > 0"
+        >
+          <mat-label>Key</mat-label>
+          <input
+            matInput
+            class="mono"
+            autocomplete="off"
+            spellcheck="false"
+            id="segment-key"
+            [value]="draft.key"
+            [disabled]="!isNew()"
+            [attr.aria-invalid]="messages('key').length > 0"
+            [attr.aria-describedby]="messages('key').length > 0 ? 'segment-key-error' : null"
+            (input)="setText('key', $event)"
+          />
+        </mat-form-field>
+        @for (message of messages('key'); track message) {
+        <p class="field-error" id="segment-key-error">{{ message }}</p>
+        }
+      </div>
+      <div>
+        <mat-form-field
+          appearance="outline"
+          subscriptSizing="dynamic"
+          class="full"
+          [class.invalid]="messages('name').length > 0"
+        >
+          <mat-label>Name</mat-label>
+          <input
+            matInput
+            autocomplete="off"
+            id="segment-name"
+            [value]="draft.name"
+            [attr.aria-invalid]="messages('name').length > 0"
+            [attr.aria-describedby]="messages('name').length > 0 ? 'segment-name-error' : null"
+            (input)="setText('name', $event)"
+          />
+        </mat-form-field>
+        @for (message of messages('name'); track message) {
+        <p class="field-error" id="segment-name-error">{{ message }}</p>
+        }
+      </div>
+    </div>
+
+    <div class="two">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" class="full">
+        <mat-label>Always included context keys</mat-label>
+        <textarea
+          matInput
+          class="mono"
+          rows="4"
+          spellcheck="false"
+          [value]="draft.included"
+          (input)="setText('included', $event)"
+        ></textarea>
+        <mat-hint>One per line or separated by commas</mat-hint>
+      </mat-form-field>
+      <div>
+        <mat-form-field
+          appearance="outline"
+          subscriptSizing="dynamic"
+          class="full"
+          [class.invalid]="messages('excluded').length > 0"
+        >
+          <mat-label>Always excluded context keys</mat-label>
+          <textarea
+            matInput
+            class="mono"
+            rows="4"
+            spellcheck="false"
+            [value]="draft.excluded"
+            [attr.aria-invalid]="messages('excluded').length > 0"
+            [attr.aria-describedby]="messages('excluded').length > 0 ? 'segment-excluded-error' : null"
+            (input)="setText('excluded', $event)"
+          ></textarea>
+          <mat-hint>Excluded wins over everything else</mat-hint>
+        </mat-form-field>
+        @for (message of messages('excluded'); track message) {
+        <p class="field-error" id="segment-excluded-error">{{ message }}</p>
+        }
+      </div>
+    </div>
+
+    <h3>Matching groups</h3>
+    <p class="muted">A context is a member when every condition of at least one group matches.</p>
+    @for (group of draft.groups; track group.uid; let groupIndex = $index) {
+    <section class="group" [attr.aria-label]="'Group ' + (groupIndex + 1)">
+      <header>
+        <h4>Group {{ groupIndex + 1 }}</h4>
+        <button
+          mat-icon-button
+          type="button"
+          [attr.aria-label]="'Remove group ' + (groupIndex + 1)"
+          (click)="removeGroup(groupIndex)"
+        >
+          <admin-icon name="delete" />
+        </button>
+      </header>
+      @for (condition of group.conditions; track condition.uid; let index = $index) {
+      <admin-condition-editor
+        [condition]="condition"
+        [allowSegment]="false"
+        [issues]="issues()"
+        [path]="'groups.' + groupIndex + '.conditions.' + index"
+        [idPrefix]="'segment-group-' + group.uid + '-' + index"
+        [label]="'condition ' + (index + 1) + ' of group ' + (groupIndex + 1)"
+        (conditionChange)="setCondition(groupIndex, index, $event)"
+        (removed)="removeCondition(groupIndex, index)"
+      />
+      }
+      <button mat-stroked-button type="button" (click)="addCondition(groupIndex)">
+        <admin-icon name="plus" /> Add condition
+      </button>
+    </section>
+    }
+    <button mat-stroked-button type="button" (click)="addGroup()">
+      <admin-icon name="plus" /> Add group
+    </button>
+
+    @if (lines().length > 0 && dirty()) {
+    <ul class="issues" aria-label="Problems to fix before saving">
+      @for (line of lines(); track $index) {
+      <li>{{ line }}</li>
+      }
+    </ul>
+    }
+    <div class="actions end">
+      @if (!canWrite()) {
+      <span class="muted">Read only: no admin key for this environment.</span>
+      } @if (!isNew()) {
+      <button mat-button type="button" class="danger" (click)="remove()" [disabled]="!canWrite()">
+        Delete segment
+      </button>
+      }
+      <button mat-button type="button" (click)="discard()" [disabled]="!dirty()">Discard changes</button>
+      <button mat-flat-button type="submit" [disabled]="!canSave()">Save segment</button>
+    </div>
+  </form>
+  } @else if (!loading()) {
+  <div class="editor card empty"><p>Select a segment to edit it, or create a new one.</p></div>
+  }
+</div>
