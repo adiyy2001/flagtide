@@ -36,7 +36,11 @@ public final class BuildSnapshot {
   }
 
   public Snapshot execute(Principal principal) {
-    return this.transactions.inReadOnlyTransaction(() -> this.build(principal.environmentRef()));
+    return this.forEnvironment(principal.environmentRef());
+  }
+
+  public Snapshot forEnvironment(EnvironmentRef scope) {
+    return this.transactions.inReadOnlyTransaction(() -> this.build(scope));
   }
 
   Snapshot build(EnvironmentRef scope) {
