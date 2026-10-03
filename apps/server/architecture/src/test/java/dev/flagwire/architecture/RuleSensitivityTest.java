@@ -55,8 +55,13 @@ class RuleSensitivityTest {
   }
 
   @Test
-  void anAdapterCallingAUseCaseIsCaught() {
-    violates(Rules.ADAPTERS_NEVER_CALL_USE_CASES);
+  void anOutboundAdapterCallingAUseCaseIsCaught() {
+    violates(Rules.OUTBOUND_ADAPTERS_NEVER_CALL_USE_CASES);
+  }
+
+  @Test
+  void anInboundAdapterReachingAnOutboundAdapterIsCaught() {
+    violates(Rules.INBOUND_ADAPTERS_DO_NOT_TOUCH_OUTBOUND_ADAPTERS);
   }
 
   @Test

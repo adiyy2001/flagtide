@@ -37,6 +37,24 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>dev.flagwire</groupId>
+      <artifactId>flagwire-adapter-out-postgres</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>dev.flagwire</groupId>
+      <artifactId>flagwire-adapter-in-rest</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>dev.flagwire</groupId>
+      <artifactId>flagwire-bootstrap</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>com.tngtech.archunit</groupId>
       <artifactId>archunit</artifactId>
       <scope>test</scope>
@@ -75,7 +93,7 @@
               <goal>unpack-dependencies</goal>
             </goals>
             <configuration>
-              <includeArtifactIds>flagwire-domain,flagwire-application,flagwire-adapter-out-memory</includeArtifactIds>
+              <includeArtifactIds>flagwire-domain,flagwire-application,flagwire-adapter-out-memory,flagwire-adapter-out-postgres,flagwire-adapter-in-rest,flagwire-bootstrap</includeArtifactIds>
               <excludeTransitive>true</excludeTransitive>
               <excludes>META-INF/**</excludes>
               <outputDirectory>${project.build.outputDirectory}</outputDirectory>
@@ -103,6 +121,8 @@
                     <include>domain/target/jacoco.exec</include>
                     <include>application/target/jacoco.exec</include>
                     <include>adapter-out-memory/target/jacoco.exec</include>
+                    <include>adapter-out-postgres/target/jacoco.exec</include>
+                    <include>bootstrap/target/jacoco.exec</include>
                   </includes>
                 </fileSet>
               </fileSets>
@@ -183,6 +203,32 @@
               <dataFile>${merged.coverage.file}</dataFile>
               <includes>
                 <include>dev/flagwire/adapter/**</include>
+              </includes>
+              <rules>
+                <rule>
+                  <element>BUNDLE</element>
+                  <limits>
+                    <limit>
+                      <counter>LINE</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>0.80</minimum>
+                    </limit>
+                  </limits>
+                </rule>
+              </rules>
+            </configuration>
+          </execution>
+          <execution>
+            <id>gate-bootstrap</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <configuration>
+              <skip>false</skip>
+              <dataFile>${merged.coverage.file}</dataFile>
+              <includes>
+                <include>dev/flagwire/bootstrap/**</include>
               </includes>
               <rules>
                 <rule>

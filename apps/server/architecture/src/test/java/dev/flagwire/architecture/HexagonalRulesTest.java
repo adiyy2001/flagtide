@@ -38,7 +38,8 @@ class HexagonalRulesTest {
         .hasSizeGreaterThan(50);
     assertThat(
             classes.stream()
-                .filter(type -> type.getPackageName().startsWith("dev.flagwire.adapter.memory")))
+                .filter(
+                    type -> type.getPackageName().startsWith("dev.flagwire.adapter.out.memory")))
         .isNotEmpty();
   }
 
@@ -73,8 +74,13 @@ class HexagonalRulesTest {
   }
 
   @Test
-  void adaptersImplementPortsAndNeverCallUseCases() {
-    holds(Rules.ADAPTERS_NEVER_CALL_USE_CASES);
+  void outboundAdaptersImplementPortsAndNeverCallUseCases() {
+    holds(Rules.OUTBOUND_ADAPTERS_NEVER_CALL_USE_CASES);
+  }
+
+  @Test
+  void inboundAdaptersNeverTouchOutboundAdapters() {
+    holds(Rules.INBOUND_ADAPTERS_DO_NOT_TOUCH_OUTBOUND_ADAPTERS);
   }
 
   @Test

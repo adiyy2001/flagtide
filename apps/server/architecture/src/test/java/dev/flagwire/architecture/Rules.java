@@ -9,6 +9,8 @@ import com.tngtech.archunit.lang.ArchCondition;
 import com.tngtech.archunit.lang.ArchRule;
 import com.tngtech.archunit.lang.ConditionEvents;
 import com.tngtech.archunit.lang.SimpleConditionEvent;
+import com.tngtech.archunit.library.dependencies.SliceAssignment;
+import com.tngtech.archunit.library.dependencies.SliceIdentifier;
 
 final class Rules {
 
@@ -17,6 +19,8 @@ final class Rules {
   static final String ADAPTERS = "dev.flagwire.adapter..";
   static final String BOOTSTRAP = "dev.flagwire.bootstrap..";
   static final String INBOUND_ADAPTERS = "dev.flagwire.adapter.in..";
+  static final String OUTBOUND_ADAPTERS = "dev.flagwire.adapter.out..";
+  private static final String ADAPTER_ROOT = "dev.flagwire.adapter.";
   static final String OUTBOUND_PORTS = "dev.flagwire.application.port.out..";
   static final String USE_CASES = "dev.flagwire.application.usecase..";
 
@@ -45,9 +49,28 @@ final class Rules {
           .onlyDependOnClassesThat()
           .resideInAnyPackage(APPLICATION, DOMAIN, "java..");
 
+  static final SliceAssignment ONE_SLICE_PER_ADAPTER =
+      new SliceAssignment() {
+        @Override
+        public SliceIdentifier getIdentifierOf(JavaClass javaClass) {
+          String name = javaClass.getPackageName() + ".";
+          if (!name.startsWith(ADAPTER_ROOT)) {
+            return SliceIdentifier.ignore();
+          }
+          String[] parts = name.substring(ADAPTER_ROOT.length()).split("\\.");
+          boolean direction = parts.length > 1 && (parts[0].equals("in") || parts[0].equals("out"));
+          return SliceIdentifier.of(direction ? parts[1] : parts[0]);
+        }
+
+        @Override
+        public String getDescription() {
+          return "one slice per adapter";
+        }
+      };
+
   static final ArchRule ADAPTERS_DO_NOT_DEPEND_ON_EACH_OTHER =
       slices()
-          .matching("dev.flagwire.adapter.(*)..")
+          .assignedFrom(ONE_SLICE_PER_ADAPTER)
           .should()
           .notDependOnEachOther()
           .allowEmptyShould(true);
@@ -70,10 +93,10 @@ final class Rules {
           .resideInAPackage(OUTBOUND_PORTS)
           .allowEmptyShould(true);
 
-  static final ArchRule ADAPTERS_NEVER_CALL_USE_CASES =
+  static final ArchRule OUTBOUND_ADAPTERS_NEVER_CALL_USE_CASES =
       noClasses()
           .that()
-          .resideInAPackage(ADAPTERS)
+          .resideInAPackage(OUTBOUND_ADAPTERS)
           .should()
           .dependOnClassesThat()
           .resideInAPackage(USE_CASES)
@@ -95,6 +118,15 @@ final class Rules {
                           item.getName() + (allowed ? " is allowed" : " is a class")));
                 }
               });
+
+  static final ArchRule INBOUND_ADAPTERS_DO_NOT_TOUCH_OUTBOUND_ADAPTERS =
+      noClasses()
+          .that()
+          .resideInAPackage(INBOUND_ADAPTERS)
+          .should()
+          .dependOnClassesThat()
+          .resideInAPackage(OUTBOUND_ADAPTERS)
+          .allowEmptyShould(true);
 
   static final ArchRule DOMAIN_HAS_NO_PACKAGE_CYCLES =
       slices().matching("dev.flagwire.domain.(*)..").should().beFreeOfCycles();

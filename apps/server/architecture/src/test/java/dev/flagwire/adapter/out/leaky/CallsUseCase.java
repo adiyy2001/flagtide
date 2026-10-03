@@ -1,4 +1,4 @@
-package dev.flagwire.adapter.leaky;
+package dev.flagwire.adapter.out.leaky;
 
 import dev.flagwire.application.usecase.CreateFlag;
 

@@ -1,6 +1,6 @@
-package dev.flagwire.adapter.other.leaky;
+package dev.flagwire.adapter.out.other;
 
-import dev.flagwire.adapter.memory.MemoryAdapters;
+import dev.flagwire.adapter.out.memory.MemoryAdapters;
 
 public final class CallsAnotherAdapter {
 
