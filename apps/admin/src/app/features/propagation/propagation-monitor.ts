@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { AdminApi } from '../../api/admin-api';
 import { describeFailure } from '../../api/problem';
-import { MAX_POINTS, appendPoint, linePath, niceMax } from '../../domain/chart';
+import { appendPoint, linePath, niceMax } from '../../domain/chart';
 import type { ChartPoint } from '../../domain/chart';
 import type { PropagationModel } from '../../domain/models';
 import { Workspace } from '../../state/workspace';
@@ -52,7 +52,7 @@ export class PropagationMonitor {
   );
   protected readonly gridLines = computed(() => {
     const maximum = this.maximum();
-    return [0, 0.25, 0.5, 0.75, 1].map((fraction) => ({
+    return [0, 0.5, 1].map((fraction) => ({
       y: HEIGHT - fraction * HEIGHT,
       label: Math.round(maximum * fraction),
     }));
@@ -67,7 +67,7 @@ export class PropagationMonitor {
         WIDTH,
         HEIGHT,
         maximum,
-        MAX_POINTS,
+        Math.max(2, history.length),
       ),
     }));
   });

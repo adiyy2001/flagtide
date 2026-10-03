@@ -83,6 +83,11 @@
     word-break: break-word;
   }
 
+  th:first-child,
+  td:first-child {
+    width: 5rem;
+  }
+
   thead th {
     color: var(--mat-sys-on-surface-variant);
     font-weight: 500;

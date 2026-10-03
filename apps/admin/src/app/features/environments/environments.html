@@ -79,13 +79,14 @@
             } }
             <div class="key-entry">
               <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                <mat-label>Use an admin key for {{ environment.name }}</mat-label>
+                <mat-label>Admin key to use</mat-label>
                 <input
                   matInput
                   type="password"
                   class="mono"
                   autocomplete="off"
                   spellcheck="false"
+                  [attr.aria-label]="'Admin key to use for ' + environment.name"
                   [value]="keyDraft(environment.key)"
                   (input)="setKeyDraft(environment.key, $event)"
                   (keydown.enter)="saveKey(environment.key)"

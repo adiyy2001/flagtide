@@ -50,7 +50,7 @@
           [attr.aria-controls]="'diff-' + row.entry.id"
           (click)="toggle(row.entry.id)"
         >
-          <span class="action">{{ row.entry.action }}</span>
+          <span class="action">{{ actionLabel(row.entry.action) }}</span>
           <span class="mono">{{ row.entry.entityType }} {{ row.entry.entityKey }}</span>
           @if (row.entry.environment) {
           <span class="chip">{{ workspace.environmentName(row.entry.environment) }}</span>

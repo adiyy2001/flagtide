@@ -80,6 +80,11 @@ export class AuditLog {
     return MARKS[kind];
   }
 
+  protected actionLabel(action: string): string {
+    const words = action.replace(/([a-z0-9])([A-Z])/gu, '$1 $2').toLowerCase();
+    return words.charAt(0).toUpperCase() + words.slice(1);
+  }
+
   protected kindLabel(kind: DiffLine['kind']): string {
     return KIND_LABELS[kind];
   }

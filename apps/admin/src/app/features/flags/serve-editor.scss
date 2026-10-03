@@ -62,6 +62,7 @@
   display: grid;
   grid-template-columns: minmax(9rem, 14rem) 8rem auto auto;
   gap: 0.5rem;
+  justify-content: start;
   align-items: start;
   margin-bottom: 0.5rem;
 

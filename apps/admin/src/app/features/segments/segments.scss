@@ -70,8 +70,10 @@
   padding: 0.5rem 1rem 1rem;
   border: 1px solid var(--mat-sys-outline-variant);
   border-radius: 0.75rem;
+  justify-items: start;
 
   header {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;

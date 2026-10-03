@@ -9,7 +9,7 @@ function serverWithAudit(count = 3): FakeServer {
     id: `a${index}`,
     at: `2026-10-03T10:0${index % 10}:00Z`,
     author: 'dev admin',
-    action: index === 0 ? 'flag.created' : 'flag.updated',
+    action: index === 0 ? 'FlagCreated' : 'FlagToggled',
     entityType: 'flag',
     entityKey: index % 2 === 0 ? 'checkout' : 'beta-banner',
     environment: 'dev',
@@ -29,6 +29,7 @@ describe('audit log', () => {
     expect(harness.queryAll('.entries > li')).toHaveLength(3);
     expect(harness.textOf('.entries > li')).toContain('dev admin');
     expect(harness.textOf('.entries > li')).toContain('UTC');
+    expect(harness.textOf('.entries > li')).toContain('Flag created');
   });
 
   it('expands an entry into a before and after table with text labels', async () => {
