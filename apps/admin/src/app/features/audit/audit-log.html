@@ -1,0 +1,108 @@
+<div class="page-header">
+  <div>
+    <h1>Audit log</h1>
+    <p>
+      Every change with its author, the time and what it changed. Open an entry to see the before and after.
+    </p>
+  </div>
+  <div class="actions">
+    <button mat-stroked-button type="button" (click)="reload()" [disabled]="loading()">
+      <admin-icon name="refresh" /> Refresh
+    </button>
+  </div>
+</div>
+
+<form class="filters card" role="search" aria-label="Audit filters" (submit)="$event.preventDefault()">
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
+    <mat-label>Environment</mat-label>
+    <mat-select [value]="environmentFilter()" (valueChange)="setEnvironment($event)">
+      <mat-option value="">All environments</mat-option>
+      @for (environment of workspace.environments(); track environment.key) {
+      <mat-option [value]="environment.key">{{ environment.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
+    <mat-label>Flag or segment key</mat-label>
+    <input matInput class="mono" autocomplete="off" spellcheck="false" (change)="setEntity($event)" />
+  </mat-form-field>
+</form>
+
+@if (failure(); as problem) {
+<div class="issues" role="alert">The audit log could not be loaded: {{ problem }}</div>
+}
+
+<section class="card" aria-labelledby="entries-title">
+  <h2 id="entries-title" class="sr-only">Entries</h2>
+  @if (rows().length === 0) {
+  <p class="empty" [attr.role]="loading() ? 'status' : null">
+    {{ loading() ? 'Loading the audit log' : 'No audit entries match these filters.' }}
+  </p>
+  } @else {
+  <ul class="entries">
+    @for (row of rows(); track row.entry.id) {
+    <li>
+      <div class="summary">
+        <button
+          type="button"
+          class="toggle"
+          [attr.aria-expanded]="isOpen(row.entry.id)"
+          [attr.aria-controls]="'diff-' + row.entry.id"
+          (click)="toggle(row.entry.id)"
+        >
+          <span class="action">{{ row.entry.action }}</span>
+          <span class="mono">{{ row.entry.entityType }} {{ row.entry.entityKey }}</span>
+          @if (row.entry.environment) {
+          <span class="chip">{{ workspace.environmentName(row.entry.environment) }}</span>
+          } @if (row.entry.environmentVersion !== null) {
+          <span class="chip">v{{ row.entry.environmentVersion }}</span>
+          }
+        </button>
+        <span class="meta muted">
+          <time [attr.datetime]="row.entry.at">{{ row.when }}</time>
+          by {{ row.entry.author }}
+        </span>
+      </div>
+      @if (isOpen(row.entry.id)) {
+      <div class="diff" [id]="'diff-' + row.entry.id">
+        @if (row.lines.length === 0) {
+        <p class="muted">This entry records no value change.</p>
+        } @else {
+        <table>
+          <caption class="sr-only">
+            Changes in {{ row.entry.entityKey }}
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Change</th>
+              <th scope="col">Field</th>
+              <th scope="col">Before</th>
+              <th scope="col">After</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (line of row.lines; track line.path) {
+            <tr [class]="line.kind">
+              <td>
+                <span class="mark" aria-hidden="true">{{ mark(line.kind) }}</span>
+                <span class="sr-only">{{ kindLabel(line.kind) }}</span>
+              </td>
+              <th scope="row" class="mono">{{ line.path }}</th>
+              <td class="mono before">{{ line.before ?? 'none' }}</td>
+              <td class="mono after">{{ line.after ?? 'none' }}</td>
+            </tr>
+            }
+          </tbody>
+        </table>
+        }
+      </div>
+      }
+    </li>
+    }
+  </ul>
+  @if (!exhausted()) {
+  <div class="more">
+    <button mat-stroked-button type="button" (click)="loadMore()" [disabled]="loading()">Load more</button>
+  </div>
+  } }
+</section>

@@ -1,0 +1,129 @@
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  align-items: flex-start;
+
+  mat-form-field {
+    min-width: 14rem;
+  }
+}
+
+.entries {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  > li {
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
+    padding: 0.5rem 0;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+}
+
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+}
+
+.toggle {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.5rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--mat-sys-on-surface);
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+
+  &:hover {
+    background: var(--mat-sys-surface-container-high);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--mat-sys-primary);
+    outline-offset: 2px;
+  }
+
+  .action {
+    font-weight: 600;
+  }
+}
+
+.meta {
+  font: var(--mat-sys-body-small);
+}
+
+.diff {
+  margin: 0.5rem 0 0.25rem 0.5rem;
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font: var(--mat-sys-body-small);
+  }
+
+  th,
+  td {
+    text-align: left;
+    padding: 0.375rem 0.5rem;
+    vertical-align: top;
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
+    word-break: break-word;
+  }
+
+  thead th {
+    color: var(--mat-sys-on-surface-variant);
+    font-weight: 500;
+  }
+
+  tbody th {
+    font-weight: 500;
+  }
+
+  .mark {
+    display: inline-block;
+    width: 1.25rem;
+    text-align: center;
+    font-weight: 700;
+    font-family: var(--admin-mono, monospace);
+  }
+
+  tr.added .after,
+  tr.added .mark {
+    background: var(--admin-added-bg, rgba(46, 160, 67, 0.18));
+  }
+
+  tr.removed .before,
+  tr.removed .mark {
+    background: var(--admin-removed-bg, rgba(218, 54, 51, 0.18));
+    text-decoration: line-through;
+  }
+
+  tr.changed .before {
+    text-decoration: line-through;
+    background: var(--admin-removed-bg, rgba(218, 54, 51, 0.18));
+  }
+
+  tr.changed .after,
+  tr.changed .mark {
+    background: var(--admin-added-bg, rgba(46, 160, 67, 0.18));
+  }
+}
+
+.more {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.75rem;
+}
