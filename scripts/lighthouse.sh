@@ -13,6 +13,19 @@ out="bench/results/tmp/lighthouse"
 mkdir -p "$out"
 rm -f "$out"/*.json
 
+profile="$(mktemp -d)"
+debug_port="${LIGHTHOUSE_DEBUG_PORT:-19222}"
+"$CHROME_PATH" --headless=new --no-sandbox --disable-gpu --remote-debugging-address=127.0.0.1 \
+  --remote-debugging-port="$debug_port" --user-data-dir="$profile" about:blank >/dev/null 2>&1 &
+chrome_pid=$!
+trap 'kill "$chrome_pid" 2>/dev/null || true; wait "$chrome_pid" 2>/dev/null || true; rm -rf "$profile" || true' EXIT
+for attempt in $(seq 1 50); do
+  if curl -fsS "http://127.0.0.1:$debug_port/json/version" >/dev/null 2>&1; then
+    break
+  fi
+  sleep 0.2
+done
+
 pages=(
   "admin-flags|$admin/flags"
   "admin-flag-editor|$admin/flags/promo-banner"
@@ -29,7 +42,7 @@ for entry in "${pages[@]}"; do
   url="${entry#*|}"
   npx --yes "lighthouse@$version" "$url" \
     --only-categories=accessibility,best-practices \
-    --chrome-flags="--headless=new --no-sandbox" \
+    --port="$debug_port" \
     --output=json --output-path="$out/$name.json" --quiet
 done
 
