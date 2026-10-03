@@ -8,6 +8,7 @@ const steps = [
   ['pnpm', ['check:text']],
   ['pnpm', ['format:check']],
   ['pnpm', ['nx', 'run-many', '-t', 'lint', 'typecheck', 'test', 'build', '--exclude', 'server']],
+  ['pnpm', ['nx', 'run', 'angular:pack-check']],
   ['pnpm', ['nx', 'run', 'server:verify']],
   ['pnpm', ['conformance']],
 ];

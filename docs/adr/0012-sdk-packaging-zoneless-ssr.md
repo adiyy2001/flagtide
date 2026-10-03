@@ -26,3 +26,10 @@ The brief wants a publishable Angular SDK that works zoneless and under SSR, kee
 
 - Two versions to keep in step, handled by the workspace.
 - Server and browser use different URLs for the same service in the demo shop (container network address versus published port), so the config takes both.
+
+## Amendment (milestone 5)
+
+- ng-packagr runs directly from an Nx run-commands target (`ng-packagr -p libs/angular/ng-package.json`) instead of `@nx/angular:package`. The plugin would add a second Angular toolchain on top of the Angular CLI that already runs the unit tests, and the direct call produces the same partial-compilation output. Nx still caches the build and orders it after `core:build`.
+- The Angular library carries its own `angular.json` so that `ng test angular` runs the specs with the Angular vitest runner and jsdom. Server rendering is tested separately in a Node environment (`test-ssr`) so that no DOM globals exist at all.
+- The SDK checks for browser globals with `in globalThis` and resolves `WebSocket` when the first socket opens, which is why the server test can trap every access to `window`, `document`, `localStorage`, `sessionStorage` and `WebSocket`.
+- The wire frame uses `v` for the version, while the in-memory and transferred snapshot uses `version`.
