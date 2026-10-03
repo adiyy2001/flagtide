@@ -13,7 +13,7 @@ WORKDIR /build/apps/admin
 RUN pnpm exec ng build admin --configuration=production
 
 FROM nginxinc/nginx-unprivileged:1.30.5-alpine
-COPY docker/admin.nginx.conf /etc/nginx/conf.d/default.conf
+COPY docker/admin.nginx.template /etc/nginx/templates/default.conf.template
 COPY docker/admin-config.sh /docker-entrypoint.d/40-admin-config.sh
 COPY --from=build /build/dist/apps/admin/browser/ /usr/share/nginx/html/
 USER root
@@ -21,7 +21,8 @@ RUN chmod +x /docker-entrypoint.d/40-admin-config.sh \
     && touch /usr/share/nginx/html/config.json \
     && chown nginx:nginx /usr/share/nginx/html/config.json
 USER nginx
-ENV FLAGWIRE_ADMIN_API_URL=http://127.0.0.1:18081 \
+ENV FLAGWIRE_FRAME_ANCESTORS="'self' http://127.0.0.1:14400 http://localhost:14400" \
+    FLAGWIRE_ADMIN_API_URL=http://127.0.0.1:18081 \
     FLAGWIRE_ADMIN_PROJECT=demo \
     FLAGWIRE_ADMIN_KEYS={}
 EXPOSE 8080
