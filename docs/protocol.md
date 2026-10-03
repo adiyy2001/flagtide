@@ -54,10 +54,11 @@ The window is the per-environment ring of recent change log entries held in memo
 | --- | --- |
 | 4400 | Bad frame: not JSON, unknown `t`, missing field, too long, or a second `hello` |
 | 4401 | The SDK key is unknown |
-| 4403 | The `Origin` header is not allowed (the upgrade is refused with HTTP 403 before the socket exists) |
 | 4408 | No `hello` arrived within the deadline |
 | 4429 | The client does not keep up: too many frames waiting to be written, or too many sockets waiting for a `hello` |
 | 1013 | The server failed while handling the socket or could not reach its storage, try again later |
+
+An `Origin` header that is not on the allow-list never gets a socket: the upgrade is refused with HTTP 403. Requests without an `Origin` header (servers, tests) and requests from the server's own host are allowed.
 
 ## Acknowledgements
 
