@@ -16,6 +16,7 @@ Every setting that `compose.yaml`, the images and the scripts read. Defaults are
 | `FLAGWIRE_LOAD_VUS` | `50` | k6 virtual users |
 | `FLAGWIRE_LOAD_SOCKETS_PER_VU` | `100` | WebSockets per virtual user (50 times 100 gives 5,000 clients) |
 | `FLAGWIRE_LOAD_ROUNDS` | `30` | Number of flag changes, one per second |
+| `FLAGWIRE_LOAD_TRIGGER_START_S` | `30` | Seconds to wait for every socket to connect before the first change |
 
 ## Server (`server-a`, `server-b`)
 

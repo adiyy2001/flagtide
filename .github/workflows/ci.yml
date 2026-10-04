@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
+    inputs:
+      full-load:
+        description: Run the full 5,000 client load test and the SDK benchmarks
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -12,57 +18,37 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  CI: 'true'
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+
 jobs:
-  lint:
+  static:
     runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm check:text
       - run: pnpm format:check
-      - run: pnpm nx run-many -t lint typecheck test -p core spec
-
-  conformance-ts:
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm exec tsx libs/core/test-support/conformance-cli.ts
-
-  conformance-java:
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '21'
-          cache: maven
-          cache-dependency-path: apps/server/**/pom.xml
-      - working-directory: apps/server
-        run: ./mvnw -B -ntp verify
+      - run: docker run --rm -v "$PWD":/repo -w /repo rhysd/actionlint:1.7.12
 
   conformance:
-    needs: [conformance-ts, conformance-java]
     runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           cache: pnpm
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: '21'
@@ -70,3 +56,154 @@ jobs:
           cache-dependency-path: apps/server/**/pom.xml
       - run: pnpm install --frozen-lockfile
       - run: pnpm conformance
+
+  web:
+    needs: conformance
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm nx run-many -t lint typecheck test build --exclude server --skip-nx-cache
+      - run: pnpm nx run angular:pack-check
+      - run: pnpm coverage:report
+      - uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: web-coverage
+          path: |
+            coverage
+            libs/angular/coverage
+            apps/admin/coverage
+            apps/demo-shop/coverage
+          if-no-files-found: ignore
+
+  server:
+    needs: conformance
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+          cache-dependency-path: apps/server/**/pom.xml
+      - working-directory: apps/server
+        run: ./mvnw -B -ntp verify
+      - uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: server-reports
+          path: |
+            apps/server/*/target/surefire-reports
+            apps/server/*/target/failsafe-reports
+            apps/server/architecture/target/site/jacoco-merged
+          if-no-files-found: ignore
+
+  licenses:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+          cache-dependency-path: apps/server/**/pom.xml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check:licenses
+      - uses: actions/upload-artifact@v7
+        with:
+          name: license-reports
+          path: docs/licenses
+
+  e2e:
+    needs: conformance
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - uses: actions/cache@v6
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+      - run: pnpm install --frozen-lockfile
+      - run: docker compose up -d --build --wait
+      - name: SDK integration tests against the stack
+        env:
+          FLAGWIRE_IT_URL: http://127.0.0.1:18081
+        run: pnpm nx run core:integration --skip-nx-cache
+      - name: Cypress end-to-end suite
+        run: pnpm nx run e2e:e2e
+      - name: Must-have checks against the production stack
+        run: scripts/verify-must-haves.sh
+      - name: Lighthouse accessibility
+        run: scripts/lighthouse.sh
+      - name: Compose logs
+        if: ${{ failure() }}
+        run: docker compose logs --no-color --tail 300
+      - uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: e2e-results
+          path: |
+            apps/e2e/cypress/screenshots
+            apps/e2e/cypress/videos
+            bench/results/lighthouse.json
+          if-no-files-found: ignore
+      - name: Stop the stack
+        if: ${{ always() }}
+        run: docker compose down -v
+
+  bench:
+    needs: conformance
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      FLAGWIRE_LOAD_VUS: ${{ inputs.full-load && '50' || '4' }}
+      FLAGWIRE_LOAD_SOCKETS_PER_VU: ${{ inputs.full-load && '100' || '25' }}
+      FLAGWIRE_LOAD_ROUNDS: ${{ inputs.full-load && '30' || '5' }}
+      FLAGWIRE_LOAD_TRIGGER_START_S: ${{ inputs.full-load && '30' || '6' }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Propagation load test (a short run unless the full one was requested)
+        run: pnpm bench:load
+      - name: SDK evaluation benchmark
+        if: ${{ inputs.full-load }}
+        run: pnpm nx run core:bench
+      - name: Compose logs
+        if: ${{ failure() }}
+        run: docker compose logs --no-color --tail 200
+      - uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: bench-results
+          path: bench/results
+          if-no-files-found: ignore
+      - name: Stop the stack
+        if: ${{ always() }}
+        run: docker compose down -v

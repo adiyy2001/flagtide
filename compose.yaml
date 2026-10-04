@@ -156,6 +156,7 @@ services:
       VUS: ${FLAGWIRE_LOAD_VUS:-50}
       SOCKETS_PER_VU: ${FLAGWIRE_LOAD_SOCKETS_PER_VU:-100}
       ROUNDS: ${FLAGWIRE_LOAD_ROUNDS:-30}
+      TRIGGER_START_S: ${FLAGWIRE_LOAD_TRIGGER_START_S:-30}
     volumes:
       - ./bench/k6:/scripts:ro
       - ./bench/results:/results
