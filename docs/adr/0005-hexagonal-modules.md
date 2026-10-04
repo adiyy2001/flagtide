@@ -12,7 +12,7 @@ Maven modules under `apps/server`: `domain`, `application`, `adapter-in-rest`, `
 
 - `domain` has no dependencies in main scope and imports only the JDK.
 - `application` depends on `domain`. Use cases are plain classes with constructor injection. `bootstrap` creates them with CDI producers, so the application layer has no framework annotations.
-- Adapters depend on `application` and never on each other. Only `bootstrap` depends on all of them and picks the persistence adapter at build time (`flagwire.persistence=postgres|memory`).
+- Adapters depend on `application` and never on each other. Only `bootstrap` depends on all of them and picks the persistence adapter at build time (`flagtide.persistence=postgres|memory`).
 - The Maven enforcer bans extra dependencies in `domain` and `application`. ArchUnit rules in `architecture` check imports and package cycles, written as plain tests that call `rule.check(classes)` with the core `archunit` artifact.
 - Port contract tests are abstract test classes in the `application` test-jar. Both persistence adapters have to pass them.
 

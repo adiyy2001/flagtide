@@ -3,13 +3,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>dev.flagwire</groupId>
-    <artifactId>flagwire-parent</artifactId>
+    <groupId>dev.flagtide</groupId>
+    <artifactId>flagtide-parent</artifactId>
     <version>0.1.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flagwire-adapter-out-postgres</artifactId>
-  <name>flagwire adapter out postgres</name>
+  <artifactId>flagtide-adapter-out-postgres</artifactId>
+  <name>flagtide adapter out postgres</name>
 
   <properties>
     <jacoco.check.skip>true</jacoco.check.skip>
@@ -17,8 +17,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>dev.flagwire</groupId>
-      <artifactId>flagwire-application</artifactId>
+      <groupId>dev.flagtide</groupId>
+      <artifactId>flagtide-application</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
@@ -44,8 +44,8 @@
     </dependency>
 
     <dependency>
-      <groupId>dev.flagwire</groupId>
-      <artifactId>flagwire-application</artifactId>
+      <groupId>dev.flagtide</groupId>
+      <artifactId>flagtide-application</artifactId>
       <version>${project.version}</version>
       <type>test-jar</type>
       <scope>test</scope>
@@ -97,8 +97,8 @@
               <rules>
                 <bannedDependencies>
                   <excludes>
-                    <exclude>dev.flagwire:flagwire-adapter-*</exclude>
-                    <exclude>dev.flagwire:flagwire-bootstrap</exclude>
+                    <exclude>dev.flagtide:flagtide-adapter-*</exclude>
+                    <exclude>dev.flagtide:flagtide-bootstrap</exclude>
                   </excludes>
                   <message>An adapter depends on the application and domain modules only.</message>
                 </bannedDependencies>

@@ -15,7 +15,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import type { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
-import type { FlagType } from '@flagwire/core';
+import type { FlagType } from '@flagtide/core';
 import { AdminApi } from '../../api/admin-api';
 import { ApiError, describeFailure } from '../../api/problem';
 import { EMPTY_FILTER, filterFlags, isFiltered } from '../../domain/filter';

@@ -27,11 +27,11 @@ describe('environments page', () => {
     await harness.settle();
     input?.closest('.key-entry')?.querySelector('button')?.click();
     await harness.settle();
-    expect(harness.store.get('flagwire.admin.keys')).toContain('typed-key');
+    expect(harness.store.get('flagtide.admin.keys')).toContain('typed-key');
     expect(harness.textOf('table')).toContain('Saved in this browser');
     harness.buttonByText('Forget').click();
     await harness.settle();
-    expect(harness.store.get('flagwire.admin.keys') ?? '').not.toContain('typed-key');
+    expect(harness.store.get('flagtide.admin.keys') ?? '').not.toContain('typed-key');
   });
 
   it('creates an environment, shows the issued keys once and remembers the admin key', async () => {
@@ -48,7 +48,7 @@ describe('environments page', () => {
     harness.buttonByText('Create environment').click();
     await harness.settle();
     expect(harness.textOf('.issued')).toContain('fw_admin_secret');
-    expect(harness.store.get('flagwire.admin.keys')).toContain('fw_admin_secret');
+    expect(harness.store.get('flagtide.admin.keys')).toContain('fw_admin_secret');
     harness.buttonByText('I have copied the keys').click();
     await harness.settle();
     expect(harness.queryAll('.issued')).toHaveLength(0);

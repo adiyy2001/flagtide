@@ -5,7 +5,7 @@ import { describeFailure } from '../api/problem';
 import { LOCAL_STORE } from '../api/tokens';
 import type { EnvironmentModel, ProjectModel } from '../domain/models';
 
-const STORAGE_KEY = 'flagwire.admin.environment';
+const STORAGE_KEY = 'flagtide.admin.environment';
 
 @Injectable({ providedIn: 'root' })
 export class Workspace {

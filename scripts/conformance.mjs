@@ -34,7 +34,7 @@ function runJava(directory) {
     '-Dtest=ConformanceTest#reportsTheSameSummaryLineAsTheOtherRunner',
     '-Dsurefire.failIfNoSpecifiedTests=false',
     '-Djacoco.skip=true',
-    `-Dflagwire.vectors=${directory}`,
+    `-Dflagtide.vectors=${directory}`,
   ]);
   return { status: result.status, output: `${result.stdout}${result.stderr}` };
 }

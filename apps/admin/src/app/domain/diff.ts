@@ -1,4 +1,4 @@
-import type { JsonValue } from '@flagwire/core';
+import type { JsonValue } from '@flagtide/core';
 
 export interface DiffLine {
   readonly path: string;

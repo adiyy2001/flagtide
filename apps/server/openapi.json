@@ -538,7 +538,7 @@
   },
   "info" : {
     "description" : "Feature flags per project and environment. Admin keys (fwa_) write, SDK keys (fws_) read the snapshot. Edits may send If-Match with the ETag of the flag or segment. A stale tag answers 409.",
-    "title" : "flagwire admin API",
+    "title" : "flagtide admin API",
     "version" : "1.0.0"
   },
   "openapi" : "3.1.0",

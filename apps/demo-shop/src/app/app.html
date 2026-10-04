@@ -1,6 +1,6 @@
 <a class="skip" href="#main" (click)="skipToContent($event, main)">Skip to content</a>
 
-<div class="banner" data-testid="promo-banner" *flagwireFlag="'promo-banner'">
+<div class="banner" data-testid="promo-banner" *flagtideFlag="'promo-banner'">
   <strong>{{ promo().headline }}</strong>
   @if (promo().code !== '') {
   <span>Use code <code>{{ promo().code }}</code></span>
@@ -12,7 +12,7 @@
   <nav aria-label="Main">
     <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Shop</a>
     <a
-      *flagwireFlag="'beta-recommendations'"
+      *flagtideFlag="'beta-recommendations'"
       data-testid="nav-recommendations"
       routerLink="/recommendations"
       routerLinkActive="active"
@@ -41,7 +41,7 @@
       >Country {{ visitor.country }}, plan {{ visitor.plan }}</span
     >
   </form>
-  <p class="note">Demo shop for flagwire. Nothing here is for sale.</p>
+  <p class="note">Demo shop for flagtide. Nothing here is for sale.</p>
 </footer>
 
-<flagwire-overrides-panel />
+<flagtide-overrides-panel />

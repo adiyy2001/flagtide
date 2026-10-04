@@ -1,4 +1,4 @@
-import type { FlagType, JsonValue } from '@flagwire/core';
+import type { FlagType, JsonValue } from '@flagtide/core';
 import { parseNumberText } from './operators';
 
 const SLUG = /^[a-z0-9][a-z0-9_-]{0,63}$/u;

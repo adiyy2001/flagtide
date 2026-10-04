@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-base="http://127.0.0.1:${FLAGWIRE_PORT_SERVER_A:-18081}"
-project="${FLAGWIRE_SMOKE_PROJECT:-demo}"
-admin="${FLAGWIRE_SMOKE_DEV_ADMIN_KEY:-fwa_demo_dev_admin_000000000000}"
-sdk="${FLAGWIRE_SMOKE_DEV_SDK_KEY:-fws_demo_dev_sdk_0000000000000}"
+base="http://127.0.0.1:${FLAGTIDE_PORT_SERVER_A:-18081}"
+project="${FLAGTIDE_SMOKE_PROJECT:-demo}"
+admin="${FLAGTIDE_SMOKE_DEV_ADMIN_KEY:-fwa_demo_dev_admin_000000000000}"
+sdk="${FLAGTIDE_SMOKE_DEV_SDK_KEY:-fws_demo_dev_sdk_0000000000000}"
 flag="smoke-$(date +%s)-$$"
 flags="$base/api/v1/projects/$project/flags"
 work="$(mktemp -d)"
@@ -68,7 +68,7 @@ check "toggle bumps the revision" '"2"' "$(etag_of "$work/first")"
 
 stale="$(call "$work/stale" -X PUT -H "Authorization: Bearer $admin" -H 'Content-Type: application/json' -H 'If-Match: "1"' -d '{"enabled":false}' "$toggle")"
 check "stale revision conflicts" 409 "$stale"
-contains "conflict is problem details" 'urn:flagwire:problem' "$work/stale"
+contains "conflict is problem details" 'urn:flagtide:problem' "$work/stale"
 
 check "malformed If-Match is a bad request" 400 \
   "$(call "$work/malformed" -X PUT -H "Authorization: Bearer $admin" -H 'Content-Type: application/json' -H 'If-Match: three' -d '{"enabled":true}' "$toggle")"

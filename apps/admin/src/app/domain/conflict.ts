@@ -1,4 +1,4 @@
-import type { JsonValue } from '@flagwire/core';
+import type { JsonValue } from '@flagtide/core';
 import { environmentDraftOf } from './drafts';
 import type { DefinitionDraft, EnvironmentDraft } from './drafts';
 import type { EnvironmentConfigModel, FlagModel } from './models';

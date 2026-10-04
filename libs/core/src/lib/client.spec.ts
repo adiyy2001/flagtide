@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { FakeEnvironment, FakeSockets } from '../../test-support/fake-socket.js';
 import { booleanFlag, snapshotFrame, variantFlag } from '../../test-support/fixtures.js';
-import { createFlagwireClient } from './client.js';
-import type { FlagwireClientOptions } from './client.js';
+import { createFlagtideClient } from './client.js';
+import type { FlagtideClientOptions } from './client.js';
 import { createMemoryStore, createSnapshotStorage } from './storage.js';
 
-function build(overrides: Partial<FlagwireClientOptions> = {}) {
+function build(overrides: Partial<FlagtideClientOptions> = {}) {
   const sockets = new FakeSockets();
-  const client = createFlagwireClient({
+  const client = createFlagtideClient({
     streamUrl: 'ws://test',
     sdkKey: 'fws_test',
     store: createMemoryStore(),
@@ -18,7 +18,7 @@ function build(overrides: Partial<FlagwireClientOptions> = {}) {
   return { client, sockets };
 }
 
-describe('FlagwireClient', () => {
+describe('FlagtideClient', () => {
   it('does not open a socket until it is started', () => {
     const { client, sockets } = build();
     expect(sockets.sockets).toHaveLength(0);

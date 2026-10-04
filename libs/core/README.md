@@ -1,11 +1,11 @@
-# @flagwire/core
+# @flagtide/core
 
-The framework-agnostic part of the flagwire SDK. It evaluates feature flags locally, with the same result as the Java server, and keeps them current over a WebSocket.
+The framework-agnostic part of the flagtide SDK. It evaluates feature flags locally, with the same result as the Java server, and keeps them current over a WebSocket.
 
 ```ts
-import { createFlagwireClient } from '@flagwire/core';
+import { createFlagtideClient } from '@flagtide/core';
 
-const client = createFlagwireClient({
+const client = createFlagtideClient({
   streamUrl: 'wss://flags.example.com/sdk/v1/stream',
   sdkKey: 'fws_...',
   context: { key: 'user-42', attributes: { plan: 'pro', appVersion: '2.4.0' } },

@@ -27,9 +27,9 @@ describe('FlagOverrides', () => {
 
   it('ignores stored content it cannot read', () => {
     const store = createMemoryStore();
-    store.set('flagwire:overrides', '{broken');
+    store.set('flagtide:overrides', '{broken');
     expect(new FlagOverrides(store).entries().size).toBe(0);
-    store.set('flagwire:overrides', '[1]');
+    store.set('flagtide:overrides', '[1]');
     expect(new FlagOverrides(store).entries().size).toBe(0);
   });
 });

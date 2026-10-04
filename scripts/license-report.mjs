@@ -31,7 +31,7 @@ function walk(directory) {
 }
 
 function packageNameOf(specifier) {
-  if (specifier.startsWith('.') || specifier.startsWith('node:') || specifier.startsWith('@flagwire/')) {
+  if (specifier.startsWith('.') || specifier.startsWith('node:') || specifier.startsWith('@flagtide/')) {
     return null;
   }
   const parts = specifier.split('/');
@@ -54,7 +54,7 @@ function runtimeRoots() {
     const manifest = JSON.parse(readFileSync(join(root, directory, 'package.json'), 'utf8'));
     return [...Object.keys(manifest.dependencies ?? {}), ...Object.keys(manifest.peerDependencies ?? {})];
   });
-  peerRoots.filter((name) => !name.startsWith('@flagwire/')).forEach((name) => names.add(name));
+  peerRoots.filter((name) => !name.startsWith('@flagtide/')).forEach((name) => names.add(name));
   return [...names].sort();
 }
 
@@ -188,7 +188,7 @@ function mavenReport() {
       name: match[2].trim(),
       licenses: [...match[1].matchAll(/\(([^)]*)\)/g)].map((license) => license[1].trim()),
     }))
-    .filter((item) => !item.id.startsWith('dev.flagwire:'))
+    .filter((item) => !item.id.startsWith('dev.flagtide:'))
     .map((item) => {
       const normalized = item.licenses.map(normalizeMaven);
       const permissive = normalized.some((license) => permissiveMaven.has(license));

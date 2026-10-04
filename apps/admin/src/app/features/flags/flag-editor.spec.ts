@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { createMemoryStore } from '@flagwire/core';
+import { createMemoryStore } from '@flagtide/core';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { FakeServer, wireFlag } from '../../../test-support/fake-server';
 import { mount } from '../../../test-support/harness';
@@ -204,7 +204,7 @@ describe('flag editor', () => {
 
   it('is read only without an admin key for the environment', async () => {
     const store = createMemoryStore();
-    store.set('flagwire.admin.environment', 'prod');
+    store.set('flagtide.admin.environment', 'prod');
     const harness = await mount({ adminKeys: { dev: 'dev-key' }, store });
     await openEditor(harness);
     expect(harness.textOf('.save-bar')).toContain('Read only');

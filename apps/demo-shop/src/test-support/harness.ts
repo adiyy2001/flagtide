@@ -1,9 +1,9 @@
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
-import type { FlagConfig } from '@flagwire/core';
+import type { FlagConfig } from '@flagtide/core';
 import { snapshotFrame } from '../../../../libs/core/test-support/fixtures';
-import { FakeSockets, testFlagwire } from '../../../../libs/angular/test-support/flagwire-testing';
+import { FakeSockets, testFlagtide } from '../../../../libs/angular/test-support/flagtide-testing';
 import { App } from '../app/app';
 import { routes } from '../app/app.routes';
 import { toEvaluationContext, visitorFromUrl } from '../app/visitor';
@@ -27,7 +27,7 @@ export async function mountShop(visitorQuery = ''): Promise<ShopHarness> {
   TestBed.configureTestingModule({
     providers: [
       provideRouter(routes),
-      testFlagwire(sockets, { context: toEvaluationContext(visitorFromUrl(`/${visitorQuery}`)) }),
+      testFlagtide(sockets, { context: toEvaluationContext(visitorFromUrl(`/${visitorQuery}`)) }),
     ],
   });
   const fixture = TestBed.createComponent(App);

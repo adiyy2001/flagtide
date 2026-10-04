@@ -41,11 +41,11 @@ export default tseslint.config(
     rules: {
       '@angular-eslint/directive-selector': [
         'error',
-        { type: 'attribute', prefix: 'flagwire', style: 'camelCase' },
+        { type: 'attribute', prefix: 'flagtide', style: 'camelCase' },
       ],
       '@angular-eslint/component-selector': [
         'error',
-        { type: 'element', prefix: 'flagwire', style: 'kebab-case' },
+        { type: 'element', prefix: 'flagtide', style: 'kebab-case' },
       ],
     },
   },

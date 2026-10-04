@@ -1,6 +1,6 @@
 export { BUCKET_SPACE, bucketOf } from './lib/bucket.js';
-export { createFlagwireClient, FlagwireClient } from './lib/client.js';
-export type { FlagwireClientOptions } from './lib/client.js';
+export { createFlagtideClient, FlagtideClient } from './lib/client.js';
+export type { FlagtideClientOptions } from './lib/client.js';
 export {
   backoffDelay,
   ConnectionManager,

@@ -2,7 +2,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { LOCAL_STORE } from './tokens';
 import { RUNTIME_CONFIG } from './runtime-config';
 
-const STORAGE_KEY = 'flagwire.admin.keys';
+const STORAGE_KEY = 'flagtide.admin.keys';
 
 function readStored(raw: string | null): Record<string, string> {
   if (raw === null) {

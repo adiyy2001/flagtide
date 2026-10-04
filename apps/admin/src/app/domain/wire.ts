@@ -1,10 +1,10 @@
-import type { AttributeCondition, Condition, FlagConfig, Rule, Scalar, Variant } from '@flagwire/core';
+import type { AttributeCondition, Condition, FlagConfig, Rule, Scalar, Variant } from '@flagtide/core';
 import type { EnvironmentDraft, ConditionDraft, RuleDraft, ServeDraft, VariantDraft } from './drafts';
 import type { EnvironmentConfigModel, FlagModel } from './models';
 import { parseConditionValues } from './operators';
 import { parsePercent } from './rollout';
 import { parseVariantValue } from './variants';
-import type { FlagType } from '@flagwire/core';
+import type { FlagType } from '@flagtide/core';
 import type { components } from '../api/schema';
 
 export type EnvironmentSettingsBody = components['schemas']['EnvironmentSettings'];

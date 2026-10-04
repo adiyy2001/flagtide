@@ -1,4 +1,4 @@
-import type { FlagType } from '@flagwire/core';
+import type { FlagType } from '@flagtide/core';
 import type {
   ConditionDraft,
   DefinitionDraft,

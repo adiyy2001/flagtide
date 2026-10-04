@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import type { FlagType } from '@flagwire/core';
+import type { FlagType } from '@flagtide/core';
 import type {
   ApiKeyModel,
   AuditEntryModel,

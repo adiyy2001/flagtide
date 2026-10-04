@@ -2,14 +2,14 @@ import { isPlatformServer } from '@angular/common';
 import { PLATFORM_ID, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import type { CanMatchFn, UrlTree } from '@angular/router';
-import { jsonEquals } from '@flagwire/core';
-import type { JsonValue } from '@flagwire/core';
+import { jsonEquals } from '@flagtide/core';
+import type { JsonValue } from '@flagtide/core';
 import { map, of, race, take, timer } from 'rxjs';
 import type { Observable } from 'rxjs';
-import { Flagwire } from './flagwire';
+import { Flagtide } from './flagtide';
 
-/** Options of {@link flagwireGuard}. */
-export interface FlagwireGuardOptions {
+/** Options of {@link flagtideGuard}. */
+export interface FlagtideGuardOptions {
   /** The value that lets the route match. Defaults to `true`. */
   readonly equals?: JsonValue;
   /** Where to send the user when the flag does not match, as a URL. Without it the route simply does not match. */
@@ -28,21 +28,21 @@ const DEFAULT_WAIT_MS = 2000;
  * the navigation happens.
  *
  * ```ts
- * { path: 'beta', canMatch: [flagwireGuard('beta-recommendations', { redirectTo: '/' })], loadComponent: ... }
+ * { path: 'beta', canMatch: [flagtideGuard('beta-recommendations', { redirectTo: '/' })], loadComponent: ... }
  * ```
  */
-export function flagwireGuard(key: string, options: FlagwireGuardOptions = {}): CanMatchFn {
+export function flagtideGuard(key: string, options: FlagtideGuardOptions = {}): CanMatchFn {
   return (): Observable<boolean | UrlTree> => {
-    const flagwire = inject(Flagwire);
+    const flagtide = inject(Flagtide);
     const router = inject(Router);
-    const waits = !isPlatformServer(inject(PLATFORM_ID)) && flagwire.client.version === null;
+    const waits = !isPlatformServer(inject(PLATFORM_ID)) && flagtide.client.version === null;
     const ready: Observable<unknown> = waits
-      ? race(flagwire.client.changes$.pipe(take(1)), timer(options.waitMs ?? DEFAULT_WAIT_MS))
+      ? race(flagtide.client.changes$.pipe(take(1)), timer(options.waitMs ?? DEFAULT_WAIT_MS))
       : of(true);
     const expected = options.equals ?? true;
     return ready.pipe(
       map(() => {
-        const resolution = flagwire.client.resolve(key, expected);
+        const resolution = flagtide.client.resolve(key, expected);
         const known = resolution.reason !== 'FLAG_NOT_FOUND' && resolution.reason !== 'TYPE_MISMATCH';
         if (known && jsonEquals(resolution.value, expected)) {
           return true;

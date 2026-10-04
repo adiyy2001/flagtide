@@ -10,21 +10,21 @@ import {
 describe('shopConfigFromEnv', () => {
   it('uses the defaults without variables and treats blanks as unset', () => {
     expect(shopConfigFromEnv({})).toEqual(DEFAULT_SHOP_CONFIG);
-    expect(shopConfigFromEnv({ FLAGWIRE_SHOP_SDK_KEY: '  ' })).toEqual(DEFAULT_SHOP_CONFIG);
+    expect(shopConfigFromEnv({ FLAGTIDE_SHOP_SDK_KEY: '  ' })).toEqual(DEFAULT_SHOP_CONFIG);
   });
 
   it('reads the three variables', () => {
     expect(
       shopConfigFromEnv({
-        FLAGWIRE_SHOP_SDK_KEY: 'k',
-        FLAGWIRE_SHOP_STREAM_URL: 'ws://b/sdk/v1/stream',
-        FLAGWIRE_SHOP_SNAPSHOT_URL: 'http://server-b:8080',
+        FLAGTIDE_SHOP_SDK_KEY: 'k',
+        FLAGTIDE_SHOP_STREAM_URL: 'ws://b/sdk/v1/stream',
+        FLAGTIDE_SHOP_SNAPSHOT_URL: 'http://server-b:8080',
       }),
     ).toEqual({ sdkKey: 'k', streamUrl: 'ws://b/sdk/v1/stream', snapshotUrl: 'http://server-b:8080' });
   });
 
   it('keeps the internal snapshot address out of what the browser receives', () => {
-    expect(browserConfig(shopConfigFromEnv({ FLAGWIRE_SHOP_SNAPSHOT_URL: 'http://internal' }))).toEqual({
+    expect(browserConfig(shopConfigFromEnv({ FLAGTIDE_SHOP_SNAPSHOT_URL: 'http://internal' }))).toEqual({
       sdkKey: DEFAULT_SHOP_CONFIG.sdkKey,
       streamUrl: DEFAULT_SHOP_CONFIG.streamUrl,
     });

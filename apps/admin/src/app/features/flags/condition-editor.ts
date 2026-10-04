@@ -4,7 +4,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import type { Operator } from '@flagwire/core';
+import type { Operator } from '@flagtide/core';
 import type { ConditionDraft } from '../../domain/drafts';
 import type { Issue } from '../../domain/models';
 import { OPERATORS, operatorInfo } from '../../domain/operators';

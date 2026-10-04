@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { createMemoryStore } from '@flagwire/core';
+import { createMemoryStore } from '@flagtide/core';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { KeyStore } from './key-store';
 import { RUNTIME_CONFIG } from './runtime-config';
@@ -8,7 +8,7 @@ import { LOCAL_STORE } from './tokens';
 function setup(stored?: string) {
   const store = createMemoryStore();
   if (stored !== undefined) {
-    store.set('flagwire.admin.keys', stored);
+    store.set('flagtide.admin.keys', stored);
   }
   TestBed.configureTestingModule({
     providers: [
@@ -37,7 +37,7 @@ describe('KeyStore', () => {
     keys.remember('dev', 'typed');
     expect(keys.keyFor('dev')).toBe('typed');
     expect(keys.isRemembered('dev')).toBe(true);
-    expect(JSON.parse(store.get('flagwire.admin.keys') ?? '{}')).toEqual({ dev: 'typed' });
+    expect(JSON.parse(store.get('flagtide.admin.keys') ?? '{}')).toEqual({ dev: 'typed' });
   });
 
   it('forgets a remembered key and falls back to the config', () => {

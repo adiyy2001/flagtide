@@ -14,7 +14,7 @@ A change has to reach several thousand sockets on two instances in well under a 
 - Snapshot answers are cached per environment version, so a reconnect storm builds one snapshot.
 - The `hello` handling runs on a worker thread because it checks the key store. Everything after it stays on the event loop.
 - The load test is a k6 script (`bench/k6/propagation.js`) with 50 virtual users holding 100 sockets each, split over both instances, and one trigger user that toggles a flag through the REST API of alternating instances once per second. It records `now - committedAtMs` for every delta frame. k6 runs from the official image inside the compose network, on the same host as the servers, so every timestamp comes from one clock. Alongside it the report stores what the instances measured from client acknowledgements.
-- Instance identity comes from `FLAGWIRE_INSTANCE_ID` and defaults to a random UUID, which keeps rows in `instance_stats` apart.
+- Instance identity comes from `FLAGTIDE_INSTANCE_ID` and defaults to a random UUID, which keeps rows in `instance_stats` apart.
 
 ## Alternatives
 

@@ -3,13 +3,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>dev.flagwire</groupId>
-    <artifactId>flagwire-parent</artifactId>
+    <groupId>dev.flagtide</groupId>
+    <artifactId>flagtide-parent</artifactId>
     <version>0.1.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>flagwire-architecture</artifactId>
-  <name>flagwire architecture</name>
+  <artifactId>flagtide-architecture</artifactId>
+  <name>flagtide architecture</name>
 
   <properties>
     <jacoco.check.skip>true</jacoco.check.skip>
@@ -19,44 +19,44 @@
 
   <dependencies>
     <dependency>
-      <groupId>dev.flagwire</groupId>
-      <artifactId>flagwire-domain</artifactId>
+      <groupId>dev.flagtide</groupId>
+      <artifactId>flagtide-domain</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>dev.flagwire</groupId>
-      <artifactId>flagwire-application</artifactId>
+      <groupId>dev.flagtide</groupId>
+      <artifactId>flagtide-application</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>dev.flagwire</groupId>
-      <artifactId>flagwire-adapter-out-memory</artifactId>
+      <groupId>dev.flagtide</groupId>
+      <artifactId>flagtide-adapter-out-memory</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>dev.flagwire</groupId>
-      <artifactId>flagwire-adapter-out-postgres</artifactId>
+      <groupId>dev.flagtide</groupId>
+      <artifactId>flagtide-adapter-out-postgres</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>dev.flagwire</groupId>
-      <artifactId>flagwire-adapter-in-rest</artifactId>
+      <groupId>dev.flagtide</groupId>
+      <artifactId>flagtide-adapter-in-rest</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>dev.flagwire</groupId>
-      <artifactId>flagwire-adapter-in-websocket</artifactId>
+      <groupId>dev.flagtide</groupId>
+      <artifactId>flagtide-adapter-in-websocket</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>dev.flagwire</groupId>
-      <artifactId>flagwire-bootstrap</artifactId>
+      <groupId>dev.flagtide</groupId>
+      <artifactId>flagtide-bootstrap</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
@@ -99,7 +99,7 @@
               <goal>unpack-dependencies</goal>
             </goals>
             <configuration>
-              <includeArtifactIds>flagwire-domain,flagwire-application,flagwire-adapter-out-memory,flagwire-adapter-out-postgres,flagwire-adapter-in-rest,flagwire-adapter-in-websocket,flagwire-bootstrap</includeArtifactIds>
+              <includeArtifactIds>flagtide-domain,flagtide-application,flagtide-adapter-out-memory,flagtide-adapter-out-postgres,flagtide-adapter-in-rest,flagtide-adapter-in-websocket,flagtide-bootstrap</includeArtifactIds>
               <excludeTransitive>true</excludeTransitive>
               <excludes>META-INF/**</excludes>
               <outputDirectory>${project.build.outputDirectory}</outputDirectory>
@@ -157,7 +157,7 @@
               <skip>false</skip>
               <dataFile>${merged.coverage.file}</dataFile>
               <includes>
-                <include>dev/flagwire/domain/**</include>
+                <include>dev/flagtide/domain/**</include>
               </includes>
               <rules>
                 <rule>
@@ -183,7 +183,7 @@
               <skip>false</skip>
               <dataFile>${merged.coverage.file}</dataFile>
               <includes>
-                <include>dev/flagwire/application/**</include>
+                <include>dev/flagtide/application/**</include>
               </includes>
               <rules>
                 <rule>
@@ -209,7 +209,7 @@
               <skip>false</skip>
               <dataFile>${merged.coverage.file}</dataFile>
               <includes>
-                <include>dev/flagwire/adapter/**</include>
+                <include>dev/flagtide/adapter/**</include>
               </includes>
               <rules>
                 <rule>
@@ -235,7 +235,7 @@
               <skip>false</skip>
               <dataFile>${merged.coverage.file}</dataFile>
               <includes>
-                <include>dev/flagwire/bootstrap/**</include>
+                <include>dev/flagtide/bootstrap/**</include>
               </includes>
               <rules>
                 <rule>

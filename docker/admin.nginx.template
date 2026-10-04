@@ -6,7 +6,7 @@ server {
 
   add_header X-Content-Type-Options nosniff always;
   add_header Referrer-Policy no-referrer always;
-  set $content_security_policy "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' http: https:; base-uri 'self'; form-action 'self'; frame-ancestors ${FLAGWIRE_FRAME_ANCESTORS}";
+  set $content_security_policy "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' http: https:; base-uri 'self'; form-action 'self'; frame-ancestors ${FLAGTIDE_FRAME_ANCESTORS}";
   add_header Content-Security-Policy $content_security_policy always;
 
   location = /config.json {

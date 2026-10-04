@@ -9,8 +9,8 @@
     "types": [],
     "lib": ["ES2024", "DOM"],
     "paths": {
-      "@flagwire/core": ["../../dist/libs/core/index.d.ts"],
-      "@flagwire/angular": ["./src/index.ts"]
+      "@flagtide/core": ["../../dist/libs/core/index.d.ts"],
+      "@flagtide/angular": ["./src/index.ts"]
     }
   },
   "angularCompilerOptions": {

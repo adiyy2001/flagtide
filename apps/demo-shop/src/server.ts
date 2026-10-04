@@ -17,7 +17,7 @@ import { cacheControlOf, contentTypeOf, resolveStaticFile } from './server/stati
 const browserRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../browser');
 const engine = new AngularNodeAppEngine();
 const headers = securityHeaders({
-  frameAncestors: process.env['FLAGWIRE_SHOP_FRAME_ANCESTORS'] ?? DEFAULT_FRAME_ANCESTORS,
+  frameAncestors: process.env['FLAGTIDE_SHOP_FRAME_ANCESTORS'] ?? DEFAULT_FRAME_ANCESTORS,
 });
 
 function applySecurityHeaders(response: ServerResponse): void {

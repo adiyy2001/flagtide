@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { createMemoryStore } from '@flagwire/core';
+import { createMemoryStore } from '@flagtide/core';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { FakeServer } from '../../test-support/fake-server';
 import { AdminApi } from './admin-api';

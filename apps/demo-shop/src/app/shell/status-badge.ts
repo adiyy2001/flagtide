@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FlagwireStatus } from '@flagwire/angular';
+import { FlagtideStatus } from '@flagtide/angular';
 
 const LABELS = {
   connecting: 'Connecting',
@@ -57,7 +57,7 @@ const LABELS = {
   `,
 })
 export class StatusBadge {
-  private readonly source = inject(FlagwireStatus);
+  private readonly source = inject(FlagtideStatus);
   readonly status = this.source.status;
   readonly label = () => LABELS[this.source.status()];
 }

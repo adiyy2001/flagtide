@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { createFlagwireClient } from '../src/lib/client.js';
+import { createFlagtideClient } from '../src/lib/client.js';
 import { createMemoryStore } from '../src/lib/storage.js';
 import type { DeltasFrame } from '../src/lib/protocol.js';
 
-const baseUrl = process.env['FLAGWIRE_IT_URL'];
-const project = process.env['FLAGWIRE_IT_PROJECT'] ?? 'demo';
-const adminKey = process.env['FLAGWIRE_IT_ADMIN_KEY'] ?? 'fwa_demo_dev_admin_000000000000';
-const sdkKey = process.env['FLAGWIRE_IT_SDK_KEY'] ?? 'fws_demo_dev_sdk_0000000000000';
+const baseUrl = process.env['FLAGTIDE_IT_URL'];
+const project = process.env['FLAGTIDE_IT_PROJECT'] ?? 'demo';
+const adminKey = process.env['FLAGTIDE_IT_ADMIN_KEY'] ?? 'fwa_demo_dev_admin_000000000000';
+const sdkKey = process.env['FLAGTIDE_IT_SDK_KEY'] ?? 'fws_demo_dev_sdk_0000000000000';
 
 async function admin(method: string, path: string, body?: unknown): Promise<Response> {
   const response = await fetch(`${baseUrl}/api/v1/projects/${project}${path}`, {
@@ -68,7 +68,7 @@ async function firstFrameAfterHello(version: number): Promise<DeltasFrame> {
 describe.skipIf(baseUrl === undefined)('SDK against a running server', () => {
   it('sees a flag change made over REST and reports how long it took', async () => {
     const flag = await createBooleanFlag();
-    const client = createFlagwireClient({
+    const client = createFlagtideClient({
       streamUrl: streamUrl(),
       sdkKey,
       context: { key: 'integration-user', attributes: {} },
@@ -91,7 +91,7 @@ describe.skipIf(baseUrl === undefined)('SDK against a running server', () => {
 
   it('gives a client that reconnects with an old version exactly the deltas it missed', async () => {
     const flag = await createBooleanFlag();
-    const client = createFlagwireClient({
+    const client = createFlagtideClient({
       streamUrl: streamUrl(),
       sdkKey,
       context: { key: 'integration-user', attributes: {} },
@@ -121,13 +121,13 @@ describe.skipIf(baseUrl === undefined)('SDK against a running server', () => {
       context: { key: 'integration-user', attributes: {} },
       store,
     };
-    const first = createFlagwireClient(options);
+    const first = createFlagtideClient(options);
     first.start();
     await until(() => first.status === 'live');
     first.stop();
     await setEnabled(flag, true);
 
-    const second = createFlagwireClient(options);
+    const second = createFlagtideClient(options);
     expect(second.status).toBe('stale');
     second.start();
     try {

@@ -22,10 +22,10 @@ RUN chmod +x /docker-entrypoint.d/40-admin-config.sh \
     && touch /usr/share/nginx/html/config.json \
     && chown nginx:nginx /usr/share/nginx/html/config.json
 USER nginx
-ENV FLAGWIRE_FRAME_ANCESTORS="'self'" \
-    FLAGWIRE_ADMIN_API_URL=http://127.0.0.1:18081 \
-    FLAGWIRE_ADMIN_PROJECT=demo \
-    FLAGWIRE_ADMIN_KEYS={}
+ENV FLAGTIDE_FRAME_ANCESTORS="'self'" \
+    FLAGTIDE_ADMIN_API_URL=http://127.0.0.1:18081 \
+    FLAGTIDE_ADMIN_PROJECT=demo \
+    FLAGTIDE_ADMIN_KEYS={}
 EXPOSE 8080
 HEALTHCHECK --interval=5s --timeout=3s --start-period=5s --retries=12 \
   CMD wget -q -O /dev/null http://127.0.0.1:8080/ || exit 1

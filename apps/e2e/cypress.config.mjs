@@ -8,10 +8,10 @@ const run = promisify(execFile);
 const root = resolve(import.meta.dirname, '../..');
 
 const urls = {
-  adminUrl: process.env.FLAGWIRE_E2E_ADMIN_URL ?? 'http://127.0.0.1:14200',
-  shopUrl: process.env.FLAGWIRE_E2E_SHOP_URL ?? 'http://127.0.0.1:14300',
-  apiA: process.env.FLAGWIRE_E2E_API_A ?? 'http://127.0.0.1:18081',
-  apiB: process.env.FLAGWIRE_E2E_API_B ?? 'http://127.0.0.1:18082',
+  adminUrl: process.env.FLAGTIDE_E2E_ADMIN_URL ?? 'http://127.0.0.1:14200',
+  shopUrl: process.env.FLAGTIDE_E2E_SHOP_URL ?? 'http://127.0.0.1:14300',
+  apiA: process.env.FLAGTIDE_E2E_API_A ?? 'http://127.0.0.1:18081',
+  apiB: process.env.FLAGTIDE_E2E_API_B ?? 'http://127.0.0.1:18082',
 };
 
 async function waitForReady(base) {

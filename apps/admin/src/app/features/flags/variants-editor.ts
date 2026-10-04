@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import type { FlagType } from '@flagwire/core';
+import type { FlagType } from '@flagtide/core';
 import { newVariantDraft, removeAt, replaceAt } from '../../domain/drafts';
 import type { VariantDraft } from '../../domain/drafts';
 import type { Issue } from '../../domain/models';

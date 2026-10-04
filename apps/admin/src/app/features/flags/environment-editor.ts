@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import type { Segment } from '@flagwire/core';
+import type { Segment } from '@flagtide/core';
 import { moveItem, newRuleDraft, removeAt, replaceAt } from '../../domain/drafts';
 import type { EnvironmentDraft, RuleDraft, ServeDraft } from '../../domain/drafts';
 import type { SegmentModel } from '../../domain/models';

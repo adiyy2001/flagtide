@@ -8,11 +8,11 @@ import {
   upsertFlag,
   variantFlag,
 } from '../../../core/test-support/fixtures';
-import { FakeSockets, testFlagwire } from '../../test-support/flagwire-testing';
+import { FakeSockets, testFlagtide } from '../../test-support/flagtide-testing';
 import { injectFlag } from './inject-flag';
 
 @Component({
-  selector: 'flagwire-test-probe',
+  selector: 'flagtide-test-probe',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p id="boolean">{{ enabled() }}</p>
@@ -34,7 +34,7 @@ function text(fixture: { nativeElement: HTMLElement }, id: string): string {
 
 function setup() {
   const sockets = new FakeSockets();
-  TestBed.configureTestingModule({ providers: [testFlagwire(sockets)] });
+  TestBed.configureTestingModule({ providers: [testFlagtide(sockets)] });
   const fixture = TestBed.createComponent(ProbeComponent);
   return { sockets, fixture };
 }
@@ -84,7 +84,7 @@ describe('injectFlag', () => {
 
   it('keeps the same object for an unrelated change that leaves the value equal', async () => {
     const sockets = new FakeSockets();
-    TestBed.configureTestingModule({ providers: [testFlagwire(sockets)] });
+    TestBed.configureTestingModule({ providers: [testFlagtide(sockets)] });
     const value = TestBed.runInInjectionContext(() => injectFlag('promo', { title: 'none' }));
     sockets.latest.open();
     sockets.latest.receive(

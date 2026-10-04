@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { Flagwire } from '@flagwire/angular';
-import { flagTypeOf } from '@flagwire/core';
-import type { FlagType, JsonValue, ResolutionReason } from '@flagwire/core';
+import { Flagtide } from '@flagtide/angular';
+import { flagTypeOf } from '@flagtide/core';
+import type { FlagType, JsonValue, ResolutionReason } from '@flagtide/core';
 
 interface OverrideRow {
   readonly key: string;
@@ -24,11 +24,11 @@ function describeValue(value: JsonValue): string {
  * Place it once, near the root of the application, for example behind a development check.
  *
  * ```html
- * <flagwire-overrides-panel />
+ * <flagtide-overrides-panel />
  * ```
  */
 @Component({
-  selector: 'flagwire-overrides-panel',
+  selector: 'flagtide-overrides-panel',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'fw-host' },
   template: `
@@ -294,17 +294,17 @@ function describeValue(value: JsonValue): string {
     }
   `,
 })
-export class FlagwireOverridesPanel {
+export class FlagtideOverridesPanel {
   protected readonly open = signal(false);
   protected readonly invalidJson = signal<string | null>(null);
 
-  private readonly flagwire = inject(Flagwire);
+  private readonly flagtide = inject(Flagtide);
 
-  protected readonly status = this.flagwire.status;
+  protected readonly status = this.flagtide.status;
 
   protected readonly rows = computed<readonly OverrideRow[]>(() => {
-    this.flagwire.revision();
-    const client = this.flagwire.client;
+    this.flagtide.revision();
+    const client = this.flagtide.client;
     return client
       .flagKeys()
       .map((key) => {
@@ -354,19 +354,19 @@ export class FlagwireOverridesPanel {
   }
 
   protected clear(key: string): void {
-    this.flagwire.client.overrides.clear(key);
+    this.flagtide.client.overrides.clear(key);
   }
 
   protected clearAll(): void {
-    this.flagwire.client.overrides.clearAll();
+    this.flagtide.client.overrides.clearAll();
   }
 
   private apply(key: string, value: JsonValue): boolean {
     this.invalidJson.set(null);
-    if (flagTypeOf(value) !== this.flagwire.client.flagType(key)) {
+    if (flagTypeOf(value) !== this.flagtide.client.flagType(key)) {
       return false;
     }
-    this.flagwire.client.overrides.set(key, value);
+    this.flagtide.client.overrides.set(key, value);
     return true;
   }
 }

@@ -18,12 +18,12 @@ function present(value: string | undefined): value is string {
 
 export function shopConfigFromEnv(env: Environment): ShopConfig {
   return {
-    sdkKey: present(env['FLAGWIRE_SHOP_SDK_KEY']) ? env['FLAGWIRE_SHOP_SDK_KEY'] : DEFAULT_SHOP_CONFIG.sdkKey,
-    streamUrl: present(env['FLAGWIRE_SHOP_STREAM_URL'])
-      ? env['FLAGWIRE_SHOP_STREAM_URL']
+    sdkKey: present(env['FLAGTIDE_SHOP_SDK_KEY']) ? env['FLAGTIDE_SHOP_SDK_KEY'] : DEFAULT_SHOP_CONFIG.sdkKey,
+    streamUrl: present(env['FLAGTIDE_SHOP_STREAM_URL'])
+      ? env['FLAGTIDE_SHOP_STREAM_URL']
       : DEFAULT_SHOP_CONFIG.streamUrl,
-    snapshotUrl: present(env['FLAGWIRE_SHOP_SNAPSHOT_URL'])
-      ? env['FLAGWIRE_SHOP_SNAPSHOT_URL']
+    snapshotUrl: present(env['FLAGTIDE_SHOP_SNAPSHOT_URL'])
+      ? env['FLAGTIDE_SHOP_SNAPSHOT_URL']
       : DEFAULT_SHOP_CONFIG.snapshotUrl,
   };
 }

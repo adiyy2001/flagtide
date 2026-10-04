@@ -1,5 +1,5 @@
 {
-  "name": "@flagwire/core",
+  "name": "@flagtide/core",
   "version": "0.1.0",
   "description": "Framework-agnostic feature flag engine: local evaluation that matches the server, and a WebSocket connection manager with jittered backoff.",
   "license": "MIT",

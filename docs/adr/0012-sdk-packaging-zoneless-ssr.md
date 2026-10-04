@@ -8,13 +8,13 @@ The SDK has to be a publishable Angular package that works zoneless and under SS
 
 ## Decision
 
-- Two packages: `@flagwire/core` (no Angular, depends on RxJS as a peer dependency) and `@flagwire/angular` (depends on `@flagwire/core`, peers on Angular 22). Both are ESM only with `sideEffects: false`. The scope is a placeholder until the project name is settled.
-- `@flagwire/angular` is built with ng-packagr through `@nx/angular:package`, and `npm pack` is part of CI. Publishing is not done by the build.
+- Two packages: `@flagtide/core` (no Angular, depends on RxJS as a peer dependency) and `@flagtide/angular` (depends on `@flagtide/core`, peers on Angular 22). Both are ESM only with `sideEffects: false`. The scope is a placeholder until the project name is settled.
+- `@flagtide/angular` is built with ng-packagr through `@nx/angular:package`, and `npm pack` is part of CI. Publishing is not done by the build.
 - Zoneless only. The SDK uses signals and does not need zone.js, and the tests run with the zoneless TestBed that Angular 22 gives by default.
 - SSR: on the server platform the SDK opens no socket and touches neither `window` nor `localStorage`. It fetches the snapshot with `fetch` using a server-side URL, evaluates flags during rendering, and passes the snapshot to the browser through `TransferState`, so the first client render matches the server render. Then the browser connects with the version from that snapshot.
 - Offline start: the last snapshot is written to storage (wrapped in try/catch, because storage can throw) and used while the status is `stale`.
-- The dev overrides panel is a standalone OnPush component in the secondary entry point `@flagwire/angular/overrides`, so applications that do not import it do not ship it. Overrides win over server values and are reported with reason `OVERRIDE`.
-- Public API: `provideFlagwire(config)`, `injectFlag<T>(key, fallback): Signal<T>`, the structural directive `*flagwireFlag`, `flagwireGuard(key, options)` returning a `CanMatchFn`, and a status signal. Only these carry TSDoc.
+- The dev overrides panel is a standalone OnPush component in the secondary entry point `@flagtide/angular/overrides`, so applications that do not import it do not ship it. Overrides win over server values and are reported with reason `OVERRIDE`.
+- Public API: `provideFlagtide(config)`, `injectFlag<T>(key, fallback): Signal<T>`, the structural directive `*flagtideFlag`, `flagtideGuard(key, options)` returning a `CanMatchFn`, and a status signal. Only these carry TSDoc.
 
 ## Alternatives
 

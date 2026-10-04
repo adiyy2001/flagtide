@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { createMemoryStore } from '@flagwire/core';
+import { createMemoryStore } from '@flagtide/core';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { FakeServer, wireFlag } from '../../../test-support/fake-server';
 import { mount } from '../../../test-support/harness';
@@ -66,7 +66,7 @@ describe('flag list', () => {
 
   it('disables the toggle without an admin key for the selected environment', async () => {
     const store = createMemoryStore();
-    store.set('flagwire.admin.environment', 'prod');
+    store.set('flagtide.admin.environment', 'prod');
     const harness = await mount({ adminKeys: { dev: 'dev-key' }, store });
     await harness.go('/flags');
     expect(harness.query<HTMLButtonElement>('mat-slide-toggle button').disabled).toBe(true);

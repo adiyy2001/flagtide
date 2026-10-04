@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { FakeStreamServer } from '../../test-support/fake-server.js';
 import { booleanFlag, upsertFlag, variantFlag } from '../../test-support/fixtures.js';
-import { createFlagwireClient } from './client.js';
-import type { FlagwireClient } from './client.js';
+import { createFlagtideClient } from './client.js';
+import type { FlagtideClient } from './client.js';
 import { createMemoryStore } from './storage.js';
 
 async function until(condition: () => boolean, timeoutMs = 3000): Promise<void> {
@@ -17,7 +17,7 @@ async function until(condition: () => boolean, timeoutMs = 3000): Promise<void> 
 
 describe('stream against a fake server', () => {
   let server: FakeStreamServer;
-  const clients: FlagwireClient[] = [];
+  const clients: FlagtideClient[] = [];
 
   beforeEach(async () => {
     server = await FakeStreamServer.start(
@@ -32,8 +32,8 @@ describe('stream against a fake server', () => {
     await server.stop();
   });
 
-  function connect(overrides: Partial<Parameters<typeof createFlagwireClient>[0]> = {}): FlagwireClient {
-    const client = createFlagwireClient({
+  function connect(overrides: Partial<Parameters<typeof createFlagtideClient>[0]> = {}): FlagtideClient {
+    const client = createFlagtideClient({
       streamUrl: overrides.streamUrl ?? server.url,
       sdkKey: 'fws_test',
       context: { key: 'user-1', attributes: {} },

@@ -1,4 +1,4 @@
-import { evaluate } from '@flagwire/core';
+import { evaluate } from '@flagtide/core';
 import { describe, expect, it } from 'vitest';
 import { booleanFlag, environmentConfig, rule } from '../../test-support/fixtures';
 import { environmentDraftOf, newCondition, rolloutServeDraft } from './drafts';

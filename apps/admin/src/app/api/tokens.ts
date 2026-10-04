@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
-import { createLocalStore } from '@flagwire/core';
-import type { KeyValueStore } from '@flagwire/core';
+import { createLocalStore } from '@flagtide/core';
+import type { KeyValueStore } from '@flagtide/core';
 
 export const LOCAL_STORE = new InjectionToken<KeyValueStore>('LOCAL_STORE', {
   providedIn: 'root',

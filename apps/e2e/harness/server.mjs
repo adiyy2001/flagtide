@@ -8,7 +8,7 @@ export function harnessPage({ adminUrl, shopUrl }) {
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>flagwire: admin and shop side by side</title>
+    <title>flagtide: admin and shop side by side</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
       :root { color-scheme: light dark; }
@@ -20,7 +20,7 @@ export function harnessPage({ adminUrl, shopUrl }) {
     </style>
   </head>
   <body>
-    <section><h1>Admin</h1><iframe id="admin" title="flagwire admin" src="${adminUrl}/flags"></iframe></section>
+    <section><h1>Admin</h1><iframe id="admin" title="flagtide admin" src="${adminUrl}/flags"></iframe></section>
     <section><h1>Demo shop</h1><iframe id="shop" title="demo shop" src="${shopUrl}/"></iframe></section>
   </body>
 </html>

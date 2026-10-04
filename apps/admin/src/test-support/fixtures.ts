@@ -1,4 +1,4 @@
-import type { Rule, Serve } from '@flagwire/core';
+import type { Rule, Serve } from '@flagtide/core';
 import type { EnvironmentConfigModel, FlagModel } from '../app/domain/models';
 
 export function environmentConfig(overrides: Partial<EnvironmentConfigModel> = {}): EnvironmentConfigModel {

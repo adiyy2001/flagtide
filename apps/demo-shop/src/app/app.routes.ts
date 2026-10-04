@@ -1,5 +1,5 @@
 import type { Routes } from '@angular/router';
-import { flagwireGuard } from '@flagwire/angular';
+import { flagtideGuard } from '@flagtide/angular';
 
 export const routes: Routes = [
   {
@@ -11,7 +11,7 @@ export const routes: Routes = [
   {
     path: 'recommendations',
     title: 'Recommendations, Brew Bench',
-    canMatch: [flagwireGuard('beta-recommendations', { redirectTo: '/' })],
+    canMatch: [flagtideGuard('beta-recommendations', { redirectTo: '/' })],
     loadComponent: () => import('./recommendations/recommendations').then((module) => module.Recommendations),
   },
   {

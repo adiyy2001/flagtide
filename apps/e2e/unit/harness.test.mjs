@@ -11,7 +11,7 @@ describe('harness page', () => {
 
   it('titles both frames for assistive technology', () => {
     const html = harnessPage({ adminUrl: 'http://a', shopUrl: 'http://s' });
-    assert.match(html, /title="flagwire admin"/u);
+    assert.match(html, /title="flagtide admin"/u);
     assert.match(html, /title="demo shop"/u);
   });
 });

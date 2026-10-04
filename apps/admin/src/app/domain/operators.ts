@@ -1,5 +1,5 @@
-import type { Operator, Scalar } from '@flagwire/core';
-import { parseSemanticVersion } from '@flagwire/core';
+import type { Operator, Scalar } from '@flagtide/core';
+import { parseSemanticVersion } from '@flagtide/core';
 
 export type ValueKind = 'scalar' | 'text' | 'number' | 'semver';
 export type ScalarType = 'string' | 'number' | 'boolean';

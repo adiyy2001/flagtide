@@ -1,8 +1,8 @@
 import { InjectionToken } from '@angular/core';
-import type { ConnectionTiming, EvaluationContext, KeyValueStore, SocketFactory } from '@flagwire/core';
+import type { ConnectionTiming, EvaluationContext, KeyValueStore, SocketFactory } from '@flagtide/core';
 
-/** Settings for {@link provideFlagwire}. */
-export interface FlagwireConfig {
+/** Settings for {@link provideFlagtide}. */
+export interface FlagtideConfig {
   /** The read-only SDK key of one environment. */
   readonly sdkKey: string;
   /** The stream endpoint the browser connects to, for example `ws://localhost:18081/sdk/v1/stream`. */
@@ -28,7 +28,7 @@ export interface FlagwireConfig {
   readonly socketFactory?: SocketFactory;
 }
 
-export const FLAGWIRE_CONFIG = new InjectionToken<FlagwireConfig>('FLAGWIRE_CONFIG');
+export const FLAGTIDE_CONFIG = new InjectionToken<FlagtideConfig>('FLAGTIDE_CONFIG');
 
 const STREAM_PATH = /\/sdk\/v1\/stream\/?$/u;
 

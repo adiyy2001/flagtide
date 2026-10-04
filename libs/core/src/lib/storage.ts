@@ -81,7 +81,7 @@ function isStoredSnapshot(value: unknown): value is FlagSnapshot {
 
 /** The storage key for a snapshot. The SDK key is hashed so it does not sit in storage as plain text. */
 export function snapshotStorageKey(sdkKey: string): string {
-  return `flagwire:snapshot:${murmur3x86_32OfText(sdkKey).toString(16)}`;
+  return `flagtide:snapshot:${murmur3x86_32OfText(sdkKey).toString(16)}`;
 }
 
 /** Stores the snapshot of one SDK key as JSON. Corrupt or foreign content is dropped and reported as no snapshot. */

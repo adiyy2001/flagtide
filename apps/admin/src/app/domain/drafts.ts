@@ -1,4 +1,4 @@
-import type { AttributeCondition, Condition, FlagType, Operator, Rule, Serve, Variant } from '@flagwire/core';
+import type { AttributeCondition, Condition, FlagType, Operator, Rule, Serve, Variant } from '@flagtide/core';
 import type { EnvironmentConfigModel, FlagModel } from './models';
 import { formatValues, inferScalarType } from './operators';
 import type { ScalarType } from './operators';

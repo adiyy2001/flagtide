@@ -4,10 +4,10 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { provideServerRendering, renderApplication } from '@angular/platform-server';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { booleanFlag, variantFlag } from '../../core/test-support/fixtures';
-import { injectFlag, provideFlagwire } from '../src/index';
+import { injectFlag, provideFlagtide } from '../src/index';
 
 @Component({
-  selector: 'flagwire-test-root',
+  selector: 'flagtide-test-root',
   template: `
     <h1>{{ label() }}</h1>
     @if (banner()) {
@@ -81,7 +81,7 @@ describe('server side rendering', () => {
             providers: [
               provideZonelessChangeDetection(),
               provideServerRendering(),
-              provideFlagwire({
+              provideFlagtide({
                 sdkKey: 'fws_server',
                 streamUrl: 'ws://browser-facing:8080/sdk/v1/stream',
                 snapshotUrl: 'http://api:8080',
@@ -92,7 +92,7 @@ describe('server side rendering', () => {
           context,
         ),
       {
-        document: '<html><head></head><body><flagwire-test-root></flagwire-test-root></body></html>',
+        document: '<html><head></head><body><flagtide-test-root></flagtide-test-root></body></html>',
         url: '/',
       },
     );
@@ -112,8 +112,8 @@ describe('server side rendering', () => {
       string,
       { version: number; flags: { key: string }[] }
     >;
-    expect(transferred['flagwire:snapshot']?.version).toBe(12);
-    expect(transferred['flagwire:snapshot']?.flags.map((flag) => flag.key)).toEqual(['banner', 'label']);
+    expect(transferred['flagtide:snapshot']?.version).toBe(12);
+    expect(transferred['flagtide:snapshot']?.flags.map((flag) => flag.key)).toEqual(['banner', 'label']);
   });
 
   it('never touches window, document, localStorage, sessionStorage or WebSocket', async () => {

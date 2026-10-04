@@ -9,18 +9,18 @@ import {
   upsertFlag,
   variantFlag,
 } from '../../../core/test-support/fixtures';
-import { FakeSockets, testFlagwire } from '../../test-support/flagwire-testing';
-import { FlagwireFlagDirective } from './flag.directive';
+import { FakeSockets, testFlagtide } from '../../test-support/flagtide-testing';
+import { FlagtideFlagDirective } from './flag.directive';
 
 @Component({
-  selector: 'flagwire-test-host',
+  selector: 'flagtide-test-host',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FlagwireFlagDirective],
+  imports: [FlagtideFlagDirective],
   template: `
-    <p *flagwireFlag="key(); else plain" id="then">new</p>
+    <p *flagtideFlag="key(); else plain" id="then">new</p>
     <ng-template #plain><p id="else">old</p></ng-template>
-    <p *flagwireFlag="'label'; equals: 'Buy now'; let value" id="label">{{ value }}</p>
-    <p *flagwireFlag="'missing'" id="missing">never</p>
+    <p *flagtideFlag="'label'; equals: 'Buy now'; let value" id="label">{{ value }}</p>
+    <p *flagtideFlag="'missing'" id="missing">never</p>
   `,
 })
 class HostComponent {
@@ -33,13 +33,13 @@ function present(fixture: ComponentFixture<HostComponent>, id: string): boolean 
 
 function setup() {
   const sockets = new FakeSockets();
-  TestBed.configureTestingModule({ providers: [testFlagwire(sockets)] });
+  TestBed.configureTestingModule({ providers: [testFlagtide(sockets)] });
   const fixture = TestBed.createComponent(HostComponent);
   sockets.latest.open();
   return { sockets, fixture };
 }
 
-describe('*flagwireFlag', () => {
+describe('*flagtideFlag', () => {
   it('shows the else template until the flag is on, then swaps and swaps back', async () => {
     const { sockets, fixture } = setup();
     sockets.latest.receive(snapshotFrame(1, [booleanFlag('banner', { enabled: false })]));
@@ -96,12 +96,12 @@ describe('*flagwireFlag', () => {
     sockets.latest.receive(snapshotFrame(1, [booleanFlag('banner', { enabled: false })]));
     await fixture.whenStable();
     expect(present(fixture, 'then')).toBe(false);
-    const { Flagwire } = await import('./flagwire');
-    const flagwire = TestBed.inject(Flagwire);
-    flagwire.client.overrides.set('banner', true);
+    const { Flagtide } = await import('./flagtide');
+    const flagtide = TestBed.inject(Flagtide);
+    flagtide.client.overrides.set('banner', true);
     await fixture.whenStable();
     expect(present(fixture, 'then')).toBe(true);
-    flagwire.client.overrides.clear('banner');
+    flagtide.client.overrides.clear('banner');
     await fixture.whenStable();
     expect(present(fixture, 'then')).toBe(false);
   });

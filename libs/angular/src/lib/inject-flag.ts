@@ -1,8 +1,8 @@
 import { assertInInjectionContext, computed, inject } from '@angular/core';
 import type { Signal } from '@angular/core';
-import { jsonEquals } from '@flagwire/core';
-import type { JsonValue } from '@flagwire/core';
-import { Flagwire } from './flagwire';
+import { jsonEquals } from '@flagtide/core';
+import type { JsonValue } from '@flagtide/core';
+import { Flagtide } from './flagtide';
 
 /**
  * A signal with the value of a flag. It is evaluated locally and updates when the server pushes a change, when
@@ -21,11 +21,11 @@ export function injectFlag(key: string, fallback: number): Signal<number>;
 export function injectFlag<T extends JsonValue>(key: string, fallback: T): Signal<T>;
 export function injectFlag<T extends JsonValue>(key: string, fallback: T): Signal<T> {
   assertInInjectionContext(injectFlag);
-  const flagwire = inject(Flagwire);
+  const flagtide = inject(Flagtide);
   return computed(
     () => {
-      flagwire.revision();
-      return flagwire.client.value(key, fallback);
+      flagtide.revision();
+      return flagtide.client.value(key, fallback);
     },
     { equal: jsonEquals },
   );

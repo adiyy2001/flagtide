@@ -72,10 +72,10 @@ const web = webProjects
 
 const jacocoPath = join(root, 'apps/server/architecture/target/site/jacoco-merged/jacoco.xml');
 const layers = [
-  ['domain', 'dev/flagwire/domain/'],
-  ['application', 'dev/flagwire/application/'],
-  ['adapters', 'dev/flagwire/adapter/'],
-  ['bootstrap', 'dev/flagwire/bootstrap/'],
+  ['domain', 'dev/flagtide/domain/'],
+  ['application', 'dev/flagtide/application/'],
+  ['adapters', 'dev/flagtide/adapter/'],
+  ['bootstrap', 'dev/flagtide/bootstrap/'],
 ];
 
 function java() {

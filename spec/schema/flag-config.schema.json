@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://flagwire.dev/schema/flag-config.schema.json",
+  "$id": "https://flagtide.example/schema/flag-config.schema.json",
   "title": "Flag config, evaluation spec version 1",
   "$ref": "#/$defs/flagConfig",
   "$defs": {

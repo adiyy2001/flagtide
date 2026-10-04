@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { evaluate, indexSegments } from '@flagwire/core';
-import type { EvaluationResult, FlagConfig, Segment } from '@flagwire/core';
+import { evaluate, indexSegments } from '@flagtide/core';
+import type { EvaluationResult, FlagConfig, Segment } from '@flagtide/core';
 
 type Outcome =
   | { readonly kind: 'result'; readonly result: EvaluationResult }

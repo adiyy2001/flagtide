@@ -10,7 +10,7 @@ export class FlagOverrides {
   private readonly store: KeyValueStore | null;
   private readonly storageKey: string;
 
-  constructor(store: KeyValueStore | null = null, storageKey = 'flagwire:overrides') {
+  constructor(store: KeyValueStore | null = null, storageKey = 'flagtide:overrides') {
     this.store = store;
     this.storageKey = storageKey;
     this.restore();

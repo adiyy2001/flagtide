@@ -12,7 +12,7 @@ Every number in the README comes from a script in the repo, and no number is est
 - `pnpm report` reads those files and prints the tables that the README copies, and it writes the coverage badge `docs/media/coverage.svg`. The badge shows the lowest line coverage of the eight measured areas, because a single blended number would hide a weak spot.
 - The README copies numbers from `pnpm report` and never rounds them up. Where runs differ, the README says so: five propagation runs on one machine gave a p95 between 89 and 169 ms.
 - The demo GIF is made by `scripts/record-demo.mjs`. It starts the harness page from the end-to-end suite (admin and shop in two iframes), drives them with Playwright against the compose stack, records a video, and converts it with ffmpeg in two passes (palette, then dither) to 960 pixels wide at 10 frames per second. The script fails when the file is 8 MB or larger.
-- The visitor in the recording is chosen with `@flagwire/core` so that its bucket sits near the middle of the rollout. A small weight change then moves it across the boundary, which makes the effect visible on screen.
+- The visitor in the recording is chosen with `@flagtide/core` so that its bucket sits near the middle of the rollout. A small weight change then moves it across the boundary, which makes the effect visible on screen.
 
 ## Alternatives
 

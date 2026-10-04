@@ -177,5 +177,28 @@
       "license": "MIT"
     }
   ],
-  "rejected": []
+  "rejected": [],
+  "buildTime": [
+    {
+      "name": "lightningcss",
+      "version": "1.33.0",
+      "license": "MPL-2.0",
+      "expected": "MPL-2.0",
+      "reason": "Used by the Angular build to minify CSS. It runs at build time and none of its code is in a package or an image."
+    },
+    {
+      "name": "caniuse-lite",
+      "version": "1.0.30001814",
+      "license": "CC-BY-4.0",
+      "expected": "CC-BY-4.0",
+      "reason": "Browser support data read by the Angular build and by browserslist. Data only, never shipped."
+    },
+    {
+      "name": "argparse",
+      "version": "2.0.1",
+      "license": "Python-2.0",
+      "expected": "Python-2.0",
+      "reason": "Command line parser inside js-yaml, which tooling uses to read configuration. Never shipped."
+    }
+  ]
 }

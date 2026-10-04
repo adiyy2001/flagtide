@@ -1,1 +1,1 @@
-export { FlagwireOverridesPanel } from './overrides-panel';
+export { FlagtideOverridesPanel } from './overrides-panel';

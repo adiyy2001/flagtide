@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { injectFlag } from '@flagwire/angular';
-import type { JsonValue } from '@flagwire/angular';
+import { injectFlag } from '@flagtide/angular';
+import type { JsonValue } from '@flagtide/angular';
 import { Cart, discountedTotal, shippingProgress } from '../cart';
 import { parsePromo } from '../promo';
 import { formatMoney, PRODUCTS } from '../products';

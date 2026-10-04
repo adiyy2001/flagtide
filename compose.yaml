@@ -1,18 +1,18 @@
-name: flagwire
+name: flagtide
 
 services:
   postgres:
     image: postgres:18.6
     environment:
-      POSTGRES_DB: flagwire
-      POSTGRES_USER: flagwire
-      POSTGRES_PASSWORD: flagwire
+      POSTGRES_DB: flagtide
+      POSTGRES_USER: flagtide
+      POSTGRES_PASSWORD: flagtide
     ports:
-      - '127.0.0.1:${FLAGWIRE_PORT_POSTGRES:-15432}:5432'
+      - '127.0.0.1:${FLAGTIDE_PORT_POSTGRES:-15432}:5432'
     volumes:
       - postgres-data:/var/lib/postgresql
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U flagwire -d flagwire']
+      test: ['CMD-SHELL', 'pg_isready -U flagtide -d flagtide']
       interval: 2s
       timeout: 3s
       retries: 30
@@ -26,23 +26,23 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      FLAGWIRE_INSTANCE_ID: server-a
+      FLAGTIDE_INSTANCE_ID: server-a
       JAVA_TOOL_OPTIONS: '-Xmx512m -XX:+ExitOnOutOfMemoryError'
-      QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://postgres:5432/flagwire
-      QUARKUS_DATASOURCE_USERNAME: flagwire
-      QUARKUS_DATASOURCE_PASSWORD: flagwire
-      FLAGWIRE_CORS_ORIGINS: ${FLAGWIRE_CORS_ORIGINS:-http://localhost:14200,http://127.0.0.1:14200,http://localhost:14300,http://127.0.0.1:14300}
-      FLAGWIRE_SEED_ENABLED: 'true'
-      FLAGWIRE_SEED_PROJECT: demo
-      FLAGWIRE_SEED_NAME: Demo
-      FLAGWIRE_SEED_KEYS_DEV_ADMIN: fwa_demo_dev_admin_000000000000
-      FLAGWIRE_SEED_KEYS_DEV_SDK: fws_demo_dev_sdk_0000000000000
-      FLAGWIRE_SEED_KEYS_STAGING_ADMIN: fwa_demo_staging_admin_00000000
-      FLAGWIRE_SEED_KEYS_STAGING_SDK: fws_demo_staging_sdk_000000000
-      FLAGWIRE_SEED_KEYS_PROD_ADMIN: fwa_demo_prod_admin_00000000000
-      FLAGWIRE_SEED_KEYS_PROD_SDK: fws_demo_prod_sdk_000000000000
+      QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://postgres:5432/flagtide
+      QUARKUS_DATASOURCE_USERNAME: flagtide
+      QUARKUS_DATASOURCE_PASSWORD: flagtide
+      FLAGTIDE_CORS_ORIGINS: ${FLAGTIDE_CORS_ORIGINS:-http://localhost:14200,http://127.0.0.1:14200,http://localhost:14300,http://127.0.0.1:14300}
+      FLAGTIDE_SEED_ENABLED: 'true'
+      FLAGTIDE_SEED_PROJECT: demo
+      FLAGTIDE_SEED_NAME: Demo
+      FLAGTIDE_SEED_KEYS_DEV_ADMIN: fwa_demo_dev_admin_000000000000
+      FLAGTIDE_SEED_KEYS_DEV_SDK: fws_demo_dev_sdk_0000000000000
+      FLAGTIDE_SEED_KEYS_STAGING_ADMIN: fwa_demo_staging_admin_00000000
+      FLAGTIDE_SEED_KEYS_STAGING_SDK: fws_demo_staging_sdk_000000000
+      FLAGTIDE_SEED_KEYS_PROD_ADMIN: fwa_demo_prod_admin_00000000000
+      FLAGTIDE_SEED_KEYS_PROD_SDK: fws_demo_prod_sdk_000000000000
     ports:
-      - '127.0.0.1:${FLAGWIRE_PORT_SERVER_A:-18081}:8080'
+      - '127.0.0.1:${FLAGTIDE_PORT_SERVER_A:-18081}:8080'
     healthcheck:
       test:
         - CMD
@@ -65,15 +65,15 @@ services:
       server-a:
         condition: service_healthy
     environment:
-      FLAGWIRE_INSTANCE_ID: server-b
+      FLAGTIDE_INSTANCE_ID: server-b
       JAVA_TOOL_OPTIONS: '-Xmx512m -XX:+ExitOnOutOfMemoryError'
-      QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://postgres:5432/flagwire
-      QUARKUS_DATASOURCE_USERNAME: flagwire
-      QUARKUS_DATASOURCE_PASSWORD: flagwire
-      FLAGWIRE_CORS_ORIGINS: ${FLAGWIRE_CORS_ORIGINS:-http://localhost:14200,http://127.0.0.1:14200,http://localhost:14300,http://127.0.0.1:14300}
-      FLAGWIRE_SEED_ENABLED: 'false'
+      QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://postgres:5432/flagtide
+      QUARKUS_DATASOURCE_USERNAME: flagtide
+      QUARKUS_DATASOURCE_PASSWORD: flagtide
+      FLAGTIDE_CORS_ORIGINS: ${FLAGTIDE_CORS_ORIGINS:-http://localhost:14200,http://127.0.0.1:14200,http://localhost:14300,http://127.0.0.1:14300}
+      FLAGTIDE_SEED_ENABLED: 'false'
     ports:
-      - '127.0.0.1:${FLAGWIRE_PORT_SERVER_B:-18082}:8080'
+      - '127.0.0.1:${FLAGTIDE_PORT_SERVER_B:-18082}:8080'
     healthcheck:
       test:
         - CMD
@@ -94,12 +94,12 @@ services:
       server-a:
         condition: service_healthy
     environment:
-      FLAGWIRE_ADMIN_API_URL: http://127.0.0.1:${FLAGWIRE_PORT_SERVER_A:-18081}
-      FLAGWIRE_ADMIN_PROJECT: demo
-      FLAGWIRE_FRAME_ANCESTORS: "'self' http://127.0.0.1:14400 http://localhost:14400"
-      FLAGWIRE_ADMIN_KEYS: '{"dev":"fwa_demo_dev_admin_000000000000","staging":"fwa_demo_staging_admin_00000000","prod":"fwa_demo_prod_admin_00000000000"}'
+      FLAGTIDE_ADMIN_API_URL: http://127.0.0.1:${FLAGTIDE_PORT_SERVER_A:-18081}
+      FLAGTIDE_ADMIN_PROJECT: demo
+      FLAGTIDE_FRAME_ANCESTORS: "'self' http://127.0.0.1:14400 http://localhost:14400"
+      FLAGTIDE_ADMIN_KEYS: '{"dev":"fwa_demo_dev_admin_000000000000","staging":"fwa_demo_staging_admin_00000000","prod":"fwa_demo_prod_admin_00000000000"}'
     ports:
-      - '127.0.0.1:${FLAGWIRE_PORT_ADMIN:-14200}:8080'
+      - '127.0.0.1:${FLAGTIDE_PORT_ADMIN:-14200}:8080'
     healthcheck:
       test: ['CMD', 'wget', '-q', '-O', '/dev/null', 'http://127.0.0.1:8080/']
       interval: 3s
@@ -113,9 +113,9 @@ services:
       server-a:
         condition: service_healthy
     environment:
-      FLAGWIRE_SEED_API: http://server-a:8080
-      FLAGWIRE_SEED_PROJECT: demo
-      FLAGWIRE_SEED_ADMIN_KEYS: '{"dev":"fwa_demo_dev_admin_000000000000","staging":"fwa_demo_staging_admin_00000000","prod":"fwa_demo_prod_admin_00000000000"}'
+      FLAGTIDE_SEED_API: http://server-a:8080
+      FLAGTIDE_SEED_PROJECT: demo
+      FLAGTIDE_SEED_ADMIN_KEYS: '{"dev":"fwa_demo_dev_admin_000000000000","staging":"fwa_demo_staging_admin_00000000","prod":"fwa_demo_prod_admin_00000000000"}'
     volumes:
       - ./docker/seed:/seed:ro
     command: ['node', '/seed/seed.mjs']
@@ -131,11 +131,11 @@ services:
       seed:
         condition: service_completed_successfully
     environment:
-      FLAGWIRE_SHOP_SDK_KEY: fws_demo_dev_sdk_0000000000000
-      FLAGWIRE_SHOP_STREAM_URL: ws://127.0.0.1:${FLAGWIRE_PORT_SERVER_B:-18082}/sdk/v1/stream
-      FLAGWIRE_SHOP_SNAPSHOT_URL: http://server-b:8080
+      FLAGTIDE_SHOP_SDK_KEY: fws_demo_dev_sdk_0000000000000
+      FLAGTIDE_SHOP_STREAM_URL: ws://127.0.0.1:${FLAGTIDE_PORT_SERVER_B:-18082}/sdk/v1/stream
+      FLAGTIDE_SHOP_SNAPSHOT_URL: http://server-b:8080
     ports:
-      - '127.0.0.1:${FLAGWIRE_PORT_DEMO_SHOP:-14300}:8080'
+      - '127.0.0.1:${FLAGTIDE_PORT_DEMO_SHOP:-14300}:8080'
     healthcheck:
       test: ['CMD', 'wget', '-q', '-O', '/dev/null', 'http://127.0.0.1:8080/healthz']
       interval: 3s
@@ -146,7 +146,7 @@ services:
   k6:
     image: grafana/k6:2.3.0
     profiles: ['load']
-    user: '${FLAGWIRE_UID:-1000}:${FLAGWIRE_GID:-1000}'
+    user: '${FLAGTIDE_UID:-1000}:${FLAGTIDE_GID:-1000}'
     depends_on:
       server-a:
         condition: service_healthy
@@ -154,10 +154,10 @@ services:
         condition: service_healthy
     environment:
       SERVERS: server-a:8080,server-b:8080
-      VUS: ${FLAGWIRE_LOAD_VUS:-50}
-      SOCKETS_PER_VU: ${FLAGWIRE_LOAD_SOCKETS_PER_VU:-100}
-      ROUNDS: ${FLAGWIRE_LOAD_ROUNDS:-30}
-      TRIGGER_START_S: ${FLAGWIRE_LOAD_TRIGGER_START_S:-30}
+      VUS: ${FLAGTIDE_LOAD_VUS:-50}
+      SOCKETS_PER_VU: ${FLAGTIDE_LOAD_SOCKETS_PER_VU:-100}
+      ROUNDS: ${FLAGTIDE_LOAD_ROUNDS:-30}
+      TRIGGER_START_S: ${FLAGTIDE_LOAD_TRIGGER_START_S:-30}
     volumes:
       - ./bench/k6:/scripts:ro
       - ./bench/results:/results

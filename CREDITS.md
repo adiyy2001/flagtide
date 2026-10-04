@@ -1,6 +1,6 @@
 # Credits
 
-flagwire is written from scratch. This file lists what it builds on. `pnpm check:licenses` reads the runtime closure of the shipped code and fails on any license outside the policy in [ADR 0013](docs/adr/0013-dependency-license-policy.md). It writes the full lists to [`docs/licenses`](docs/licenses): 33 npm packages and 162 Maven artifacts at the time of writing.
+flagtide is written from scratch. This file lists what it builds on. `pnpm check:licenses` reads the runtime closure of the shipped code and fails on any license outside the policy in [ADR 0013](docs/adr/0013-dependency-license-policy.md). It writes the full lists to [`docs/licenses`](docs/licenses): 33 npm packages and 162 Maven artifacts at the time of writing.
 
 ## Runtime dependencies, server
 

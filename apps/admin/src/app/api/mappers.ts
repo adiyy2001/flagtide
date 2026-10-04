@@ -1,4 +1,4 @@
-import type { Condition, JsonValue, Operator, Rule, Scalar, Serve } from '@flagwire/core';
+import type { Condition, JsonValue, Operator, Rule, Scalar, Serve } from '@flagtide/core';
 import type {
   ApiKeyModel,
   AuditEntryModel,

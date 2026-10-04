@@ -21,11 +21,11 @@ import { createLocalStore, createSnapshotStorage, snapshotStorageKey } from './s
 import type { KeyValueStore, SnapshotStorage } from './storage.js';
 import type { EvaluationContext, FlagType, JsonValue } from './types.js';
 
-const SDK_NAME = 'flagwire-core/0.1.0';
-const ANONYMOUS_ID_KEY = 'flagwire:anonymous-id';
+const SDK_NAME = 'flagtide-core/0.1.0';
+const ANONYMOUS_ID_KEY = 'flagtide:anonymous-id';
 
-/** Everything {@link createFlagwireClient} accepts. Only `streamUrl` and `sdkKey` are required. */
-export interface FlagwireClientOptions {
+/** Everything {@link createFlagtideClient} accepts. Only `streamUrl` and `sdkKey` are required. */
+export interface FlagtideClientOptions {
   /** The stream endpoint, for example `ws://localhost:18081/sdk/v1/stream`. */
   readonly streamUrl: string;
   /** The read-only SDK key of one environment. */
@@ -61,9 +61,9 @@ function anonymousContext(store: KeyValueStore): EvaluationContext {
  * Evaluates flags locally and keeps them current over a stream connection.
  *
  * Evaluation never waits for the network: it reads the snapshot the client holds. Create one client per
- * environment with {@link createFlagwireClient}.
+ * environment with {@link createFlagtideClient}.
  */
-export class FlagwireClient {
+export class FlagtideClient {
   /** Local overrides. A resolution reports `OVERRIDE` when one applies. */
   readonly overrides: FlagOverrides;
   private readonly flagStore: FlagStore;
@@ -72,7 +72,7 @@ export class FlagwireClient {
   private readonly contextChanged = new Subject<void>();
   private currentContext: EvaluationContext;
 
-  constructor(options: FlagwireClientOptions) {
+  constructor(options: FlagtideClientOptions) {
     const store = options.store ?? createLocalStore();
     this.storage = createSnapshotStorage(store, options.sdkKey);
     this.currentContext = options.context ?? anonymousContext(store);
@@ -182,6 +182,6 @@ export class FlagwireClient {
 }
 
 /** Creates a client. It does nothing until `start()` is called. */
-export function createFlagwireClient(options: FlagwireClientOptions): FlagwireClient {
-  return new FlagwireClient(options);
+export function createFlagtideClient(options: FlagtideClientOptions): FlagtideClient {
+  return new FlagtideClient(options);
 }

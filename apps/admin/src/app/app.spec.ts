@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { createMemoryStore } from '@flagwire/core';
+import { createMemoryStore } from '@flagtide/core';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { FakeServer } from '../test-support/fake-server';
 import { mount } from '../test-support/harness';
@@ -54,7 +54,7 @@ describe('app shell', () => {
       .find((option) => option.textContent?.trim() === 'Production')
       ?.click();
     await harness.settle();
-    expect(store.get('flagwire.admin.environment')).toBe('prod');
+    expect(store.get('flagtide.admin.environment')).toBe('prod');
   });
 
   it('shows a banner with a retry when the API is unreachable', async () => {
@@ -69,7 +69,7 @@ describe('app shell', () => {
 
   it('warns when the selected environment has no admin key', async () => {
     const store = createMemoryStore();
-    store.set('flagwire.admin.environment', 'prod');
+    store.set('flagtide.admin.environment', 'prod');
     const harness = await mount({ adminKeys: { dev: 'k' }, store });
     expect(harness.textOf('.banner.warn')).toContain('No admin key for Production');
   });

@@ -15,10 +15,10 @@ RUN --mount=type=cache,target=/root/.m2 \
     mvn -B -ntp -pl bootstrap -am -DskipTests -Djacoco.skip=true package
 
 FROM eclipse-temurin:21-jre-noble
-RUN groupadd --system flagwire && useradd --system --gid flagwire --no-create-home flagwire
+RUN groupadd --system flagtide && useradd --system --gid flagtide --no-create-home flagtide
 WORKDIR /app
-COPY --from=build --chown=flagwire:flagwire /build/apps/server/bootstrap/target/quarkus-app/ /app/
-USER flagwire
+COPY --from=build --chown=flagtide:flagtide /build/apps/server/bootstrap/target/quarkus-app/ /app/
+USER flagtide
 ENV QUARKUS_HTTP_HOST=0.0.0.0 \
     QUARKUS_HTTP_PORT=8080 \
     JAVA_TOOL_OPTIONS="-Xmx512m -XX:+ExitOnOutOfMemoryError"

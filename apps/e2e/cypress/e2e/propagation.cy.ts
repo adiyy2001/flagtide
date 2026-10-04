@@ -6,7 +6,7 @@ const TOGGLE = 'button[role="switch"]';
 
 type ObservedFrame = Window &
   typeof globalThis & {
-    flagwireSeenAt?: number;
+    flagtideSeenAt?: number;
   };
 
 function adminToggle(): Cypress.Chainable<JQuery<HTMLElement>> {
@@ -19,13 +19,13 @@ function shopWindow(): Cypress.Chainable<ObservedFrame> {
 
 function watchBanner(shouldBePresent: boolean): void {
   shopWindow().then((win) => {
-    delete win.flagwireSeenAt;
+    delete win.flagtideSeenAt;
     const check = (): boolean => {
       const present = win.document.querySelector(BANNER_SELECTOR) !== null;
       if (present !== shouldBePresent) {
         return false;
       }
-      win.flagwireSeenAt = Date.now();
+      win.flagtideSeenAt = Date.now();
       return true;
     };
     const observer = new win.MutationObserver(() => {
@@ -44,7 +44,7 @@ function clickAndMeasure(label: string): void {
     $toggle[0]?.click();
   });
   shopWindow()
-    .its('flagwireSeenAt', { timeout: BUDGET_MS * 3 })
+    .its('flagtideSeenAt', { timeout: BUDGET_MS * 3 })
     .should('be.a', 'number')
     .then((seenAt) => {
       const elapsed = seenAt - clickedAt;

@@ -5,8 +5,8 @@ export default defineConfig({
   oxc: { decorator: { legacy: true }, transform: { useDefineForClassFields: false } } as never,
   resolve: {
     alias: {
-      '@flagwire/core': new URL('../core/src/index.ts', import.meta.url).pathname,
-      '@flagwire/angular': new URL('./src/index.ts', import.meta.url).pathname,
+      '@flagtide/core': new URL('../core/src/index.ts', import.meta.url).pathname,
+      '@flagtide/angular': new URL('./src/index.ts', import.meta.url).pathname,
     },
   },
   test: {

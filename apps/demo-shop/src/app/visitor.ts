@@ -1,5 +1,5 @@
 import { inject, REQUEST } from '@angular/core';
-import type { EvaluationContext } from '@flagwire/core';
+import type { EvaluationContext } from '@flagtide/core';
 
 export interface Visitor {
   readonly key: string;

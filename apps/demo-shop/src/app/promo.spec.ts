@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { JsonValue } from '@flagwire/core';
+import type { JsonValue } from '@flagtide/core';
 import { DEFAULT_PROMO, parsePromo } from './promo';
 
 const unusable: JsonValue[] = [null, 'text', 4, true, [1, 2], {}, { headline: '  ' }, { headline: 7 }];

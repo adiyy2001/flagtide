@@ -92,10 +92,10 @@ describe('demo shop server', () => {
         ...process.env,
         PORT: String(port),
         HOST: '127.0.0.1',
-        FLAGWIRE_SHOP_SDK_KEY: SDK_KEY,
-        FLAGWIRE_SHOP_STREAM_URL: 'ws://browser-facing:18082/sdk/v1/stream',
-        FLAGWIRE_SHOP_SNAPSHOT_URL: `http://127.0.0.1:${apiPort}`,
-        FLAGWIRE_SHOP_FRAME_ANCESTORS: "'self' http://harness.test",
+        FLAGTIDE_SHOP_SDK_KEY: SDK_KEY,
+        FLAGTIDE_SHOP_STREAM_URL: 'ws://browser-facing:18082/sdk/v1/stream',
+        FLAGTIDE_SHOP_SNAPSHOT_URL: `http://127.0.0.1:${apiPort}`,
+        FLAGTIDE_SHOP_FRAME_ANCESTORS: "'self' http://harness.test",
       },
       stdio: 'ignore',
     });
@@ -121,7 +121,7 @@ describe('demo shop server', () => {
     const html = await (await fetch(`${base}/`)).text();
     const state = /<script id="ng-state" type="application\/json">([^<]*)<\/script>/u.exec(html);
     const transferred = JSON.parse(state?.[1] ?? '{}') as Record<string, { version: number }>;
-    expect(transferred['flagwire:snapshot']?.version).toBe(7);
+    expect(transferred['flagtide:snapshot']?.version).toBe(7);
   });
 
   it('renders the beta link only for visitors the flag serves', async () => {

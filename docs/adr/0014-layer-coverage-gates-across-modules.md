@@ -9,7 +9,7 @@ The targets are 90 percent line coverage in `domain`, 85 in `application` and 80
 ## Decision
 
 - `domain` and `adapter-out-memory` keep a per-module JaCoCo check (90 and 80 percent).
-- `application` skips the per-module check. The `architecture` module merges the `jacoco.exec` files of `domain`, `application` and `adapter-out-memory`, unpacks their classes into its own output directory and runs three `check` executions with class filters: `dev/flagwire/domain/**` at 90, `dev/flagwire/application/**` at 85 and `dev/flagwire/adapter/**` at 80. A merged HTML report is written to `architecture/target/site/jacoco-merged`.
+- `application` skips the per-module check. The `architecture` module merges the `jacoco.exec` files of `domain`, `application` and `adapter-out-memory`, unpacks their classes into its own output directory and runs three `check` executions with class filters: `dev/flagtide/domain/**` at 90, `dev/flagtide/application/**` at 85 and `dev/flagtide/adapter/**` at 80. A merged HTML report is written to `architecture/target/site/jacoco-merged`.
 - Every adapter module added later joins the merge list and the adapter gate.
 - The port contract tests and their helpers (`TestAdapters`, `Samples`, `MutableTimeSource`, `SequentialIds`) are published as the `application` test-jar. An adapter module supplies one `TestAdapters` implementation and one subclass per contract.
 
@@ -28,5 +28,5 @@ The targets are 90 percent line coverage in `domain`, 85 in `application` and 80
 ## Amendment
 
 - The merge now reads `domain`, `application`, `adapter-out-memory`, `adapter-out-postgres` and `bootstrap`. The REST adapter has no tests of its own: `@QuarkusTest` flows in `bootstrap` drive it, and the PostgreSQL adapter is covered by its contract tests, so both are measured through the merged data. `adapter-in-rest`, `adapter-out-postgres` and `bootstrap` skip the per-module check.
-- Six artifacts are unpacked into `architecture/target/classes` and `dev/flagwire/adapter/**` stays at 80 (the packages are `adapter.in.rest`, `adapter.out.memory` and `adapter.out.postgres`). A fourth execution gates `dev/flagwire/bootstrap/**` at 80.
+- Six artifacts are unpacked into `architecture/target/classes` and `dev/flagtide/adapter/**` stays at 80 (the packages are `adapter.in.rest`, `adapter.out.memory` and `adapter.out.postgres`). A fourth execution gates `dev/flagtide/bootstrap/**` at 80.
 - The `quarkus-jacoco` extension was tried first and dropped. It instruments only Jandex indexed application archives, writes a separate `jacoco-quarkus.exec` that was not produced reliably for library modules, and duplicates what the plain agent in surefire already records for the Quarkus test JVM. The plain agent file `target/jacoco.exec` of each module is the one merged.

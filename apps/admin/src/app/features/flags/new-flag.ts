@@ -4,7 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterLink } from '@angular/router';
-import type { FlagType } from '@flagwire/core';
+import type { FlagType } from '@flagtide/core';
 import { AdminApi } from '../../api/admin-api';
 import { ApiError, describeFailure } from '../../api/problem';
 import { nextUid } from '../../domain/drafts';

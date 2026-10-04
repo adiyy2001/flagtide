@@ -5,9 +5,9 @@
     "lib": ["ES2024", "DOM"],
     "types": ["node"],
     "paths": {
-      "@flagwire/core": ["../../libs/core/src/index.ts"],
-      "@flagwire/angular": ["../../libs/angular/src/index.ts"],
-      "@flagwire/angular/overrides": ["../../libs/angular/overrides/src/index.ts"]
+      "@flagtide/core": ["../../libs/core/src/index.ts"],
+      "@flagtide/angular": ["../../libs/angular/src/index.ts"],
+      "@flagtide/angular/overrides": ["../../libs/angular/overrides/src/index.ts"]
     }
   },
   "angularCompilerOptions": {

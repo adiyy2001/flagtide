@@ -20,7 +20,7 @@ import { AdminApi } from '../../api/admin-api';
 import { KeyStore } from '../../api/key-store';
 import { ApiError, describeFailure } from '../../api/problem';
 import { diffJson } from '../../domain/diff';
-import type { JsonValue } from '@flagwire/core';
+import type { JsonValue } from '@flagtide/core';
 import {
   draftDefinitionSnapshot,
   draftEnvironmentSnapshot,

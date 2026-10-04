@@ -1,7 +1,7 @@
 {
-  "name": "@flagwire/angular",
+  "name": "@flagtide/angular",
   "version": "0.1.0",
-  "description": "Signals-first Angular SDK for flagwire: injectFlag, a structural directive, a canMatch guard, a connection status signal and a dev overrides panel. Zoneless and SSR ready.",
+  "description": "Signals-first Angular SDK for flagtide: injectFlag, a structural directive, a canMatch guard, a connection status signal and a dev overrides panel. Zoneless and SSR ready.",
   "license": "MIT",
   "author": "Adrian Turbiński",
   "keywords": [
@@ -17,7 +17,7 @@
     "@angular/common": "^22.0.0",
     "@angular/core": "^22.0.0",
     "@angular/router": "^22.0.0",
-    "@flagwire/core": "^0.1.0",
+    "@flagtide/core": "^0.1.0",
     "rxjs": "^7.8.0"
   },
   "dependencies": {

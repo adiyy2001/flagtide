@@ -6,9 +6,9 @@ const summary = JSON.parse(readFileSync(summaryPath, 'utf8'));
 const latency = summary.metrics.commit_to_receipt_ms.values;
 const counter = (name) => summary.metrics[name]?.values.count ?? 0;
 const options = {
-  virtualUsers: Number(process.env.FLAGWIRE_LOAD_VUS ?? 50),
-  socketsPerVirtualUser: Number(process.env.FLAGWIRE_LOAD_SOCKETS_PER_VU ?? 100),
-  rounds: Number(process.env.FLAGWIRE_LOAD_ROUNDS ?? 30),
+  virtualUsers: Number(process.env.FLAGTIDE_LOAD_VUS ?? 50),
+  socketsPerVirtualUser: Number(process.env.FLAGTIDE_LOAD_SOCKETS_PER_VU ?? 100),
+  rounds: Number(process.env.FLAGTIDE_LOAD_ROUNDS ?? 30),
 };
 
 const report = {

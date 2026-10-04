@@ -9,7 +9,7 @@ const vectors = resolve(fileURLToPath(new URL('.', import.meta.url)), '../../../
 const scratch: string[] = [];
 
 function copyOfVectors(): string {
-  const directory = mkdtempSync(join(tmpdir(), 'flagwire-vectors-'));
+  const directory = mkdtempSync(join(tmpdir(), 'flagtide-vectors-'));
   scratch.push(directory);
   cpSync(vectors, directory, { recursive: true });
   return directory;

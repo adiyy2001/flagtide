@@ -77,26 +77,26 @@ expectFiles(
     'package.json',
     'README.md',
     'LICENSE',
-    'fesm2022/flagwire-angular.mjs',
-    'fesm2022/flagwire-angular-overrides.mjs',
-    'types/flagwire-angular.d.ts',
-    'types/flagwire-angular-overrides.d.ts',
+    'fesm2022/flagtide-angular.mjs',
+    'fesm2022/flagtide-angular-overrides.mjs',
+    'types/flagtide-angular.d.ts',
+    'types/flagtide-angular-overrides.d.ts',
   ],
   [sources],
 );
 
 const project = resolve(work, 'consumer');
 const modules = resolve(project, 'node_modules');
-mkdirSync(resolve(modules, '@flagwire'), { recursive: true });
+mkdirSync(resolve(modules, '@flagtide'), { recursive: true });
 for (const [name, report] of [
   ['core', core],
   ['angular', angular],
 ]) {
   const extract = run('tar', ['-xzf', resolve(work, report.filename), '-C', work], work);
   check(extract.ok, `${name}: could not extract the tarball\n${extract.output}`);
-  cpSync(resolve(work, 'package'), resolve(modules, '@flagwire', name), { recursive: true });
+  cpSync(resolve(work, 'package'), resolve(modules, '@flagtide', name), { recursive: true });
   rmSync(resolve(work, 'package'), { recursive: true, force: true });
-  checkManifest(name, JSON.parse(readFileSync(resolve(modules, '@flagwire', name, 'package.json'), 'utf8')));
+  checkManifest(name, JSON.parse(readFileSync(resolve(modules, '@flagtide', name, 'package.json'), 'utf8')));
 }
 for (const dependency of ['@angular', 'rxjs', 'tslib']) {
   symlinkSync(resolve(root, 'node_modules', dependency), resolve(modules, dependency), 'dir');
@@ -108,20 +108,20 @@ writeFileSync(
 
 const runtime = `
 import '@angular/compiler';
-import * as core from '@flagwire/core';
-import * as angular from '@flagwire/angular';
-import * as overrides from '@flagwire/angular/overrides';
+import * as core from '@flagtide/core';
+import * as angular from '@flagtide/angular';
+import * as overrides from '@flagtide/angular/overrides';
 
 const missing = [];
 const expectExports = (label, module, names) => names.forEach((name) => { if (!(name in module)) missing.push(label + '.' + name); });
-expectExports('core', core, ['createFlagwireClient', 'FlagwireClient', 'evaluate', 'fetchSnapshot', 'resolveFlag', 'jsonEquals', 'murmur3x86_32', 'createMemoryStore', 'createBrowserSocketFactory']);
-expectExports('angular', angular, ['provideFlagwire', 'injectFlag', 'FlagwireFlagDirective', 'flagwireGuard', 'Flagwire', 'FlagwireStatus']);
-expectExports('overrides', overrides, ['FlagwireOverridesPanel']);
+expectExports('core', core, ['createFlagtideClient', 'FlagtideClient', 'evaluate', 'fetchSnapshot', 'resolveFlag', 'jsonEquals', 'murmur3x86_32', 'createMemoryStore', 'createBrowserSocketFactory']);
+expectExports('angular', angular, ['provideFlagtide', 'injectFlag', 'FlagtideFlagDirective', 'flagtideGuard', 'Flagtide', 'FlagtideStatus']);
+expectExports('overrides', overrides, ['FlagtideOverridesPanel']);
 if (missing.length > 0) {
   console.error('missing exports: ' + missing.join(', '));
   process.exit(1);
 }
-const client = core.createFlagwireClient({
+const client = core.createFlagtideClient({
   streamUrl: 'ws://127.0.0.1:1/sdk/v1/stream',
   sdkKey: 'fws_pack_check',
   context: { key: 'pack-check', attributes: {} },
@@ -140,21 +140,21 @@ const runtimeResult = run('node', ['runtime.mjs'], project);
 check(runtimeResult.ok, `runtime import failed\n${runtimeResult.output}`);
 
 const consumer = `
-import { provideFlagwire, injectFlag, flagwireGuard, FlagwireFlagDirective, FlagwireStatus } from '@flagwire/angular';
-import type { FlagwireConfig, ConnectionStatus } from '@flagwire/angular';
-import { FlagwireOverridesPanel } from '@flagwire/angular/overrides';
-import { createFlagwireClient, evaluate } from '@flagwire/core';
-import type { FlagSnapshot, JsonValue } from '@flagwire/core';
+import { provideFlagtide, injectFlag, flagtideGuard, FlagtideFlagDirective, FlagtideStatus } from '@flagtide/angular';
+import type { FlagtideConfig, ConnectionStatus } from '@flagtide/angular';
+import { FlagtideOverridesPanel } from '@flagtide/angular/overrides';
+import { createFlagtideClient, evaluate } from '@flagtide/core';
+import type { FlagSnapshot, JsonValue } from '@flagtide/core';
 
-const config: FlagwireConfig = { sdkKey: 'k', streamUrl: 'wss://example.test/sdk/v1/stream', context: { key: 'u', attributes: {} } };
-export const providers = provideFlagwire(config);
-export const guard = flagwireGuard('checkout', { equals: true });
-export const declared = [FlagwireFlagDirective, FlagwireStatus, FlagwireOverridesPanel];
+const config: FlagtideConfig = { sdkKey: 'k', streamUrl: 'wss://example.test/sdk/v1/stream', context: { key: 'u', attributes: {} } };
+export const providers = provideFlagtide(config);
+export const guard = flagtideGuard('checkout', { equals: true });
+export const declared = [FlagtideFlagDirective, FlagtideStatus, FlagtideOverridesPanel];
 export const reader = (): boolean => injectFlag('banner', false)();
 export const status = (value: ConnectionStatus): string => value;
 export const snapshot = (value: FlagSnapshot): number => value.version;
 export const json = (value: JsonValue): JsonValue => value;
-export const client = createFlagwireClient;
+export const client = createFlagtideClient;
 export const evaluator = evaluate;
 `;
 writeFileSync(resolve(project, 'consumer.ts'), consumer);

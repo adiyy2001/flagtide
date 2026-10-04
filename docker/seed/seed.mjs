@@ -126,9 +126,9 @@ export async function waitForApi(
 }
 
 async function main() {
-  const api = (process.env.FLAGWIRE_SEED_API ?? 'http://127.0.0.1:18081').replace(/\/+$/u, '');
-  const project = process.env.FLAGWIRE_SEED_PROJECT ?? 'demo';
-  const adminKeys = JSON.parse(process.env.FLAGWIRE_SEED_ADMIN_KEYS ?? '{}');
+  const api = (process.env.FLAGTIDE_SEED_API ?? 'http://127.0.0.1:18081').replace(/\/+$/u, '');
+  const project = process.env.FLAGTIDE_SEED_PROJECT ?? 'demo';
+  const adminKeys = JSON.parse(process.env.FLAGTIDE_SEED_ADMIN_KEYS ?? '{}');
   const definitions = JSON.parse(await readFile(new URL('./definitions.json', import.meta.url), 'utf8'));
   await waitForApi(api);
   await seed({ api, project, adminKeys, definitions });

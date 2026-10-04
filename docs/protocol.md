@@ -46,7 +46,7 @@ A `deltas` entry has `v`, `committedAtMs` and `changes`. A change has `op` (`ups
 | `version` is older than the retained window | `snapshot` |
 | `version` is ahead of the server (a restored database, another environment) | `snapshot` |
 
-The window is the per-environment ring of recent change log entries held in memory (1000 by default, `flagwire.propagation.ring-capacity`). When the ring cannot cover a client, the answer is a snapshot, which is built once per version and shared by every client that needs it.
+The window is the per-environment ring of recent change log entries held in memory (1000 by default, `flagtide.propagation.ring-capacity`). When the ring cannot cover a client, the answer is a snapshot, which is built once per version and shared by every client that needs it.
 
 ## Close codes
 

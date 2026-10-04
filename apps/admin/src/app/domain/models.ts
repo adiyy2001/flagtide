@@ -1,4 +1,4 @@
-import type { FlagType, JsonValue, Rule, Segment, Serve, Variant } from '@flagwire/core';
+import type { FlagType, JsonValue, Rule, Segment, Serve, Variant } from '@flagtide/core';
 
 export interface Issue {
   readonly path: string;

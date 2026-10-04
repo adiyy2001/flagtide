@@ -1,4 +1,4 @@
-import type { FlagConfig } from '@flagwire/core';
+import type { FlagConfig } from '@flagtide/core';
 import { booleanFlag, variantFlag } from '../../../../libs/core/test-support/fixtures';
 
 export function shopFlags(overrides: Partial<Record<string, FlagConfig>> = {}): FlagConfig[] {

@@ -1,4 +1,4 @@
-# flagwire
+# flagtide
 
 A self-hosted feature flag service. A Quarkus back end pushes flag changes to every open browser over WebSockets, and an Angular SDK evaluates the flags locally with results that match the server's.
 
@@ -6,11 +6,11 @@ A self-hosted feature flag service. A Quarkus back end pushes flag changes to ev
 
 Live demo: not deployed yet. <!-- ADRIAN: paste the URL of the deployed demo here -->
 
-[![CI](https://github.com/adiyy2001/flagwire/actions/workflows/ci.yml/badge.svg)](https://github.com/adiyy2001/flagwire/actions/workflows/ci.yml)
+[![CI](https://github.com/adiyy2001/flagtide/actions/workflows/ci.yml/badge.svg)](https://github.com/adiyy2001/flagtide/actions/workflows/ci.yml)
 ![Lowest line coverage of the eight measured areas](docs/media/coverage.svg)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-The GIF is `scripts/record-demo.mjs` driving the harness page from the end-to-end suite: the admin and the shop in two iframes, both served from the production images. The shop talks to one server instance and the admin to the other, so every change in the recording crosses PostgreSQL. The npm packages `@flagwire/core` and `@flagwire/angular` are not published yet, so there is no npm badge.
+The GIF is `scripts/record-demo.mjs` driving the harness page from the end-to-end suite: the admin and the shop in two iframes, both served from the production images. The shop talks to one server instance and the admin to the other, so every change in the recording crosses PostgreSQL. The npm packages `@flagtide/core` and `@flagtide/angular` are not published yet, so there is no npm badge.
 
 ## Why I built this
 
@@ -106,7 +106,7 @@ No socket failed to connect or closed early. The instances time the acknowledgem
 
 ### SDK evaluation per flag
 
-The target is under 5 µs. `pnpm nx run core:bench` measures `@flagwire/core` with tinybench in Node and in headless Chromium.
+The target is under 5 µs. `pnpm nx run core:bench` measures `@flagtide/core` with tinybench in Node and in headless Chromium.
 
 | Runtime | Scenario | Mean | p99 | Evaluations per second |
 | --- | --- | --- | --- | --- |
@@ -147,8 +147,8 @@ The gates are 90% of lines for the evaluation engines, the domain and the applic
 You need Docker with Compose.
 
 ```
-git clone https://github.com/adiyy2001/flagwire.git
-cd flagwire
+git clone https://github.com/adiyy2001/flagtide.git
+cd flagtide
 docker compose up -d --build --wait
 ```
 
@@ -199,14 +199,13 @@ The decisions that shape the project:
 - An SDK split into a framework-agnostic core and an Angular package, zoneless and safe under SSR ([0012](docs/adr/0012-sdk-packaging-zoneless-ssr.md)).
 - The license policy and the few documented exceptions ([0013](docs/adr/0013-dependency-license-policy.md)).
 - The admin's editor state model ([0018](docs/adr/0018-admin-editor-state-model.md)) and the end-to-end harness ([0019](docs/adr/0019-e2e-harness.md)).
-- The project name, what I did not build and where the numbers come from ([0020](docs/adr/0020-project-name-stays-flagwire.md), [0021](docs/adr/0021-what-is-not-built.md), [0022](docs/adr/0022-numbers-and-demo-recording.md)).
+- The project name, what I did not build and where the numbers come from ([0020](docs/adr/0020-project-name.md), [0021](docs/adr/0021-what-is-not-built.md), [0022](docs/adr/0022-numbers-and-demo-recording.md)).
 
 All 22 records are in [`docs/adr`](docs/adr).
 
 ## Limitations and what I would do next
 
-- The name is a placeholder. A GitHub organization, an npm scope and a website already use `flagwire`, so I rename before publishing the packages ([ADR 0020](docs/adr/0020-project-name-stays-flagwire.md)).
-- Nothing is deployed and nothing is published. `npm pack` works for both packages and is part of `pnpm verify`.
+- Nothing is deployed and nothing is published, and the `@flagtide` npm scope is not registered yet. `npm pack` works for both packages and is part of `pnpm verify`.
 - The stretch goals are not built: flag prerequisites, scheduled changes, an Oracle adapter and an SSE fallback ([ADR 0021](docs/adr/0021-what-is-not-built.md)).
 - The admin keys reach the browser in a runtime `config.json`. That is fine for a local demo and wrong for a real deployment, which would need a login in front of the admin.
 - The propagation numbers come from one host with one clock. They say nothing about a network between a data center and a phone.
@@ -216,4 +215,4 @@ All 22 records are in [`docs/adr`](docs/adr).
 
 ## Credits and license
 
-flagwire builds on Quarkus, Angular and PostgreSQL, among others. Every dependency and tool is listed with its license in [CREDITS.md](CREDITS.md). flagwire is released under the [MIT license](LICENSE), copyright Adrian Turbiński.
+flagtide builds on Quarkus, Angular and PostgreSQL, among others. Every dependency and tool is listed with its license in [CREDITS.md](CREDITS.md). flagtide is released under the [MIT license](LICENSE), copyright Adrian Turbiński.

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { FlagwireFlagDirective, injectFlag } from '@flagwire/angular';
-import type { JsonValue } from '@flagwire/angular';
-import { FlagwireOverridesPanel } from '@flagwire/angular/overrides';
+import { FlagtideFlagDirective, injectFlag } from '@flagtide/angular';
+import type { JsonValue } from '@flagtide/angular';
+import { FlagtideOverridesPanel } from '@flagtide/angular/overrides';
 import { Cart } from './cart';
 import { parsePromo } from './promo';
 import { StatusBadge } from './shell/status-badge';
@@ -15,8 +15,8 @@ import { injectVisitor } from './visitor';
     RouterLink,
     RouterLinkActive,
     RouterOutlet,
-    FlagwireFlagDirective,
-    FlagwireOverridesPanel,
+    FlagtideFlagDirective,
+    FlagtideOverridesPanel,
     StatusBadge,
   ],
   templateUrl: './app.html',

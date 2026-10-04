@@ -2,10 +2,10 @@ import { execFileSync } from 'node:child_process';
 import { chromium } from 'playwright';
 
 const ports = {
-  a: process.env.FLAGWIRE_PORT_SERVER_A ?? '18081',
-  b: process.env.FLAGWIRE_PORT_SERVER_B ?? '18082',
-  admin: process.env.FLAGWIRE_PORT_ADMIN ?? '14200',
-  shop: process.env.FLAGWIRE_PORT_DEMO_SHOP ?? '14300',
+  a: process.env.FLAGTIDE_PORT_SERVER_A ?? '18081',
+  b: process.env.FLAGTIDE_PORT_SERVER_B ?? '18082',
+  admin: process.env.FLAGTIDE_PORT_ADMIN ?? '14200',
+  shop: process.env.FLAGTIDE_PORT_DEMO_SHOP ?? '14300',
 };
 const apiA = `http://127.0.0.1:${ports.a}`;
 const apiB = `http://127.0.0.1:${ports.b}`;
@@ -16,7 +16,7 @@ const devAdmin = 'fwa_demo_dev_admin_000000000000';
 const devSdk = 'fws_demo_dev_sdk_0000000000000';
 const stagingSdk = 'fws_demo_staging_sdk_000000000';
 const chromePath = process.env.CHROME_PATH ?? '/usr/bin/google-chrome';
-const skipOffline = process.env.FLAGWIRE_SKIP_OFFLINE === 'true';
+const skipOffline = process.env.FLAGTIDE_SKIP_OFFLINE === 'true';
 const runId = `${Date.now().toString(36)}`;
 
 const results = [];
@@ -189,7 +189,7 @@ await check('optimistic concurrency: a stale If-Match answers 409 with problem d
   expect(first.status === 200, `first toggle answered ${first.status}`);
   const stale = await toggle(apiB, conflictFlag, false, 1);
   expect(stale.status === 409, `stale toggle answered ${stale.status}`);
-  expect(stale.text.includes('urn:flagwire:problem'), 'conflict is not a problem document');
+  expect(stale.text.includes('urn:flagtide:problem'), 'conflict is not a problem document');
 });
 
 await check('flag invariant: a rollout that does not sum to 100 percent is rejected', async () => {
@@ -368,7 +368,7 @@ try {
   });
 
   if (skipOffline) {
-    console.log('SKIP offline start (FLAGWIRE_SKIP_OFFLINE=true)');
+    console.log('SKIP offline start (FLAGTIDE_SKIP_OFFLINE=true)');
   } else {
     await check(
       'offline start: the shop renders from the stored snapshot while both servers are down',
