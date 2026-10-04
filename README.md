@@ -4,7 +4,7 @@ A self-hosted feature flag service. A Quarkus back end pushes flag changes to ev
 
 ![The admin on the left and the demo shop on the right. A flag is switched off and on, a rollout goes from 20 to 60 and back to 30 percent, then the propagation monitor shows p50, p95 and p99.](docs/media/demo.gif)
 
-Live demo: not deployed yet. <!-- ADRIAN: paste the URL of the deployed demo here -->
+Live demo: not deployed yet.
 
 [![CI](https://github.com/adiyy2001/flagtide/actions/workflows/ci.yml/badge.svg)](https://github.com/adiyy2001/flagtide/actions/workflows/ci.yml)
 ![Lowest line coverage of the eight measured areas](docs/media/coverage.svg)
@@ -16,7 +16,7 @@ The GIF is `scripts/record-demo.mjs` driving the harness page from the end-to-en
 
 Feature flags are part of my daily stack. Two questions kept bothering me. How do you get a flag change to thousands of open browsers in well under a second, and how do you know that Java on the server and TypeScript in the browser give the same answer for the same flag?
 
-I work mostly in Angular and I also build Java and Quarkus back ends, so this project sits on both sides of that line. I wanted one compact project that shows hexagonal architecture and domain-driven design on a real domain with real rules, not a CRUD toy. <!-- ADRIAN: add one or two sentences about a moment at work where a flag rollout or a stale client hurt, if you have one -->
+I work mostly in Angular and I also build Java and Quarkus back ends, so this project sits on both sides of that line. I wanted one compact project that shows hexagonal architecture and domain-driven design on a real domain with real rules, not a CRUD toy.
 
 ## What is hard about it
 

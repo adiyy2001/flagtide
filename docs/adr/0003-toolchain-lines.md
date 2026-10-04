@@ -21,5 +21,5 @@ I want the latest stable version of every tool. When I started, several "latest"
 
 ## Consequences
 
-- Every pin has a reason that can be checked, and PLAN.md lists the sources.
+- Every pin has a reason that can be checked, and `DESIGN.md` lists the sources.
 - Moving to TypeScript 7 or Quarkus 4 later is a planned task once Angular supports the first and Quarkus ships a stable release of the second.
