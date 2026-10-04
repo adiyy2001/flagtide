@@ -152,7 +152,7 @@ cd flagwire
 docker compose up -d --build --wait
 ```
 
-That builds and starts PostgreSQL, two server instances, the admin, the demo shop and a one-shot job that seeds a demo project. The first build takes a few minutes. Then open the admin at <http://127.0.0.1:14200> and the shop at <http://127.0.0.1:14300>, switch `promo-banner` off in the admin and watch the banner leave the shop. `docker compose down -v` stops everything and removes the database. All ports bind to 127.0.0.1 and can be changed with the variables in [docs/configuration.md](docs/configuration.md).
+That builds and starts PostgreSQL, two server instances, the admin, the demo shop and a one-shot job that seeds a demo project. From a fresh clone it took about a minute on this machine with the base images already pulled, and it takes longer on a cold one. Then open the admin at <http://127.0.0.1:14200> and the shop at <http://127.0.0.1:14300>, switch `promo-banner` off in the admin and watch the banner leave the shop. `docker compose down -v` stops everything and removes the database. All ports bind to 127.0.0.1 and can be changed with the variables in [docs/configuration.md](docs/configuration.md).
 
 The shop reads from `server-b` and the admin writes to `server-a`. The demo keys in `compose.yaml` are public on purpose and only work against this local stack.
 
