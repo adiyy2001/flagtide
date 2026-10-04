@@ -11,6 +11,7 @@ const steps = [
   ['pnpm', ['nx', 'run', 'angular:pack-check']],
   ['pnpm', ['nx', 'run', 'server:verify']],
   ['pnpm', ['conformance']],
+  ['pnpm', ['check:licenses']],
 ];
 
 for (const [command, args] of steps) {

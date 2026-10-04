@@ -1,0 +1,1156 @@
+{
+  "packages": [
+    {
+      "id": "com.aayushatharva.brotli4j:brotli4j",
+      "version": "1.23.0",
+      "name": "Brotli4j",
+      "licenses": ["Apache License 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "com.aayushatharva.brotli4j:native-linux-x86_64",
+      "version": "1.23.0",
+      "name": "Brotli4j",
+      "licenses": ["Apache License 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "com.aayushatharva.brotli4j:service",
+      "version": "1.23.0",
+      "name": "Brotli4j",
+      "licenses": ["Apache License 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "com.fasterxml.jackson.core:jackson-annotations",
+      "version": "2.21",
+      "name": "Jackson-annotations",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "com.fasterxml.jackson.core:jackson-core",
+      "version": "2.21.7",
+      "name": "Jackson-core",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "com.fasterxml.jackson.core:jackson-databind",
+      "version": "2.21.7",
+      "name": "jackson-databind",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml",
+      "version": "2.21.7",
+      "name": "Jackson-dataformat-YAML",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "com.fasterxml.jackson.datatype:jackson-datatype-jdk8",
+      "version": "2.21.7",
+      "name": "Jackson datatype: jdk8",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "com.fasterxml.jackson.datatype:jackson-datatype-jsr310",
+      "version": "2.21.7",
+      "name": "Jackson datatype: JSR310",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "com.fasterxml.jackson.module:jackson-module-parameter-names",
+      "version": "2.21.7",
+      "name": "Jackson-module-parameter-names",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "com.ongres.scram:scram-client",
+      "version": "3.3",
+      "name": "SCRAM - Client",
+      "licenses": ["BSD 2-Clause \"Simplified\" License"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "com.ongres.scram:scram-common",
+      "version": "3.3",
+      "name": "SCRAM - Common",
+      "licenses": ["BSD 2-Clause \"Simplified\" License"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "com.ongres.stringprep:saslprep",
+      "version": "2.4",
+      "name": "SASLprep (RFC 4013)",
+      "licenses": ["BSD 2-Clause \"Simplified\" License"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "com.ongres.stringprep:stringprep",
+      "version": "2.4",
+      "name": "Stringprep (RFC 3454)",
+      "licenses": ["BSD 2-Clause \"Simplified\" License"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.agroal:agroal-api",
+      "version": "3.2.1",
+      "name": "Agroal API",
+      "licenses": ["Apache License 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.agroal:agroal-narayana",
+      "version": "3.2.1",
+      "name": "Agroal Narayana Integration",
+      "licenses": ["Apache License 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.agroal:agroal-pool",
+      "version": "3.2.1",
+      "name": "Agroal Connection Pool",
+      "licenses": ["Apache License 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.leangen.geantyref:geantyref",
+      "version": "2.0.1",
+      "name": "GeantyRef",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.netty:netty-buffer",
+      "version": "4.1.138.Final",
+      "name": "Netty/Buffer",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.netty:netty-codec",
+      "version": "4.1.138.Final",
+      "name": "Netty/Codec",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.netty:netty-codec-dns",
+      "version": "4.1.138.Final",
+      "name": "Netty/Codec/DNS",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.netty:netty-codec-haproxy",
+      "version": "4.1.138.Final",
+      "name": "Netty/Codec/HAProxy",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.netty:netty-codec-http",
+      "version": "4.1.138.Final",
+      "name": "Netty/Codec/HTTP",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.netty:netty-codec-http2",
+      "version": "4.1.138.Final",
+      "name": "Netty/Codec/HTTP2",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.netty:netty-codec-socks",
+      "version": "4.1.138.Final",
+      "name": "Netty/Codec/Socks",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.netty:netty-common",
+      "version": "4.1.138.Final",
+      "name": "Netty/Common",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.netty:netty-handler",
+      "version": "4.1.138.Final",
+      "name": "Netty/Handler",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.netty:netty-handler-proxy",
+      "version": "4.1.138.Final",
+      "name": "Netty/Handler/Proxy",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.netty:netty-resolver",
+      "version": "4.1.138.Final",
+      "name": "Netty/Resolver",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.netty:netty-resolver-dns",
+      "version": "4.1.138.Final",
+      "name": "Netty/Resolver/DNS",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.netty:netty-tcnative-classes",
+      "version": "2.0.84.Final",
+      "name": "Netty/TomcatNative [OpenSSL - Classes]",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.netty:netty-transport",
+      "version": "4.1.138.Final",
+      "name": "Netty/Transport",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.netty:netty-transport-native-unix-common",
+      "version": "4.1.138.Final",
+      "name": "Netty/Transport/Native/Unix/Common",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-agroal",
+      "version": "3.40.1",
+      "name": "Quarkus - Agroal - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-arc",
+      "version": "3.40.1",
+      "name": "Quarkus - ArC - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-bootstrap-runner",
+      "version": "3.40.1",
+      "name": "Quarkus - Bootstrap - Runner",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-classloader-commons",
+      "version": "3.40.1",
+      "name": "Quarkus - Bootstrap - Classloader common utilities",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-core",
+      "version": "3.40.1",
+      "name": "Quarkus - Core - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-credentials",
+      "version": "3.40.1",
+      "name": "Quarkus - Credentials - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-datasource",
+      "version": "3.40.1",
+      "name": "Quarkus - Datasource - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-datasource-common",
+      "version": "3.40.1",
+      "name": "Quarkus - Datasource - Common",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-development-mode-spi",
+      "version": "3.40.1",
+      "name": "Quarkus - Development mode - SPI",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-devservices",
+      "version": "3.40.1",
+      "name": "Quarkus - DevServices - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-flyway",
+      "version": "3.40.1",
+      "name": "Quarkus - Flyway - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-fs-util",
+      "version": "1.4.2",
+      "name": "Quarkus - FS Util",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-ide-launcher",
+      "version": "3.40.1",
+      "name": "Quarkus - IDE Launcher",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-jackson",
+      "version": "3.40.1",
+      "name": "Quarkus - Jackson - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-jdbc-postgresql",
+      "version": "3.40.1",
+      "name": "Quarkus - JDBC - PostgreSQL - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-jsonp",
+      "version": "3.40.1",
+      "name": "Quarkus - JSON-P - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-mutiny",
+      "version": "3.40.1",
+      "name": "Quarkus - Mutiny - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-narayana-jta",
+      "version": "3.40.1",
+      "name": "Quarkus - Narayana JTA - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-netty",
+      "version": "3.40.1",
+      "name": "Quarkus - Netty - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-rest",
+      "version": "3.40.1",
+      "name": "Quarkus - REST - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-rest-common",
+      "version": "3.40.1",
+      "name": "Quarkus - REST - Common - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-rest-jackson",
+      "version": "3.40.1",
+      "name": "Quarkus - REST - Jackson - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-rest-jackson-common",
+      "version": "3.40.1",
+      "name": "Quarkus - REST - Jackson Common Bits - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-security-runtime-spi",
+      "version": "3.40.1",
+      "name": "Quarkus - Security - Runtime SPI",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-smallrye-context-propagation",
+      "version": "3.40.1",
+      "name": "Quarkus - SmallRye Context Propagation - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-smallrye-health",
+      "version": "3.40.1",
+      "name": "Quarkus - SmallRye Health - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-smallrye-openapi",
+      "version": "3.40.1",
+      "name": "Quarkus - SmallRye OpenAPI - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-swagger-ui",
+      "version": "3.40.1",
+      "name": "Quarkus - Swagger UI - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-tls-registry",
+      "version": "3.40.1",
+      "name": "Quarkus - TLS Registry - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-tls-registry-spi",
+      "version": "3.40.1",
+      "name": "Quarkus - TLS Registry - Runtime SPI",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-transaction-annotations",
+      "version": "3.40.1",
+      "name": "Quarkus - Transaction Annotations - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-value-registry",
+      "version": "3.40.1",
+      "name": "Quarkus - Value Registry",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-vertx",
+      "version": "3.40.1",
+      "name": "Quarkus - Vert.x - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-vertx-http",
+      "version": "3.40.1",
+      "name": "Quarkus - Vert.x - HTTP - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-vertx-latebound-mdc-provider",
+      "version": "3.40.1",
+      "name": "Quarkus - Vert.x Late Bound MDC Provider",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-virtual-threads",
+      "version": "3.40.1",
+      "name": "Quarkus - Virtual Threads - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-websockets-next",
+      "version": "3.40.1",
+      "name": "Quarkus - WebSockets Next - Runtime",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-websockets-next-kotlin",
+      "version": "3.40.1",
+      "name": "Quarkus - WebSockets Next - Kotlin",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus:quarkus-websockets-next-spi",
+      "version": "3.40.1",
+      "name": "Quarkus - WebSockets Next - SPI",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus.arc:arc",
+      "version": "3.40.1",
+      "name": "ArC - Runtime",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus.resteasy.reactive:resteasy-reactive",
+      "version": "3.40.1",
+      "name": "RESTEasy Reactive - Runtime",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus.resteasy.reactive:resteasy-reactive-common",
+      "version": "3.40.1",
+      "name": "RESTEasy Reactive - Common Runtime",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus.resteasy.reactive:resteasy-reactive-common-types",
+      "version": "3.40.1",
+      "name": "RESTEasy Reactive - Common Types",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus.resteasy.reactive:resteasy-reactive-jackson",
+      "version": "3.40.1",
+      "name": "RESTEasy Reactive - Jackson Support - Runtime",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus.resteasy.reactive:resteasy-reactive-vertx",
+      "version": "3.40.1",
+      "name": "RESTEasy Reactive - Vert.x Support - Runtime",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus.security:quarkus-security",
+      "version": "2.3.2",
+      "name": "Quarkus Security API",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.quarkus.vertx.utils:quarkus-vertx-utils",
+      "version": "3.40.1",
+      "name": "Quarkus - Vert.x Utils",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye:jandex",
+      "version": "3.6.0",
+      "name": "Jandex: Core",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye:smallrye-context-propagation",
+      "version": "2.3.0",
+      "name": "SmallRye Context Propagation: Core",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye:smallrye-context-propagation-api",
+      "version": "2.3.0",
+      "name": "SmallRye Context Propagation: API",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye:smallrye-context-propagation-jta",
+      "version": "2.3.0",
+      "name": "SmallRye Context Propagation: JTA",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye:smallrye-context-propagation-storage",
+      "version": "2.3.0",
+      "name": "SmallRye Context Propagation: Storage",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye:smallrye-fault-tolerance-vertx",
+      "version": "6.11.4",
+      "name": "SmallRye Fault Tolerance: Vert.x Integration",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye:smallrye-health",
+      "version": "4.3.0",
+      "name": "SmallRye Health: Implementation",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye:smallrye-health-api",
+      "version": "4.3.0",
+      "name": "SmallRye Health: API",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye:smallrye-health-provided-checks",
+      "version": "4.3.0",
+      "name": "SmallRye Health: Provided Health Checks",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye:smallrye-open-api-core",
+      "version": "4.3.5",
+      "name": "SmallRye: OpenAPI Core",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye:smallrye-open-api-model",
+      "version": "4.3.5",
+      "name": "SmallRye: OpenAPI Model",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.certs:smallrye-private-key-pem-parser",
+      "version": "0.9.4",
+      "name": "SmallRye Certificate Generator - Private Key PEM utilities",
+      "licenses": ["Apache License 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.common:smallrye-common-annotation",
+      "version": "2.19.0",
+      "name": "SmallRye Common: Annotations",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.common:smallrye-common-classloader",
+      "version": "2.19.0",
+      "name": "SmallRye Common: Classloader",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.common:smallrye-common-constraint",
+      "version": "2.19.0",
+      "name": "SmallRye Common: Constraints",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.common:smallrye-common-cpu",
+      "version": "2.19.0",
+      "name": "SmallRye Common: CPU",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.common:smallrye-common-expression",
+      "version": "2.19.0",
+      "name": "SmallRye Common: Expressions",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.common:smallrye-common-function",
+      "version": "2.19.0",
+      "name": "SmallRye Common: Functions",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.common:smallrye-common-io",
+      "version": "2.19.0",
+      "name": "SmallRye Common: IO",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.common:smallrye-common-net",
+      "version": "2.19.0",
+      "name": "SmallRye Common: Net",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.common:smallrye-common-os",
+      "version": "2.19.0",
+      "name": "SmallRye Common: OS",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.common:smallrye-common-ref",
+      "version": "2.19.0",
+      "name": "SmallRye Common: References",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.common:smallrye-common-search",
+      "version": "2.19.0",
+      "name": "SmallRye Common: Search",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.common:smallrye-common-vertx-context",
+      "version": "2.19.0",
+      "name": "SmallRye Common: Vert.x 4 Context Utilities",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.config:smallrye-config",
+      "version": "3.17.2",
+      "name": "SmallRye Config: CDI",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.config:smallrye-config-common",
+      "version": "3.17.2",
+      "name": "SmallRye Config: Common",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.config:smallrye-config-core",
+      "version": "3.17.2",
+      "name": "SmallRye Config: Core",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.reactive:mutiny",
+      "version": "3.3.0",
+      "name": "SmallRye Mutiny - Core library",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.reactive:mutiny-smallrye-context-propagation",
+      "version": "3.3.0",
+      "name": "SmallRye Mutiny - Integration with SmallRye Context Propagation",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.reactive:mutiny-zero-flow-adapters",
+      "version": "1.2.1",
+      "name": "SmallRye Mutiny Zero JDK Flow / Reactive Streams Adapters",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.reactive:smallrye-mutiny-vertx-auth-common",
+      "version": "3.23.1",
+      "name": "SmallRye Mutiny - Vert.x Auth Common",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.reactive:smallrye-mutiny-vertx-bridge-common",
+      "version": "3.23.1",
+      "name": "SmallRye Mutiny - Vert.x Bridge Common",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.reactive:smallrye-mutiny-vertx-core",
+      "version": "3.23.1",
+      "name": "SmallRye Mutiny - Vert.x Core",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.reactive:smallrye-mutiny-vertx-runtime",
+      "version": "3.23.1",
+      "name": "SmallRye Mutiny - Runtime Helpers",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.reactive:smallrye-mutiny-vertx-uri-template",
+      "version": "3.23.1",
+      "name": "SmallRye Mutiny - Vert.x URI Template",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.reactive:smallrye-mutiny-vertx-web",
+      "version": "3.23.1",
+      "name": "SmallRye Mutiny - Vert.x Web",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.reactive:smallrye-mutiny-vertx-web-common",
+      "version": "3.23.1",
+      "name": "SmallRye Mutiny - Vert.x Web Common",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.reactive:smallrye-reactive-converter-api",
+      "version": "3.0.3",
+      "name": "SmallRye Reactive Converters: API",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.smallrye.reactive:smallrye-reactive-converter-mutiny",
+      "version": "3.0.3",
+      "name": "SmallRye Reactive Converters: Mutiny",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.vertx:vertx-auth-common",
+      "version": "4.5.34",
+      "name": "Vert.x Auth Common",
+      "licenses": ["Eclipse Public License - v 1.0", "The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.vertx:vertx-bridge-common",
+      "version": "4.5.34",
+      "name": "Vert.x Bridge Common",
+      "licenses": ["Eclipse Public License - v 1.0", "The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.vertx:vertx-core",
+      "version": "4.5.34",
+      "name": "Vert.x Core",
+      "licenses": ["Eclipse Public License - v 2.0", "The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.vertx:vertx-pg-client",
+      "version": "4.5.34",
+      "name": "Vert.x PostgreSQL Client",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.vertx:vertx-sql-client",
+      "version": "4.5.34",
+      "name": "Vert.x SQL Client",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.vertx:vertx-uri-template",
+      "version": "4.5.34",
+      "name": "Vert.x URI Template",
+      "licenses": ["Eclipse Public License - v 1.0", "The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.vertx:vertx-web",
+      "version": "4.5.34",
+      "name": "Vert.x Web",
+      "licenses": ["Eclipse Public License - v 2.0", "The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "io.vertx:vertx-web-common",
+      "version": "4.5.34",
+      "name": "Vert.x Web Common",
+      "licenses": ["Eclipse Public License - v 1.0", "The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "jakarta.activation:jakarta.activation-api",
+      "version": "2.1.4",
+      "name": "Jakarta Activation API",
+      "licenses": ["EDL 1.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "jakarta.annotation:jakarta.annotation-api",
+      "version": "3.0.0",
+      "name": "Jakarta Annotations API",
+      "licenses": ["EPL 2.0", "GPL2 w/ CPE"],
+      "accepted": "exception",
+      "reason": "Jakarta EE API jars that Quarkus requires. They are dual licensed EPL-2.0 or GPL-2.0 with the Classpath Exception and have no Apache or BSD option. Used unmodified under EPL-2.0 (ADR 0013)."
+    },
+    {
+      "id": "jakarta.el:jakarta.el-api",
+      "version": "6.0.1",
+      "name": "Jakarta Expression Language API",
+      "licenses": [
+        "Eclipse Public License v. 2.0",
+        "GNU General Public License, version 2 with the GNU Classpath Exception"
+      ],
+      "accepted": "exception",
+      "reason": "Jakarta EE API jars that Quarkus requires. They are dual licensed EPL-2.0 or GPL-2.0 with the Classpath Exception and have no Apache or BSD option. Used unmodified under EPL-2.0 (ADR 0013)."
+    },
+    {
+      "id": "jakarta.enterprise:jakarta.enterprise.cdi-api",
+      "version": "4.1.0",
+      "name": "CDI APIs",
+      "licenses": ["Apache License 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "jakarta.enterprise:jakarta.enterprise.lang-model",
+      "version": "4.1.0",
+      "name": "CDI Language Model",
+      "licenses": ["Apache License 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "jakarta.inject:jakarta.inject-api",
+      "version": "2.0.1",
+      "name": "Jakarta Dependency Injection",
+      "licenses": ["The Apache Software License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "jakarta.interceptor:jakarta.interceptor-api",
+      "version": "2.2.0",
+      "name": "Jakarta Interceptors",
+      "licenses": ["EPL 2.0", "GPL2 w/ CPE"],
+      "accepted": "exception",
+      "reason": "Jakarta EE API jars that Quarkus requires. They are dual licensed EPL-2.0 or GPL-2.0 with the Classpath Exception and have no Apache or BSD option. Used unmodified under EPL-2.0 (ADR 0013)."
+    },
+    {
+      "id": "jakarta.json:jakarta.json-api",
+      "version": "2.1.3",
+      "name": "Jakarta JSON Processing API",
+      "licenses": [
+        "Eclipse Public License 2.0",
+        "GNU General Public License, version 2 with the GNU Classpath Exception"
+      ],
+      "accepted": "exception",
+      "reason": "Jakarta EE API jars that Quarkus requires. They are dual licensed EPL-2.0 or GPL-2.0 with the Classpath Exception and have no Apache or BSD option. Used unmodified under EPL-2.0 (ADR 0013)."
+    },
+    {
+      "id": "jakarta.resource:jakarta.resource-api",
+      "version": "2.1.0",
+      "name": "jakarta.resource API",
+      "licenses": ["EPL 2.0", "GPL2 w/ CPE"],
+      "accepted": "exception",
+      "reason": "Jakarta EE API jars that Quarkus requires. They are dual licensed EPL-2.0 or GPL-2.0 with the Classpath Exception and have no Apache or BSD option. Used unmodified under EPL-2.0 (ADR 0013)."
+    },
+    {
+      "id": "jakarta.transaction:jakarta.transaction-api",
+      "version": "2.0.1",
+      "name": "jakarta.transaction API",
+      "licenses": ["EPL 2.0", "GPL2 w/ CPE"],
+      "accepted": "exception",
+      "reason": "Jakarta EE API jars that Quarkus requires. They are dual licensed EPL-2.0 or GPL-2.0 with the Classpath Exception and have no Apache or BSD option. Used unmodified under EPL-2.0 (ADR 0013)."
+    },
+    {
+      "id": "jakarta.ws.rs:jakarta.ws.rs-api",
+      "version": "3.1.0",
+      "name": "Jakarta RESTful WS API",
+      "licenses": ["EPL-2.0", "GPL-2.0-with-classpath-exception"],
+      "accepted": "exception",
+      "reason": "Jakarta EE API jars that Quarkus requires. They are dual licensed EPL-2.0 or GPL-2.0 with the Classpath Exception and have no Apache or BSD option. Used unmodified under EPL-2.0 (ADR 0013)."
+    },
+    {
+      "id": "jakarta.xml.bind:jakarta.xml.bind-api",
+      "version": "4.0.5",
+      "name": "Jakarta XML Binding API",
+      "licenses": ["Eclipse Distribution License - v 1.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.crac:crac",
+      "version": "1.5.0",
+      "name": "crac",
+      "licenses": ["BSD-2-Clause"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.eclipse.microprofile.config:microprofile-config-api",
+      "version": "3.1.1",
+      "name": "MicroProfile Config API",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.eclipse.microprofile.context-propagation:microprofile-context-propagation-api",
+      "version": "1.3",
+      "name": "MicroProfile Context Propagation",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.eclipse.microprofile.health:microprofile-health-api",
+      "version": "4.0.1",
+      "name": "MicroProfile Health API",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.eclipse.microprofile.openapi:microprofile-openapi-api",
+      "version": "4.1.1",
+      "name": "MicroProfile OpenAPI API",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.eclipse.parsson:parsson",
+      "version": "1.1.9",
+      "name": "Eclipse Parsson",
+      "licenses": [
+        "Eclipse Public License 2.0",
+        "GNU General Public License, version 2 with the GNU Classpath Exception"
+      ],
+      "accepted": "exception",
+      "reason": "Reference implementation of Jakarta JSON Processing, dual licensed EPL-2.0 or GPL-2.0 with the Classpath Exception. Used unmodified under EPL-2.0 (ADR 0013)."
+    },
+    {
+      "id": "org.flywaydb:flyway-core",
+      "version": "12.0.0",
+      "name": "flyway-core",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.jboss:jboss-transaction-spi",
+      "version": "8.0.0.Final",
+      "name": "JBoss Transaction SPI",
+      "licenses": ["Public Domain"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.jboss.logging:commons-logging-jboss-logging",
+      "version": "2.0.0.Final",
+      "name": "Commons Logging to JBoss Logging",
+      "licenses": ["Apache License 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.jboss.logging:jboss-logging",
+      "version": "3.6.3.Final",
+      "name": "JBoss Logging 3",
+      "licenses": ["Apache License 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.jboss.logmanager:jboss-logmanager",
+      "version": "3.2.2.Final",
+      "name": "JBoss Log Manager",
+      "licenses": ["Apache License 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.jboss.narayana.jta:narayana-jta",
+      "version": "7.3.4.Final",
+      "name": "Narayana: ArjunaJTA narayana-jta",
+      "licenses": ["Apache-2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.jboss.narayana.jts:narayana-jts-integration",
+      "version": "7.3.4.Final",
+      "name": "Narayana: ArjunaJTS integration",
+      "licenses": ["Apache-2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.jboss.slf4j:slf4j-jboss-logmanager",
+      "version": "2.0.2.Final",
+      "name": "SLF4J: JBoss Log Manager",
+      "licenses": ["Apache License 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.jboss.threads:jboss-threads",
+      "version": "3.9.2",
+      "name": "JBoss Threads",
+      "licenses": ["Apache License 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.jctools:jctools-core",
+      "version": "4.0.5",
+      "name": "Java Concurrency Tools Core Library",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.jdbi:jdbi3-core",
+      "version": "3.55.0",
+      "name": "jdbi3 core",
+      "licenses": ["Apache License 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.jspecify:jspecify",
+      "version": "1.0.0",
+      "name": "JSpecify annotations",
+      "licenses": ["The Apache License, Version 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.postgresql:postgresql",
+      "version": "42.7.13",
+      "name": "PostgreSQL JDBC Driver",
+      "licenses": ["BSD-2-Clause"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.reactivestreams:reactive-streams",
+      "version": "1.0.4",
+      "name": "reactive-streams",
+      "licenses": ["MIT-0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.slf4j:slf4j-api",
+      "version": "2.0.18",
+      "name": "SLF4J API Module",
+      "licenses": ["MIT"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.wildfly.common:wildfly-common",
+      "version": "2.0.1",
+      "name": "wildfly-common",
+      "licenses": ["Apache License 2.0"],
+      "accepted": "permissive"
+    },
+    {
+      "id": "org.yaml:snakeyaml",
+      "version": "2.6",
+      "name": "SnakeYAML",
+      "licenses": ["Apache License, Version 2.0"],
+      "accepted": "permissive"
+    }
+  ],
+  "rejected": []
+}

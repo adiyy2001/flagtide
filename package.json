@@ -10,6 +10,7 @@
   },
   "scripts": {
     "check:text": "node scripts/check-code-style.mjs",
+    "check:licenses": "node scripts/license-report.mjs",
     "conformance": "node scripts/conformance.mjs",
     "generate:admin-api": "node scripts/generate-admin-api.mjs",
     "check:admin-api": "node scripts/generate-admin-api.mjs --check",

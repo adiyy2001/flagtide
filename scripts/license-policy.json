@@ -1,0 +1,23 @@
+{
+  "permissiveNpm": [
+    "MIT",
+    "ISC",
+    "Apache-2.0",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "0BSD",
+    "BlueOak-1.0.0",
+    "CC0-1.0",
+    "Unlicense"
+  ],
+  "mavenExceptions": [
+    {
+      "prefix": "jakarta.",
+      "reason": "Jakarta EE API jars that Quarkus requires. They are dual licensed EPL-2.0 or GPL-2.0 with the Classpath Exception and have no Apache or BSD option. Used unmodified under EPL-2.0 (ADR 0013)."
+    },
+    {
+      "prefix": "org.eclipse.parsson:",
+      "reason": "Reference implementation of Jakarta JSON Processing, dual licensed EPL-2.0 or GPL-2.0 with the Classpath Exception. Used unmodified under EPL-2.0 (ADR 0013)."
+    }
+  ]
+}
