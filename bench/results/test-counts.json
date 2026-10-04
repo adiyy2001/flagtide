@@ -1,0 +1,64 @@
+{
+  "web": {
+    "admin": 199,
+    "angular": 39,
+    "core": 199,
+    "demo-shop": 64,
+    "spec": 426
+  },
+  "java": {
+    "adapter-in-websocket unit and component": {
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "adapter-out-memory unit and component": {
+      "tests": 144,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "adapter-out-postgres unit and component": {
+      "tests": 71,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "application unit and component": {
+      "tests": 33,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "architecture unit and component": {
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "bootstrap unit and component": {
+      "tests": 150,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "bootstrap integration": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "domain unit and component": {
+      "tests": 855,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "javaTotal": 1290,
+  "vectorCases": {
+    "total": 616,
+    "evaluation": 419
+  }
+}

@@ -18,7 +18,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "verify": "node scripts/verify.mjs",
-    "bench:load": "bash bench/run-load.sh"
+    "bench:load": "bash bench/run-load.sh",
+    "test:counts": "node scripts/test-counts.mjs",
+    "report": "node scripts/report.mjs"
   },
   "devDependencies": {
     "@angular/build": "22.2.1",
