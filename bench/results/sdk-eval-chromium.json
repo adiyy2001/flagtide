@@ -16,26 +16,26 @@
   "results": [
     {
       "scenario": "kill switch",
-      "meanMicroseconds": 0.081,
+      "meanMicroseconds": 0.066,
       "p99Microseconds": 0,
-      "operationsPerSecond": 12303882,
-      "samples": 12315070,
+      "operationsPerSecond": 15233469,
+      "samples": 15244961,
       "withinTarget": true
     },
     {
       "scenario": "percentage rollout",
-      "meanMicroseconds": 0.366,
+      "meanMicroseconds": 0.347,
       "p99Microseconds": 0,
-      "operationsPerSecond": 2722540,
-      "samples": 2732181,
+      "operationsPerSecond": 2874025,
+      "samples": 2883487,
       "withinTarget": true
     },
     {
       "scenario": "targeted rules with segment and rollout",
-      "meanMicroseconds": 0.362,
+      "meanMicroseconds": 0.334,
       "p99Microseconds": 0,
-      "operationsPerSecond": 2751954,
-      "samples": 2761088,
+      "operationsPerSecond": 2987644,
+      "samples": 2996901,
       "withinTarget": true
     }
   ]

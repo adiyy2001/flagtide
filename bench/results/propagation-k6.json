@@ -20,19 +20,19 @@
   "socketsClosedEarly": 0,
   "deltaFramesReceived": 150000,
   "commitToReceiptMilliseconds": {
-    "p50": 40,
-    "p90": 76,
-    "p95": 89,
-    "p99": 144,
-    "max": 172,
-    "mean": 44.87268
+    "p50": 42,
+    "p90": 86,
+    "p95": 107,
+    "p99": 152,
+    "max": 171,
+    "mean": 48.990273333333334
   },
   "serverSideAcknowledgements": {
-    "connectedClients": 2500,
+    "connectedClients": 0,
     "samples": 150000,
-    "p50Millis": 44,
-    "p95Millis": 96,
-    "p99Millis": 159
+    "p50Millis": 48,
+    "p95Millis": 118,
+    "p99Millis": 161
   },
   "withinTarget": true
 }
