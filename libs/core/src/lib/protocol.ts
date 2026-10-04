@@ -94,12 +94,18 @@ function isNamedRecordList(value: unknown): boolean {
   return Array.isArray(value) && value.every((item) => isRecord(item) && typeof item['key'] === 'string');
 }
 
-function isSnapshotFrame(value: Record<string, unknown>): boolean {
-  return isVersion(value['v']) && isNamedRecordList(value['flags']) && isNamedRecordList(value['segments']);
+function hasSnapshotFields(value: unknown): value is Omit<SnapshotFrame, 't'> {
+  return (
+    isRecord(value) &&
+    isVersion(value['v']) &&
+    isNamedRecordList(value['flags']) &&
+    isNamedRecordList(value['segments'])
+  );
 }
 
-function isDeltasFrame(value: Record<string, unknown>): boolean {
+function isDeltasFrame(value: unknown): value is DeltasFrame {
   return (
+    isRecord(value) &&
     isVersion(value['from']) &&
     isVersion(value['to']) &&
     Array.isArray(value['entries']) &&
@@ -107,18 +113,25 @@ function isDeltasFrame(value: Record<string, unknown>): boolean {
   );
 }
 
-function isErrorFrame(value: Record<string, unknown>): boolean {
-  return typeof value['code'] === 'number' && typeof value['message'] === 'string';
+function isHeartbeatFrame(value: unknown): value is HeartbeatFrame {
+  return isRecord(value) && typeof value['ts'] === 'number';
 }
 
-function isShapeOf(type: unknown, value: Record<string, unknown>): boolean {
-  switch (type) {
+function isErrorFrame(value: unknown): value is ErrorFrame {
+  return isRecord(value) && typeof value['code'] === 'number' && typeof value['message'] === 'string';
+}
+
+function isServerFrame(value: unknown): value is ServerFrame {
+  if (!isRecord(value)) {
+    return false;
+  }
+  switch (value['t']) {
     case 'snapshot':
-      return isSnapshotFrame(value);
+      return hasSnapshotFields(value);
     case 'deltas':
       return isDeltasFrame(value);
     case 'hb':
-      return typeof value['ts'] === 'number';
+      return isHeartbeatFrame(value);
     case 'error':
       return isErrorFrame(value);
     default:
@@ -138,10 +151,7 @@ export function parseServerFrame(text: string): ServerFrame | null {
   } catch {
     return null;
   }
-  if (!isRecord(parsed) || !isShapeOf(parsed['t'], parsed)) {
-    return null;
-  }
-  return parsed as unknown as ServerFrame;
+  return isServerFrame(parsed) ? parsed : null;
 }
 
 /** Parses the body of `GET /sdk/v1/snapshot`, which has the fields of a `snapshot` frame without `t`. */
@@ -152,8 +162,5 @@ export function parseSnapshotBody(text: string): SnapshotFrame | null {
   } catch {
     return null;
   }
-  if (!isRecord(parsed) || !isSnapshotFrame(parsed)) {
-    return null;
-  }
-  return { ...(parsed as unknown as SnapshotFrame), t: 'snapshot' };
+  return hasSnapshotFields(parsed) ? { ...parsed, t: 'snapshot' } : null;
 }
