@@ -8,4 +8,5 @@ export FLAGTIDE_UID="$(id -u)"
 export FLAGTIDE_GID="$(id -g)"
 
 docker compose up -d --build --wait
+pnpm nx run core:build
 node scripts/verify-must-haves.mjs

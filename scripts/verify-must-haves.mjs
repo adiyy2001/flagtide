@@ -1,5 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { chromium } from 'playwright';
+import { evaluate, indexSegments } from '../dist/libs/core/index.js';
 
 const ports = {
   a: process.env.FLAGTIDE_PORT_SERVER_A ?? '18081',
@@ -51,6 +52,20 @@ async function api(base, path, { method = 'GET', headers = adminHeaders(), body 
   });
   const text = await response.text();
   return { status: response.status, headers: response.headers, text, json: text ? safeJson(text) : null };
+}
+
+async function visitorServedOff(flagKey) {
+  const snapshot = (await api(apiB, '/sdk/v1/snapshot', { headers: { Authorization: `Bearer ${devSdk}` } }))
+    .json;
+  const flag = snapshot.flags.find((entry) => entry.key === flagKey);
+  const segments = indexSegments(snapshot.segments);
+  for (let index = 0; index < 1000; index++) {
+    const context = { key: `outsider-${index}`, attributes: { country: 'PL', plan: 'standard' } };
+    if (evaluate(flag, context, segments).value === false) {
+      return context.key;
+    }
+  }
+  throw new Error(`${flagKey} serves every visitor`);
 }
 
 function safeJson(text) {
@@ -318,10 +333,11 @@ await check('SSR: the HTML from the shop already contains the flagged content an
   expect(html.includes('data-testid="promo-banner"'), 'banner missing from the server render');
   expect(html.includes('data-testid="nav-recommendations"'), 'beta link missing for the beta visitor');
   expect(html.includes('ng-state'), 'no TransferState payload');
-  const other = await (await fetch(`${shopUrl}/?visitor=somebody-else`)).text();
+  const outsider = await visitorServedOff('beta-recommendations');
+  const other = await (await fetch(`${shopUrl}/?visitor=${outsider}`)).text();
   expect(
     !other.includes('data-testid="nav-recommendations"'),
-    'beta link rendered for a visitor outside the segment',
+    `beta link rendered for ${outsider}, a visitor outside the segment and the rollout`,
   );
   const missing = await fetch(`${shopUrl}/no-such-page`);
   expect(missing.status === 404, `unknown path answered ${missing.status}`);
