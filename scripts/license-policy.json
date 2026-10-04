@@ -19,5 +19,22 @@
       "prefix": "org.eclipse.parsson:",
       "reason": "Reference implementation of Jakarta JSON Processing, dual licensed EPL-2.0 or GPL-2.0 with the Classpath Exception. Used unmodified under EPL-2.0 (ADR 0013)."
     }
+  ],
+  "buildTimeNpmExceptions": [
+    {
+      "name": "lightningcss",
+      "license": "MPL-2.0",
+      "reason": "Used by the Angular build to minify CSS. It runs at build time and none of its code is in a package or an image."
+    },
+    {
+      "name": "caniuse-lite",
+      "license": "CC-BY-4.0",
+      "reason": "Browser support data read by the Angular build and by browserslist. Data only, never shipped."
+    },
+    {
+      "name": "argparse",
+      "license": "Python-2.0",
+      "reason": "Command line parser inside js-yaml, which tooling uses to read configuration. Never shipped."
+    }
   ]
 }

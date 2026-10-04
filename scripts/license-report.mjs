@@ -91,6 +91,27 @@ function spdxAllowed(expression, allowed) {
     .some((alternative) => alternative.split(/\s+AND\s+/i).every((id) => allowed.includes(id.trim())));
 }
 
+function buildTimeExceptions() {
+  const pnpmStore = join(root, 'node_modules/.pnpm');
+  const installed = existsSync(pnpmStore) ? readdirSync(pnpmStore) : [];
+  return policy.buildTimeNpmExceptions.flatMap((exception) =>
+    installed
+      .filter((entry) => entry.startsWith(`${exception.name}@`))
+      .map((entry) => {
+        const manifest = JSON.parse(
+          readFileSync(join(pnpmStore, entry, 'node_modules', exception.name, 'package.json'), 'utf8'),
+        );
+        return {
+          name: exception.name,
+          version: manifest.version,
+          license: licenseOf(manifest),
+          expected: exception.license,
+          reason: exception.reason,
+        };
+      }),
+  );
+}
+
 function npmReport() {
   const roots = runtimeRoots();
   const seen = new Map();
@@ -111,7 +132,8 @@ function npmReport() {
   }
   const packages = [...seen.values()].sort((a, b) => a.name.localeCompare(b.name));
   const rejected = packages.filter((entry) => !spdxAllowed(entry.license, policy.permissiveNpm));
-  return { roots, packages, rejected };
+  const buildTime = buildTimeExceptions();
+  return { roots, packages, rejected, buildTime };
 }
 
 function normalizeMaven(name) {
@@ -197,7 +219,14 @@ if (wanted.includes('npm')) {
     `npm: ${report.packages.length} runtime packages from ${report.roots.length} roots, ${report.rejected.length} outside the policy`,
   );
   report.rejected.forEach((entry) => console.error(`  ${entry.name}@${entry.version}: ${entry.license}`));
-  failed ||= report.rejected.length > 0;
+  report.buildTime
+    .filter((entry) => entry.license !== entry.expected)
+    .forEach((entry) =>
+      console.error(
+        `  build time ${entry.name}@${entry.version}: ${entry.license}, expected ${entry.expected}`,
+      ),
+    );
+  failed ||= report.rejected.length > 0 || report.buildTime.some((entry) => entry.license !== entry.expected);
 }
 
 if (wanted.includes('maven')) {
