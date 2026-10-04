@@ -1,0 +1,55 @@
+{
+  "generatedFrom": "coverage output of the last test run",
+  "web": [
+    {
+      "project": "libs/core",
+      "statements": 98.7,
+      "branches": 95.4,
+      "functions": 98.4,
+      "lines": 98.7
+    },
+    {
+      "project": "libs/angular",
+      "statements": 99.1,
+      "branches": 94.9,
+      "functions": 100,
+      "lines": 98.8
+    },
+    {
+      "project": "apps/admin",
+      "statements": 93.3,
+      "branches": 86.9,
+      "functions": 91.2,
+      "lines": 92.9
+    },
+    {
+      "project": "apps/demo-shop",
+      "statements": 96.7,
+      "branches": 98.4,
+      "functions": 92.5,
+      "lines": 95.2
+    }
+  ],
+  "java": [
+    {
+      "layer": "domain",
+      "lines": 99.3,
+      "branches": 97.5
+    },
+    {
+      "layer": "application",
+      "lines": 99.2,
+      "branches": 93.4
+    },
+    {
+      "layer": "adapters",
+      "lines": 95.6,
+      "branches": 75.2
+    },
+    {
+      "layer": "bootstrap",
+      "lines": 96.3,
+      "branches": 69.2
+    }
+  ]
+}
