@@ -72,8 +72,10 @@ export class TryContext {
     return outcome.kind === 'problem' ? outcome.message : null;
   });
 
-  protected explanation(result: EvaluationResult): string {
-    return REASONS[result.reason];
+  protected detail(result: EvaluationResult): string {
+    const rule = result.ruleId === null ? '' : ` (rule ${result.ruleId})`;
+    const bucket = result.bucket === null ? '' : ` Bucket ${result.bucket} of 100000.`;
+    return `${REASONS[result.reason]}${rule}.${bucket}`;
   }
 
   protected valueText(result: EvaluationResult): string {

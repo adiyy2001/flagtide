@@ -33,10 +33,7 @@
       Serves <strong class="mono">{{ result.variantKey }}</strong> with value
       <code>{{ valueText(result) }}</code>
     </p>
-    <p class="muted">
-      {{ explanation(result) }} @if (result.ruleId !== null) { (rule <strong>{{ result.ruleId }}</strong>) }
-      @if (result.bucket !== null) { . Bucket {{ result.bucket }} of 100000. }
-    </p>
+    <p class="muted">{{ detail(result) }}</p>
     } @else {
     <p class="muted">{{ problem() }}</p>
     }

@@ -48,6 +48,33 @@ describe('rules and try a context', () => {
     expect(harness.textOf('.outcome')).toContain('pro-users');
   });
 
+  it('writes the rule and the bucket as clean sentences', async () => {
+    const server = serverWithRule();
+    server.flags = [
+      wireFlag('gated', {
+        environments: {
+          dev: {
+            enabled: true,
+            offVariant: 'off',
+            salt: 'cd34',
+            fallthrough: {
+              rollout: [
+                { variant: 'on', weight: 50000 },
+                { variant: 'off', weight: 50000 },
+              ],
+            },
+            rules: [],
+          },
+        },
+      }),
+    ];
+    const harness = await mount({ server });
+    await harness.go('/flags/gated');
+    const text = harness.textOf('.outcome');
+    expect(text).toMatch(/No rule matched, so the fallthrough is served\. Bucket \d+ of 100000\./);
+    expect(text).not.toMatch(/\s\.\s/);
+  });
+
   it('follows edits to the attributes and reports bad JSON', async () => {
     const harness = await mount({ server: serverWithRule() });
     await harness.go('/flags/gated');
