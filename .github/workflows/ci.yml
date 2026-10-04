@@ -152,6 +152,7 @@ jobs:
           FLAGWIRE_IT_URL: http://127.0.0.1:18081
         run: pnpm nx run core:integration --skip-nx-cache
       - name: Cypress end-to-end suite
+        timeout-minutes: 15
         run: pnpm nx run e2e:e2e
       - name: Must-have checks against the production stack
         run: scripts/verify-must-haves.sh

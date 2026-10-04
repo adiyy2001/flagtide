@@ -57,7 +57,7 @@ function clickAndMeasure(label: string): void {
     });
 }
 
-describe('propagation: admin on server-a, shop on server-b', () => {
+describe('propagation: admin on server-a, shop on server-b', { retries: 0 }, () => {
   beforeEach(() => {
     putEnabled('promo-banner', true);
     cy.visit(urls().harnessUrl);

@@ -42,7 +42,14 @@ export default defineConfig({
     expose: { ...urls, harnessUrl: 'http://127.0.0.1:14400' },
     async setupNodeEvents(on) {
       const harness = await startHarness({ adminUrl: urls.adminUrl, shopUrl: urls.shopUrl });
-      on('after:run', () => new Promise((done) => harness.close(done)));
+      on(
+        'after:run',
+        () =>
+          new Promise((done) => {
+            harness.close(done);
+            harness.closeAllConnections();
+          }),
+      );
       const core = await import(resolve(root, 'dist/libs/core/index.js'));
       const remembered = new Map();
       on('task', {
