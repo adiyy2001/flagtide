@@ -5,7 +5,7 @@
       "project": "libs/core",
       "statements": 98.7,
       "branches": 95.4,
-      "functions": 98.4,
+      "functions": 98.5,
       "lines": 98.7
     },
     {
@@ -18,7 +18,7 @@
     {
       "project": "apps/admin",
       "statements": 93.3,
-      "branches": 86.9,
+      "branches": 87,
       "functions": 91.2,
       "lines": 92.9
     },
@@ -33,18 +33,18 @@
   "java": [
     {
       "layer": "domain",
-      "lines": 99.3,
-      "branches": 97.5
+      "lines": 99.1,
+      "branches": 96.9
     },
     {
       "layer": "application",
-      "lines": 99.2,
+      "lines": 99.1,
       "branches": 93.4
     },
     {
       "layer": "adapters",
-      "lines": 95.6,
-      "branches": 75.2
+      "lines": 95.4,
+      "branches": 74.8
     },
     {
       "layer": "bootstrap",

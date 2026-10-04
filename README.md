@@ -100,9 +100,9 @@ The target is a p95 under 300 ms with 5,000 clients. `pnpm bench:load` starts Po
 
 | Clients | Instances | Changes | Frames received | p50 | p95 | p99 | max |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 5,000 | 2 | 30 | 150,000 | 48 ms | 102 ms | 137 ms | 268 ms |
+| 5,000 | 2 | 30 | 150,000 | 38 ms | 77 ms | 90 ms | 127 ms |
 
-No socket failed to connect or closed early. The instances time the acknowledgements their clients send back, which is what the admin's propagation monitor shows: p50 54 ms, p95 111 ms and p99 197 ms over the same 150,000 samples. Every process runs on one host, so there is one clock and no skew. The target is met. Five runs on this machine gave a p95 between 89 and 169 ms, so expect a spread on a shared host. How the time is defined is in [ADR 0011](docs/adr/0011-propagation-measurement.md).
+No socket failed to connect or closed early. The instances time the acknowledgements their clients send back, which is what the admin's propagation monitor shows: p50 42 ms, p95 87 ms and p99 108 ms over the same 150,000 samples. Every process runs on one host, so there is one clock and no skew. The target is met. Six runs on this machine gave a p95 between 77 and 169 ms, so expect a spread on a shared host. How the time is defined is in [ADR 0011](docs/adr/0011-propagation-measurement.md).
 
 ### SDK evaluation per flag
 
@@ -110,18 +110,18 @@ The target is under 5 µs. `pnpm nx run core:bench` measures `@flagtide/core` wi
 
 | Runtime | Scenario | Mean | p99 | Evaluations per second |
 | --- | --- | --- | --- | --- |
-| Node | kill switch | 0.053 µs | 0.096 µs | 21,082,630 |
-| Node | percentage rollout | 0.65 µs | 1.359 µs | 1,904,435 |
-| Node | targeted rules with segment and rollout | 0.49 µs | 1.715 µs | 3,280,831 |
-| Chromium | kill switch | 0.095 µs | n/a | 10,537,013 |
-| Chromium | percentage rollout | 0.396 µs | n/a | 2,514,270 |
-| Chromium | targeted rules with segment and rollout | 0.356 µs | n/a | 2,797,757 |
+| Node | kill switch | 0.047 µs | 0.075 µs | 23,816,369 |
+| Node | percentage rollout | 0.412 µs | 0.551 µs | 2,821,445 |
+| Node | targeted rules with segment and rollout | 0.333 µs | 0.9 µs | 4,664,118 |
+| Chromium | kill switch | 0.07 µs | n/a | 14,278,689 |
+| Chromium | percentage rollout | 0.315 µs | n/a | 3,169,272 |
+| Chromium | targeted rules with segment and rollout | 0.325 µs | n/a | 3,071,456 |
 
 Chromium clamps `performance.now()` on a page that is not cross-origin isolated, so single-call latencies fall below the timer resolution and the p99 column is empty. The means are taken over millions of calls.
 
 ### Admin and shop end to end
 
-The Cypress suite measures with a `MutationObserver` in the shop, against the click in the admin. The last two runs on this machine gave 36 to 90 ms from click to changed DOM, against a budget of one second. The number is logged by every run of `pnpm nx run e2e:e2e`.
+The Cypress suite measures with a `MutationObserver` in the shop, against the click in the admin. The last run on this machine gave 30 to 80 ms from click to changed DOM, against a budget of one second. The number is logged by every run of `pnpm nx run e2e:e2e`.
 
 ### Accessibility
 
@@ -133,11 +133,11 @@ The Cypress suite measures with a `MutationObserver` in the shop, against the cl
 | --- | --- | --- |
 | `libs/core` | 98.7% | 95.4% |
 | `libs/angular` | 98.8% | 94.9% |
-| `apps/admin` | 92.9% | 86.9% |
+| `apps/admin` | 92.9% | 87% |
 | `apps/demo-shop` | 95.2% | 98.4% |
-| server domain | 99.3% | 97.5% |
-| server application | 99.2% | 93.4% |
-| server adapters | 95.6% | 75.2% |
+| server domain | 99.1% | 96.9% |
+| server application | 99.1% | 93.4% |
+| server adapters | 95.4% | 74.8% |
 | server bootstrap | 96.3% | 69.2% |
 
 The gates are 90% of lines for the evaluation engines, the domain and the application layer, and 80% for everything else. The branch figures for the adapters and the bootstrap module are lower because most of their branches are error paths around PostgreSQL and Quarkus.
@@ -179,7 +179,7 @@ pnpm verify
 | `pnpm bench:load` | The 5,000 client propagation test |
 | `pnpm test:counts` and `pnpm report` | Run every test target and print the counts, and print the benchmark and coverage tables above |
 
-The test counts from the last run: 1,290 in the server modules (including the 617 conformance cases in the domain module), 426 in the spec project (every vector is well formed, and the committed files are exactly what the Python oracle and generator produce), 199 in `libs/core`, 39 in `libs/angular` (3 of them render on the server in a Node environment that traps every browser global), 199 in the admin and 64 in the demo shop. The domain has jqwik properties for uniform bucketing (a chi-square test over a million keys), determinism and monotonic rollouts, and the TypeScript side has fast-check versions. The SDK is tested against a fake WebSocket server and with marble tests for reconnect, backoff and the stale watchdog.
+The test counts from the last run: 1,327 in the server modules (including the 617 conformance cases in the domain module), 426 in the spec project (every vector is well formed, and the committed files are exactly what the Python oracle and generator produce), 199 in `libs/core`, 39 in `libs/angular` (3 of them render on the server in a Node environment that traps every browser global), 200 in the admin and 64 in the demo shop. The domain has jqwik properties for uniform bucketing (a chi-square test over a million keys), determinism and monotonic rollouts, and the TypeScript side has fast-check versions. The SDK is tested against a fake WebSocket server and with marble tests for reconnect, backoff and the stale watchdog.
 
 CI is `.github/workflows/ci.yml`: static checks, conformance in both languages (it blocks the other jobs), web, server, licenses, end to end with Lighthouse and the must-have script, and a short load test. It has not run on GitHub yet and `act` is not installed here, so I linted it with actionlint and ran the commands of each job locally.
 

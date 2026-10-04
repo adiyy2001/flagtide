@@ -1,5 +1,11 @@
 {
-  "web": {},
+  "web": {
+    "admin": 200,
+    "angular": 39,
+    "core": 199,
+    "demo-shop": 64,
+    "spec": 426
+  },
   "java": {
     "adapter-in-websocket unit and component": {
       "tests": 12,
@@ -20,7 +26,7 @@
       "skipped": 0
     },
     "application unit and component": {
-      "tests": 33,
+      "tests": 30,
       "failures": 0,
       "errors": 0,
       "skipped": 0
@@ -50,7 +56,7 @@
       "skipped": 0
     }
   },
-  "javaTotal": 1330,
+  "javaTotal": 1327,
   "vectorCases": {
     "total": 616,
     "evaluation": 419
