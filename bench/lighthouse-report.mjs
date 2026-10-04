@@ -30,7 +30,13 @@ const result = {
   browser: pages[0]?.userAgent ?? 'unknown',
   hardware: describeHardware(),
   minimumAccessibility: minimum,
-  pages: pages.map(({ lighthouse, userAgent, ...rest }) => rest),
+  pages: pages.map((entry) => ({
+    page: entry.page,
+    url: entry.url,
+    accessibility: entry.accessibility,
+    bestPractices: entry.bestPractices,
+    failingAudits: entry.failingAudits,
+  })),
 };
 
 writeFileSync(outputPath, `${JSON.stringify(result, null, 2)}\n`);
