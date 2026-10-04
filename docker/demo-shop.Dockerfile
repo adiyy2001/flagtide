@@ -1,5 +1,6 @@
 FROM node:24.21.0-alpine AS build
 ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 \
+    CYPRESS_INSTALL_BINARY=0 \
     CI=true
 RUN npm install --global pnpm@12.8.1
 WORKDIR /build

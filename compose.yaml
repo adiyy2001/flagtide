@@ -96,6 +96,7 @@ services:
     environment:
       FLAGWIRE_ADMIN_API_URL: http://127.0.0.1:${FLAGWIRE_PORT_SERVER_A:-18081}
       FLAGWIRE_ADMIN_PROJECT: demo
+      FLAGWIRE_FRAME_ANCESTORS: "'self' http://127.0.0.1:14400 http://localhost:14400"
       FLAGWIRE_ADMIN_KEYS: '{"dev":"fwa_demo_dev_admin_000000000000","staging":"fwa_demo_staging_admin_00000000","prod":"fwa_demo_prod_admin_00000000000"}'
     ports:
       - '127.0.0.1:${FLAGWIRE_PORT_ADMIN:-14200}:8080'
