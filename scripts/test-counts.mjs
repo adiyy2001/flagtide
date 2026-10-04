@@ -31,20 +31,14 @@ function webCounts() {
   return Object.fromEntries([...counts].sort(([a], [b]) => a.localeCompare(b)));
 }
 
-function summaryTotals(directory) {
+function suiteTotals(directory) {
   const totals = { tests: 0, failures: 0, errors: 0, skipped: 0 };
   readdirSync(directory)
-    .filter((name) => name.endsWith('.txt'))
+    .filter((name) => name.startsWith('TEST-') && name.endsWith('.xml'))
     .forEach((name) => {
-      const line = readFileSync(join(directory, name), 'utf8').match(/Tests run: .*/)?.[0] ?? '';
-      const found = {
-        tests: /Tests run: (\d+)/,
-        failures: /Failures: (\d+)/,
-        errors: /Errors: (\d+)/,
-        skipped: /Skipped: (\d+)/,
-      };
-      Object.entries(found).forEach(([key, pattern]) => {
-        totals[key] += Number(pattern.exec(line)?.[1] ?? 0);
+      const header = /<testsuite\b[^>]*>/.exec(readFileSync(join(directory, name), 'utf8'))?.[0] ?? '';
+      Object.keys(totals).forEach((key) => {
+        totals[key] += Number(new RegExp(`\\b${key}="(\\d+)"`).exec(header)?.[1] ?? 0);
       });
     });
   return totals;
@@ -70,7 +64,7 @@ function javaCounts() {
     ['surefire-reports', 'failsafe-reports'].forEach((kind) => {
       const directory = join(serverRoot, name, 'target', kind);
       if (existsSync(directory)) {
-        const totals = summaryTotals(directory);
+        const totals = suiteTotals(directory);
         if (totals.tests > 0) {
           result[`${name} ${kind === 'surefire-reports' ? 'unit and component' : 'integration'}`] = totals;
         }
