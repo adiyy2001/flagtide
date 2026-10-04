@@ -4,7 +4,7 @@ Status: accepted, 2026-10-03
 
 ## Context
 
-A flag has variants that every environment refers to, and rules and rollouts that differ per environment. Invariants such as "every served variant exists" and "weights sum to exactly 100 percent" cross that line. The brief also asks for optimistic concurrency (409), a per-environment version that only grows, and API keys per environment.
+A flag has variants that every environment refers to, and rules and rollouts that differ per environment. Invariants such as "every served variant exists" and "weights sum to exactly 100 percent" cross that line. The service also needs optimistic concurrency (409), a per-environment version that only grows, and API keys per environment.
 
 ## Decision
 

@@ -4,7 +4,7 @@ Status: accepted, 2026-10-03
 
 ## Context
 
-The brief allows only permissive dependencies (MIT, Apache 2.0, BSD, ISC) and also requires jqwik for property tests. jqwik is licensed under EPL 2.0, as is JUnit, which every Java test suite needs.
+I allow only permissive dependencies (MIT, Apache 2.0, BSD, ISC) and I also want jqwik for property tests. jqwik is licensed under EPL 2.0, as is JUnit, which every Java test suite needs.
 
 ## Decision
 
@@ -15,7 +15,7 @@ The brief allows only permissive dependencies (MIT, Apache 2.0, BSD, ISC) and al
 
 ## Alternatives
 
-- Replace jqwik with a permissively licensed property testing library: the brief names jqwik, and the alternatives are less maintained.
+- Replace jqwik with a permissively licensed property testing library: jqwik is the property testing library I want to use, and the alternatives are less maintained.
 - Treat test dependencies like runtime ones: would rule out JUnit.
 
 ## Consequences

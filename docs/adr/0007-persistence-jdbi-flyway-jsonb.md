@@ -4,7 +4,7 @@ Status: accepted, 2026-10-03
 
 ## Context
 
-The persistence adapter needs migrations, named query parameters, transactions that also carry the change log and the notification, and an in-memory twin that behaves the same. The brief wants the Vert.x reactive client for LISTEN/NOTIFY. It does not say what to use for the rest.
+The persistence adapter needs migrations, named query parameters, transactions that also carry the change log and the notification, and an in-memory twin that behaves the same. LISTEN/NOTIFY runs on the Vert.x reactive client. That leaves open what to use for the rest.
 
 ## Decision
 
@@ -26,6 +26,6 @@ The persistence adapter needs migrations, named query parameters, transactions t
 - A second JDBC adapter (the Oracle stretch goal) would reuse most of the code.
 - JSONB makes schema evolution of the aggregate a Jackson concern. Flyway migrations still own the relational parts, and a version field inside each document leaves room for upcasting.
 
-## Amendment, M3
+## Amendment
 
 The first draft of this record proposed Jackson mixins. The implementation uses the `JsonText` codec instead because it removed the mixin classes without losing the annotation free domain, and it let the in-memory adapter and the REST adapter share the exact wire format of compiled flag configs.

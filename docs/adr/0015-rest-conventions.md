@@ -4,14 +4,14 @@ Status: accepted, 2026-10-03
 
 ## Context
 
-M3 exposes the use cases over HTTP. The brief fixes the paths, ETag and If-Match with 409, and bearer keys. It leaves open how strict the preconditions are, how projects are created and how errors look.
+The use cases are exposed over HTTP. The paths, ETag and If-Match with 409, and bearer keys are fixed up front. It leaves open how strict the preconditions are, how projects are created and how errors look.
 
 ## Decision
 
 - The project is part of every admin path (`/api/v1/projects/{project}/...`). A key belongs to one project and one environment. A project in the path that differs from the key's project answers 403, so a leaked key cannot reach another project.
 - Admin keys start with `fwa_` and are stored hashed. SDK keys start with `fws_` and are stored in a form that can be looked up, because they ship in browsers and are not secrets. An SDK key can only call `GET /sdk/v1/snapshot` and an admin key cannot.
 - There is no REST endpoint that creates a project. A project, its environments and its first keys come from configuration at startup (idempotent seeding) or from a later management surface. This keeps the first key from being created without a key.
-- The ETag of a flag or segment is its revision as a quoted integer. `If-Match` is optional: absent or `*` skips the check, so scripts and the admin UI can still do a blind write, while a stale tag answers 409 and a malformed tag answers 400. 409 is used instead of 412 because the brief and the use cases name the outcome a conflict, and the body carries the problem details. The same revision check sits in the use case, so a lost update is impossible even without the header.
+- The ETag of a flag or segment is its revision as a quoted integer. `If-Match` is optional: absent or `*` skips the check, so scripts and the admin UI can still do a blind write, while a stale tag answers 409 and a malformed tag answers 400. 409 is used instead of 412 because the use cases name the outcome a conflict, and the body carries the problem details. The same revision check sits in the use case, so a lost update is impossible even without the header.
 - The ETag of a snapshot is the environment version. A matching `If-None-Match` answers 304 without a body.
 - Errors are `application/problem+json` with `type` `urn:flagwire:problem:<code>`, an `errors` list for field problems and no stack traces. Jackson rejects unknown properties, so a typo in a rule is a 400, not a silent default.
 - The kill switch is its own resource: `POST` engages and `DELETE` releases `.../environments/{environment}/kill-switch`.
@@ -27,4 +27,4 @@ M3 exposes the use cases over HTTP. The brief fixes the paths, ETag and If-Match
 ## Consequences
 
 - Clients get optimistic concurrency when they send the header and last writer wins when they do not. The audit log records both.
-- Every contract change shows in `openapi.json`, which M5 and M6 use to generate or check clients.
+- Every contract change shows in `openapi.json`, which the SDK and the admin app use to generate or check clients.

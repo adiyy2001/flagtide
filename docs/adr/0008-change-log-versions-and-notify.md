@@ -20,8 +20,8 @@ Clients ask for "everything since version N". Several server instances must lear
 
 - Full change in the payload: breaks on the 8,000 byte limit.
 - Polling the change log: simple, but it adds latency up to the polling interval and constant database load.
-- An external broker (Redis, NATS, Kafka): works, but the brief rules it out and PostgreSQL already holds the truth.
-- `LISTEN` through the JDBC driver: possible with polling, and not what the brief asks for.
+- An external broker (Redis, NATS, Kafka): works, but I wanted no extra moving part and PostgreSQL already holds the truth.
+- `LISTEN` through the JDBC driver: possible with polling, and the Vert.x reactive client does it without polling.
 
 ## Consequences
 

@@ -4,7 +4,7 @@ Status: accepted, 2026-10-03
 
 ## Context
 
-The brief wants a publishable Angular SDK that works zoneless and under SSR, keeps the last snapshot for an offline start, and includes a dev overrides panel. It also wants a framework-agnostic core with the evaluation engine and the RxJS connection manager.
+The SDK has to be a publishable Angular package that works zoneless and under SSR, keeps the last snapshot for an offline start, and includes a dev overrides panel. It also needs a framework-agnostic core with the evaluation engine and the RxJS connection manager.
 
 ## Decision
 
@@ -27,7 +27,7 @@ The brief wants a publishable Angular SDK that works zoneless and under SSR, kee
 - Two versions to keep in step, handled by the workspace.
 - Server and browser use different URLs for the same service in the demo shop (container network address versus published port), so the config takes both.
 
-## Amendment (milestone 5)
+## Amendment
 
 - ng-packagr runs directly from an Nx run-commands target (`ng-packagr -p libs/angular/ng-package.json`) instead of `@nx/angular:package`. The plugin would add a second Angular toolchain on top of the Angular CLI that already runs the unit tests, and the direct call produces the same partial-compilation output. Nx still caches the build and orders it after `core:build`.
 - The Angular library carries its own `angular.json` so that `ng test angular` runs the specs with the Angular vitest runner and jsdom. Server rendering is tested separately in a Node environment (`test-ssr`) so that no DOM globals exist at all.

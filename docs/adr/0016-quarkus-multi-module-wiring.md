@@ -4,7 +4,7 @@ Status: accepted, 2026-10-03
 
 ## Context
 
-The use cases and adapters are plain Java in separate Maven modules. Quarkus finds CDI beans and JAX-RS resources at build time by reading a Jandex index, and by default it indexes only the application module. Risk 4 of the plan asked for a spike before the REST code.
+The use cases and adapters are plain Java in separate Maven modules. Quarkus finds CDI beans and JAX-RS resources at build time by reading a Jandex index, and by default it indexes only the application module. I ran a spike before writing the REST code.
 
 ## Decision
 

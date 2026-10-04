@@ -4,7 +4,7 @@ Status: accepted, 2026-10-03
 
 ## Context
 
-I want hexagonal architecture and DDD to show in the code and to be enforced by the build. The brief allows modules or packages checked by ArchUnit.
+I want hexagonal architecture and DDD to show in the code and to be enforced by the build. Either modules or packages checked by ArchUnit would do.
 
 ## Decision
 
@@ -23,5 +23,5 @@ Maven modules under `apps/server`: `domain`, `application`, `adapter-in-rest`, `
 
 ## Consequences
 
-- Library modules that hold CDI beans need a Jandex index (`quarkus.index-dependency` or the Jandex plugin). That is a known cost, handled in M3.
+- Library modules that hold CDI beans need a Jandex index (`quarkus.index-dependency` or the Jandex plugin). That is a known cost, handled in ADR 0016.
 - The in-memory adapter is a second real implementation of every port, which is the proof that the ports are not shaped by PostgreSQL.

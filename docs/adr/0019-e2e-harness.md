@@ -4,7 +4,7 @@ Status: accepted, 2026-10-04
 
 ## Context
 
-The brief asks for one end-to-end claim: a change made in the admin shows up in the demo shop within one second. The admin talks to `server-a` and the shop to `server-b`, so a pass also proves that the PostgreSQL notification path works between two instances. Cypress drives one origin per test, and the admin (14200) and the shop (14300) are two origins. The demo GIF wants both on screen side by side anyway.
+The end-to-end claim to prove is this: a change made in the admin shows up in the demo shop within one second. The admin talks to `server-a` and the shop to `server-b`, so a pass also proves that the PostgreSQL notification path works between two instances. Cypress drives one origin per test, and the admin (14200) and the shop (14300) are two origins. The demo GIF wants both on screen side by side anyway.
 
 Three more questions came up while building it: how the shop consumes the SDK, how the stack gets its data, and which browser security headers get in the way of putting two apps into iframes.
 
@@ -21,9 +21,9 @@ Three more questions came up while building it: how the shop consumes the SDK, h
 
 ## Alternatives
 
-- Two Cypress tests that never share a page: toggle through the admin REST API and assert in the shop. It is the fallback in the plan. It misses the admin UI entirely, so the click in the admin and the one second claim are not tied together.
+- Two Cypress tests that never share a page: toggle through the admin REST API and assert in the shop. It was the fallback. It misses the admin UI entirely, so the click in the admin and the one second claim are not tied together.
 - `cy.origin` with a second visit in the same test: it works for sequential steps, and it cannot watch the shop change while the admin is clicked.
-- Playwright instead of Cypress: it handles two pages well, and the brief asks for Cypress.
+- Playwright instead of Cypress: it handles two pages well, and Cypress is what I use every day.
 - A SQL file or Flyway seed: it would put demo flags into the production migration path.
 - Running the shop with `ng serve` in the E2E run: faster to start, and it would not test the SSR server, the headers or the Docker image.
 

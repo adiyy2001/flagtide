@@ -4,7 +4,7 @@ Status: accepted, 2026-10-03
 
 ## Context
 
-The brief says to use Jest unless the Angular CLI default is clearly the better fit. The Angular 22 testing guide describes Vitest as the default runner (builder `@angular/build:unit-test`), says Karma is still supported, and does not mention Jest. The Nx 23 Angular generators offer `vitest-angular`, `vitest-analog` and `jest`.
+I would use Jest unless the Angular CLI default is clearly the better fit. The Angular 22 testing guide describes Vitest as the default runner (builder `@angular/build:unit-test`), says Karma is still supported, and does not mention Jest. The Nx 23 Angular generators offer `vitest-angular`, `vitest-analog` and `jest`.
 
 ## Decision
 

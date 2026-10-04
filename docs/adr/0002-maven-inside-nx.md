@@ -4,7 +4,7 @@ Status: accepted, 2026-10-03
 
 ## Context
 
-The brief asks me to either use `@nxrocks/nx-quarkus` or wrap Maven in run-commands targets. The Quarkus server is a multi-module Maven reactor, and Maven stays the source of truth for the Java dependency graph.
+The two options are `@nxrocks/nx-quarkus` or Maven wrapped in run-commands targets. The Quarkus server is a multi-module Maven reactor, and Maven stays the source of truth for the Java dependency graph.
 
 ## Decision
 

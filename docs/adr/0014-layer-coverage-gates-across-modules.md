@@ -4,7 +4,7 @@ Status: accepted, 2026-10-03
 
 ## Context
 
-The plan asks for 90 percent line coverage in `domain`, 85 in `application` and 80 in the adapters. The use cases live in `application`, but their behaviour is exercised through real adapters: the use case tests and the port contract tests run in `adapter-out-memory`, because `application` cannot depend on an adapter (ADR 0005). Measured inside its own module, `application` would only show the coverage of its small unit tests.
+The targets are 90 percent line coverage in `domain`, 85 in `application` and 80 in the adapters. The use cases live in `application`, but their behaviour is exercised through real adapters: the use case tests and the port contract tests run in `adapter-out-memory`, because `application` cannot depend on an adapter (ADR 0005). Measured inside its own module, `application` would only show the coverage of its small unit tests.
 
 ## Decision
 
@@ -25,7 +25,7 @@ The plan asks for 90 percent line coverage in `domain`, 85 in `application` and 
 - Unpacked classes are byte for byte the ones the tests ran against, so JaCoCo matches them by class id. The architecture tests ignore the unpacked copies in `architecture/target/classes`.
 - The in-memory adapter serializes all writers with one lock instead of one lock per environment. A flag edit touches every environment of a project in one transaction, so a per-environment lock would not keep the invariants. Per-environment ordering of versions still holds because the change log assigns them inside that lock.
 
-## Amendment, M3
+## Amendment
 
 - The merge now reads `domain`, `application`, `adapter-out-memory`, `adapter-out-postgres` and `bootstrap`. The REST adapter has no tests of its own: `@QuarkusTest` flows in `bootstrap` drive it, and the PostgreSQL adapter is covered by its contract tests, so both are measured through the merged data. `adapter-in-rest`, `adapter-out-postgres` and `bootstrap` skip the per-module check.
 - Six artifacts are unpacked into `architecture/target/classes` and `dev/flagwire/adapter/**` stays at 80 (the packages are `adapter.in.rest`, `adapter.out.memory` and `adapter.out.postgres`). A fourth execution gates `dev/flagwire/bootstrap/**` at 80.

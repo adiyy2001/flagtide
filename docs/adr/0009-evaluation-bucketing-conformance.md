@@ -4,11 +4,11 @@ Status: accepted, 2026-10-03
 
 ## Context
 
-Java on the server and TypeScript in the browser must give the same answer for the same flag and context. The brief fixes the hash (MurmurHash3 x86 32 bit, seed 0, input `flagKey.salt.contextKey`, unsigned, modulo 100000). Several details are left open, and each one can make the two languages disagree.
+Java on the server and TypeScript in the browser must give the same answer for the same flag and context. The project fixes the hash (MurmurHash3 x86 32 bit, seed 0, input `flagKey.salt.contextKey`, unsigned, modulo 100000). Several details are left open, and each one can make the two languages disagree.
 
 ## Decision
 
-The normative text is `docs/evaluation-spec.md`, written in M1. These choices are made now.
+The normative text is `docs/evaluation-spec.md`, written together with the first implementation. These are the choices it records.
 
 - Bucket: `murmur3_x86_32(utf8(flagKey + "." + salt + "." + contextKey), seed 0)` as an unsigned 32 bit value, modulo 100000. Flag keys are slugs without dots and the salt is lowercase hex, so the separator is unambiguous. The context key is last and can contain anything.
 - UTF-8: both languages use their own encoder. A lone surrogate becomes U+FFFD (`EF BF BD`). Java's `getBytes` would write `?` and `TextEncoder` would write U+FFFD, so neither built-in is used. No Unicode normalization and no case folding.
@@ -24,7 +24,7 @@ The normative text is `docs/evaluation-spec.md`, written in M1. These choices ar
 ## Alternatives
 
 - Floating point percentages: rounding differences across languages and a sum that is "close to" 100.
-- Library hashes (Guava, a murmur package on npm): the brief asks for my own implementation, and a library would hide the Unicode and signedness decisions.
+- Library hashes (Guava, a murmur package on npm): I wanted my own implementation, and a library would hide the Unicode and signedness decisions.
 - Generating expected values from the Java engine: then a shared bug in both engines would pass unnoticed.
 
 ## Consequences
