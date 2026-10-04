@@ -4,7 +4,7 @@ export interface ChartPoint {
   readonly p99: number;
 }
 
-export const MAX_POINTS = 120;
+const MAX_POINTS = 120;
 
 export function appendPoint<T>(points: readonly T[], point: T, limit = MAX_POINTS): T[] {
   return [...points, point].slice(-limit);

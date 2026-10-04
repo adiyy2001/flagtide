@@ -76,14 +76,10 @@ function attributeConditionOf(condition: ConditionDraft): AttributeCondition {
   };
 }
 
-export function conditionOf(condition: ConditionDraft): Condition {
+function conditionOf(condition: ConditionDraft): Condition {
   return condition.kind === 'segment'
     ? { segment: condition.segment, negate: condition.negate }
     : attributeConditionOf(condition);
-}
-
-export function attributeConditionsOf(conditions: readonly ConditionDraft[]): AttributeCondition[] {
-  return conditions.filter((condition) => condition.kind === 'attribute').map(attributeConditionOf);
 }
 
 export function flagConfigOf(

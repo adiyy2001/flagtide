@@ -1,4 +1,4 @@
-export const TOTAL_UNITS = 100000;
+const TOTAL_UNITS = 100000;
 
 const PERCENT_PATTERN = /^(\d{1,3})(?:\.(\d{1,3}))?$/u;
 
