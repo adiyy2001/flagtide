@@ -14,3 +14,5 @@ NOTES_FOR_ADRIAN.md
 *.py
 *.md
 apps/server/openapi.json
+docs/licenses
+bench/results
