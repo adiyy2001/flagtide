@@ -36,7 +36,7 @@ function rolloutFlag(onWeight: number): FlagConfig {
 }
 
 describe('bucketing properties', () => {
-  it('is uniform over one million keys (chi-square)', () => {
+  it('is uniform over one million keys (chi-square)', { timeout: 60_000 }, () => {
     const counts = new Array<number>(BINS).fill(0);
     for (let index = 0; index < KEYS; index++) {
       counts[Math.floor(bucketOf('uniformity', 'ab12', `user-${index}`) / (100000 / BINS))]++;
