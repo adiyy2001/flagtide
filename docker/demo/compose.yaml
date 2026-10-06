@@ -1,0 +1,55 @@
+name: flagtide-demo
+
+x-demo-origins: &demo-origins ${FLAGTIDE_DEMO_ORIGIN:-https://commancenter.tailb2ecdc.ts.net:10000},http://127.0.0.1:${FLAGTIDE_DEMO_PORT:-18090}
+
+services:
+  postgres:
+    ports: !reset []
+
+  server-a:
+    ports: !reset []
+    environment:
+      FLAGTIDE_CORS_ORIGINS: *demo-origins
+
+  server-b:
+    ports: !reset []
+    environment:
+      FLAGTIDE_CORS_ORIGINS: *demo-origins
+
+  admin:
+    build:
+      args:
+        BASE_HREF: /admin/
+    ports: !reset []
+    environment:
+      FLAGTIDE_ADMIN_API_URL: /
+      FLAGTIDE_FRAME_ANCESTORS: "'self'"
+
+  demo-shop:
+    build:
+      args:
+        BASE_HREF: /shop/
+    ports: !reset []
+    environment:
+      FLAGTIDE_SHOP_STREAM_URL: ${FLAGTIDE_DEMO_STREAM_URL:-wss://commancenter.tailb2ecdc.ts.net:10000/sdk/v1/stream}
+      FLAGTIDE_SHOP_FRAME_ANCESTORS: "'self'"
+      NG_ALLOWED_HOSTS: ${FLAGTIDE_DEMO_HOST:-commancenter.tailb2ecdc.ts.net},127.0.0.1,localhost
+
+  proxy:
+    image: nginxinc/nginx-unprivileged:1.30.5-alpine
+    depends_on:
+      admin:
+        condition: service_healthy
+      demo-shop:
+        condition: service_healthy
+    volumes:
+      - ./docker/demo/proxy.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./docker/demo/site:/usr/share/nginx/html:ro
+    ports:
+      - '127.0.0.1:${FLAGTIDE_DEMO_PORT:-18090}:8080'
+    healthcheck:
+      test: ['CMD', 'wget', '-q', '-O', '/dev/null', 'http://127.0.0.1:8080/']
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped

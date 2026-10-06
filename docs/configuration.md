@@ -69,6 +69,17 @@ Properties without an environment variable in compose can be set the same way (`
 | `FLAGTIDE_SEED_PROJECT` | `demo` | Project name |
 | `FLAGTIDE_SEED_ADMIN_KEYS` | the three demo admin keys as JSON | Keys used for the writes |
 
+## Public demo (`docker/demo/compose.yaml`)
+
+Used on top of `compose.yaml`: `docker compose -p flagtide-demo -f compose.yaml -f docker/demo/compose.yaml up -d --build --wait`. It publishes only the `proxy` container and builds the admin with the base href `/admin/` and the shop with `/shop/` (the `BASE_HREF` build argument of both images, `/` by default).
+
+| Variable | Default | Meaning |
+| --- | --- | --- |
+| `FLAGTIDE_DEMO_PORT` | `18090` | Loopback port of the nginx entry point |
+| `FLAGTIDE_DEMO_ORIGIN` | `https://commancenter.tailb2ecdc.ts.net:10000` | Public origin, added to the allowed origins of both server instances |
+| `FLAGTIDE_DEMO_HOST` | `commancenter.tailb2ecdc.ts.net` | Host name the shop's server render accepts (`NG_ALLOWED_HOSTS`) |
+| `FLAGTIDE_DEMO_STREAM_URL` | `wss://commancenter.tailb2ecdc.ts.net:10000/sdk/v1/stream` | WebSocket URL the shop connects to from the browser |
+
 ## Scripts and tests
 
 | Variable | Used by | Meaning |

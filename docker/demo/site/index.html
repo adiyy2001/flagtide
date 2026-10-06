@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>flagtide live demo</title>
+    <meta
+      name="description"
+      content="flagtide live demo: a feature flag admin and an Angular shop side by side, connected over WebSockets."
+    />
+    <link rel="stylesheet" href="landing.css" />
+  </head>
+  <body>
+    <header>
+      <div class="intro">
+        <h1>flagtide</h1>
+        <p>
+          Self-hosted feature flags with real-time propagation. Switch <code>promo-banner</code> off in the
+          admin on the left and watch the banner leave the shop on the right. The admin writes to one server
+          instance and the shop listens to the other, so every change crosses PostgreSQL.
+        </p>
+      </div>
+      <nav aria-label="Demo links">
+        <a href="admin/flags" target="_blank" rel="noopener">Admin</a>
+        <a href="shop/" target="_blank" rel="noopener">Shop</a>
+        <a href="admin/propagation" target="_blank" rel="noopener">Propagation monitor</a>
+        <a href="https://github.com/adiyy2001/flagtide" rel="noopener">Source</a>
+      </nav>
+    </header>
+    <main>
+      <section aria-labelledby="admin-title">
+        <h2 id="admin-title">Admin</h2>
+        <iframe title="flagtide admin" src="admin/flags"></iframe>
+      </section>
+      <section aria-labelledby="shop-title">
+        <h2 id="shop-title">Demo shop</h2>
+        <iframe title="Demo shop" src="shop/"></iframe>
+      </section>
+    </main>
+    <footer>
+      <p>
+        A public demo with public demo keys. Anyone can edit the flags, and the data goes back to the seed at
+        the top of every hour.
+      </p>
+    </footer>
+  </body>
+</html>
