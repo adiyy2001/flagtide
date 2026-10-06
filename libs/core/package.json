@@ -1,9 +1,18 @@
 {
   "name": "@flagtide/core",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Framework-agnostic feature flag engine: local evaluation that matches the server, and a WebSocket connection manager with jittered backoff.",
   "license": "MIT",
   "author": "Adrian Turbiński",
+  "homepage": "https://github.com/adiyy2001/flagtide/tree/main/libs/core#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adiyy2001/flagtide.git",
+    "directory": "libs/core"
+  },
+  "bugs": {
+    "url": "https://github.com/adiyy2001/flagtide/issues"
+  },
   "keywords": [
     "feature-flags",
     "feature-toggles",

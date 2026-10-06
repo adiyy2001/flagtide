@@ -1,9 +1,18 @@
 {
   "name": "@flagtide/angular",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Signals-first Angular SDK for flagtide: injectFlag, a structural directive, a canMatch guard, a connection status signal and a dev overrides panel. Zoneless and SSR ready.",
   "license": "MIT",
   "author": "Adrian Turbiński",
+  "homepage": "https://github.com/adiyy2001/flagtide/tree/main/libs/angular#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adiyy2001/flagtide.git",
+    "directory": "libs/angular"
+  },
+  "bugs": {
+    "url": "https://github.com/adiyy2001/flagtide/issues"
+  },
   "keywords": [
     "angular",
     "feature-flags",
@@ -17,7 +26,7 @@
     "@angular/common": "^22.0.0",
     "@angular/core": "^22.0.0",
     "@angular/router": "^22.0.0",
-    "@flagtide/core": "^0.1.0",
+    "@flagtide/core": "^1.0.0",
     "rxjs": "^7.8.0"
   },
   "dependencies": {

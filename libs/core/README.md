@@ -2,6 +2,10 @@
 
 The framework-agnostic part of the flagtide SDK. It evaluates feature flags locally, with the same result as the Java server, and keeps them current over a WebSocket.
 
+```sh
+npm install @flagtide/core rxjs
+```
+
 ```ts
 import { createFlagtideClient } from '@flagtide/core';
 

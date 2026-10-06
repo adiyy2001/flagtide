@@ -2,6 +2,10 @@
 
 Signals-first feature flags for Angular. Flags are evaluated in the browser with the same algorithm as the flagtide server and update when the server pushes a change. It works zoneless and with server side rendering.
 
+```sh
+npm install @flagtide/angular @flagtide/core
+```
+
 ```ts
 import { ApplicationConfig } from '@angular/core';
 import { provideFlagtide } from '@flagtide/angular';

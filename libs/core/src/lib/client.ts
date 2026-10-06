@@ -21,7 +21,7 @@ import { createLocalStore, createSnapshotStorage, snapshotStorageKey } from './s
 import type { KeyValueStore, SnapshotStorage } from './storage.js';
 import type { EvaluationContext, FlagType, JsonValue } from './types.js';
 
-const SDK_NAME = 'flagtide-core/0.1.0';
+const SDK_NAME = 'flagtide-core/1.0.0';
 const ANONYMOUS_ID_KEY = 'flagtide:anonymous-id';
 
 /** Everything {@link createFlagtideClient} accepts. Only `streamUrl` and `sdkKey` are required. */

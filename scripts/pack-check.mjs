@@ -56,7 +56,11 @@ function expectFiles(project, report, required, forbidden) {
 
 function checkManifest(project, manifest) {
   check(manifest.license === 'MIT', `${project}: license is not MIT`);
-  check(manifest.version === '0.1.0', `${project}: unexpected version ${manifest.version}`);
+  const source = JSON.parse(readFileSync(resolve(root, 'libs', project, 'package.json'), 'utf8'));
+  check(
+    manifest.version === source.version,
+    `${project}: packed version ${manifest.version} differs from libs/${project} ${source.version}`,
+  );
   check(manifest.private !== true, `${project}: package is marked private`);
   const spec = JSON.stringify({ ...manifest.dependencies, ...manifest.peerDependencies });
   check(!/workspace:|file:|link:/u.test(spec), `${project}: a dependency points into the workspace`);
