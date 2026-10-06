@@ -12,7 +12,8 @@ COPY libs/core libs/core
 COPY libs/angular libs/angular
 COPY apps/demo-shop apps/demo-shop
 WORKDIR /build/apps/demo-shop
-RUN pnpm exec ng build demo-shop --configuration=production
+ARG BASE_HREF=/
+RUN pnpm exec ng build demo-shop --configuration=production --base-href="$BASE_HREF"
 
 FROM node:24.21.0-alpine
 WORKDIR /app

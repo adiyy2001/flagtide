@@ -11,7 +11,8 @@ COPY tsconfig.base.json ./
 COPY libs/core libs/core
 COPY apps/admin apps/admin
 WORKDIR /build/apps/admin
-RUN pnpm exec ng build admin --configuration=production
+ARG BASE_HREF=/
+RUN pnpm exec ng build admin --configuration=production --base-href="$BASE_HREF"
 
 FROM nginxinc/nginx-unprivileged:1.30.5-alpine
 COPY docker/admin.nginx.template /etc/nginx/templates/default.conf.template
