@@ -4,13 +4,15 @@ A self-hosted feature flag service. A Quarkus back end pushes flag changes to ev
 
 ![The admin on the left and the demo shop on the right. A flag is switched off and on, a rollout goes from 20 to 60 and back to 30 percent, then the propagation monitor shows p50, p95 and p99.](docs/media/demo.gif)
 
-Live demo: not deployed yet.
+Live demo: <https://commancenter.tailb2ecdc.ts.net:10000/>, the admin and the shop side by side on the same production images. Anyone can edit the flags, and the data goes back to the seed every hour.
 
 [![CI](https://github.com/adiyy2001/flagtide/actions/workflows/ci.yml/badge.svg)](https://github.com/adiyy2001/flagtide/actions/workflows/ci.yml)
 ![Lowest line coverage of the eight measured areas](docs/media/coverage.svg)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![npm @flagtide/core](https://img.shields.io/npm/v/@flagtide/core?label=%40flagtide%2Fcore)](https://www.npmjs.com/package/@flagtide/core)
+[![npm @flagtide/angular](https://img.shields.io/npm/v/@flagtide/angular?label=%40flagtide%2Fangular)](https://www.npmjs.com/package/@flagtide/angular)
 
-The GIF is `scripts/record-demo.mjs` driving the harness page from the end-to-end suite: the admin and the shop in two iframes, both served from the production images. The shop talks to one server instance and the admin to the other, so every change in the recording crosses PostgreSQL. The npm packages `@flagtide/core` and `@flagtide/angular` are not published yet, so there is no npm badge.
+The GIF is `scripts/record-demo.mjs` driving the harness page from the end-to-end suite: the admin and the shop in two iframes, both served from the production images. The shop talks to one server instance and the admin to the other, so every change in the recording crosses PostgreSQL. Both SDK packages are on npm: `npm install @flagtide/angular @flagtide/core`.
 
 ## Why I built this
 
@@ -154,7 +156,9 @@ docker compose up -d --build --wait
 
 That builds and starts PostgreSQL, two server instances, the admin, the demo shop and a one-shot job that seeds a demo project. From a fresh clone it took about a minute on this machine with the base images already pulled, and it takes longer on a cold one. Then open the admin at <http://127.0.0.1:14200> and the shop at <http://127.0.0.1:14300>, switch `promo-banner` off in the admin and watch the banner leave the shop. `docker compose down -v` stops everything and removes the database. All ports bind to 127.0.0.1 and can be changed with the variables in [docs/configuration.md](docs/configuration.md).
 
-The shop reads from `server-b` and the admin writes to `server-a`. The demo keys in `compose.yaml` are public on purpose and only work against this local stack.
+The shop reads from `server-b` and the admin writes to `server-a`. The demo keys in `compose.yaml` are public on purpose and only work against the demo stacks.
+
+The public demo is the same stack with [`docker/demo/compose.yaml`](docker/demo/compose.yaml) on top. One nginx container is the only published port: it serves the landing page, the admin under `/admin/` and the shop under `/shop/`, and proxies the REST API to `server-a` and the stream to `server-b`. Writes are rate limited, and [`docker/demo/reset.sh`](docker/demo/reset.sh) runs every hour to put the data back to the seed.
 
 To work on the code you need Node 24 (see `.nvmrc`), pnpm 12 through Corepack and a JDK 21. The Maven Wrapper is in `apps/server`.
 
@@ -205,7 +209,7 @@ All 22 records are in [`docs/adr`](docs/adr).
 
 ## Limitations and what I would do next
 
-- Nothing is deployed and nothing is published, and the `@flagtide` npm scope is not registered yet. `npm pack` works for both packages and is part of `pnpm verify`.
+- The public demo runs on one small home server behind Tailscale Funnel, so its latency says nothing about a real deployment.
 - The stretch goals are not built: flag prerequisites, scheduled changes, an Oracle adapter and an SSE fallback ([ADR 0021](docs/adr/0021-what-is-not-built.md)).
 - The admin keys reach the browser in a runtime `config.json`. That is fine for a local demo and wrong for a real deployment, which would need a login in front of the admin.
 - The propagation numbers come from one host with one clock. They say nothing about a network between a data center and a phone.
