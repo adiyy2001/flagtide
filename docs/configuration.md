@@ -76,9 +76,9 @@ Used on top of `compose.yaml`: `docker compose -p flagtide-demo -f compose.yaml 
 | Variable | Default | Meaning |
 | --- | --- | --- |
 | `FLAGTIDE_DEMO_PORT` | `18090` | Loopback port of the nginx entry point |
-| `FLAGTIDE_DEMO_ORIGIN` | `https://commancenter.tailb2ecdc.ts.net:10000` | Public origin, added to the allowed origins of both server instances |
-| `FLAGTIDE_DEMO_HOST` | `commancenter.tailb2ecdc.ts.net` | Host name the shop's server render accepts (`NG_ALLOWED_HOSTS`) |
-| `FLAGTIDE_DEMO_STREAM_URL` | `wss://commancenter.tailb2ecdc.ts.net:10000/sdk/v1/stream` | WebSocket URL the shop connects to from the browser |
+| `FLAGTIDE_DEMO_ORIGIN` | `https://flagtide.adrianturbinski.pl` | Public origin, added to the allowed origins of both server instances |
+| `FLAGTIDE_DEMO_HOST` | `flagtide.adrianturbinski.pl` | Host name the shop's server render accepts (`NG_ALLOWED_HOSTS`) |
+| `FLAGTIDE_DEMO_STREAM_URL` | `wss://flagtide.adrianturbinski.pl/sdk/v1/stream` | WebSocket URL the shop connects to from the browser |
 
 ## Scripts and tests
 

@@ -4,7 +4,7 @@ A self-hosted feature flag service. A Quarkus back end pushes flag changes to ev
 
 ![The admin on the left and the demo shop on the right. A flag is switched off and on, a rollout goes from 20 to 60 and back to 30 percent, then the propagation monitor shows p50, p95 and p99.](docs/media/demo.gif)
 
-Live demo: <https://commancenter.tailb2ecdc.ts.net:10000/>, the admin and the shop side by side on the same production images. Anyone can edit the flags, and the data goes back to the seed every hour.
+Live demo: <https://flagtide.adrianturbinski.pl/>, the admin and the shop side by side on the same production images. Anyone can edit the flags, and the data goes back to the seed every hour.
 
 [![CI](https://github.com/adiyy2001/flagtide/actions/workflows/ci.yml/badge.svg)](https://github.com/adiyy2001/flagtide/actions/workflows/ci.yml)
 ![Lowest line coverage of the eight measured areas](docs/media/coverage.svg)

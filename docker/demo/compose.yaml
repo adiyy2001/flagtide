@@ -1,6 +1,6 @@
 name: flagtide-demo
 
-x-demo-origins: &demo-origins ${FLAGTIDE_DEMO_ORIGIN:-https://commancenter.tailb2ecdc.ts.net:10000},http://127.0.0.1:${FLAGTIDE_DEMO_PORT:-18090}
+x-demo-origins: &demo-origins ${FLAGTIDE_DEMO_ORIGIN:-https://flagtide.adrianturbinski.pl},http://127.0.0.1:${FLAGTIDE_DEMO_PORT:-18090}
 
 services:
   postgres:
@@ -31,9 +31,9 @@ services:
         BASE_HREF: /shop/
     ports: !reset []
     environment:
-      FLAGTIDE_SHOP_STREAM_URL: ${FLAGTIDE_DEMO_STREAM_URL:-wss://commancenter.tailb2ecdc.ts.net:10000/sdk/v1/stream}
+      FLAGTIDE_SHOP_STREAM_URL: ${FLAGTIDE_DEMO_STREAM_URL:-wss://flagtide.adrianturbinski.pl/sdk/v1/stream}
       FLAGTIDE_SHOP_FRAME_ANCESTORS: "'self'"
-      NG_ALLOWED_HOSTS: ${FLAGTIDE_DEMO_HOST:-commancenter.tailb2ecdc.ts.net},127.0.0.1,localhost
+      NG_ALLOWED_HOSTS: ${FLAGTIDE_DEMO_HOST:-flagtide.adrianturbinski.pl},127.0.0.1,localhost
 
   proxy:
     image: nginxinc/nginx-unprivileged:1.30.5-alpine
