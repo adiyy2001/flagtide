@@ -185,7 +185,7 @@ pnpm verify
 
 The test counts from the last run: 1,327 in the server modules (including the 617 conformance cases in the domain module), 426 in the spec project (every vector is well formed, and the committed files are exactly what the Python oracle and generator produce), 199 in `libs/core`, 39 in `libs/angular` (3 of them render on the server in a Node environment that traps every browser global), 200 in the admin and 64 in the demo shop. The domain has jqwik properties for uniform bucketing (a chi-square test over a million keys), determinism and monotonic rollouts, and the TypeScript side has fast-check versions. The SDK is tested against a fake WebSocket server and with marble tests for reconnect, backoff and the stale watchdog.
 
-CI is `.github/workflows/ci.yml`: static checks, conformance in both languages (it blocks the other jobs), web, server, licenses, end to end with Lighthouse and the must-have script, and a short load test. It has not run on GitHub yet and `act` is not installed here, so I linted it with actionlint and ran the commands of each job locally.
+CI is `.github/workflows/ci.yml`: static checks, conformance in both languages (it blocks the other jobs), web, server, licenses, end to end with Lighthouse and the must-have script, and a short load test. It runs on every push to `main` and on every pull request, and the latest run on `main` passes all seven jobs.
 
 ## Design decisions
 
@@ -209,7 +209,7 @@ All 22 records are in [`docs/adr`](docs/adr).
 
 ## Limitations and what I would do next
 
-- The public demo runs on one small home server behind Tailscale Funnel, so its latency says nothing about a real deployment.
+- The public demo runs on one small home server behind a Cloudflare Tunnel, so its latency says nothing about a real deployment.
 - The stretch goals are not built: flag prerequisites, scheduled changes, an Oracle adapter and an SSE fallback ([ADR 0021](docs/adr/0021-what-is-not-built.md)).
 - The admin keys reach the browser in a runtime `config.json`. That is fine for a local demo and wrong for a real deployment, which would need a login in front of the admin.
 - The propagation numbers come from one host with one clock. They say nothing about a network between a data center and a phone.
