@@ -16,9 +16,9 @@ The GIF is `scripts/record-demo.mjs` driving the harness page from the end-to-en
 
 ## Why I built this
 
-Feature flags are part of my daily stack. Two questions kept bothering me. How do you get a flag change to thousands of open browsers in well under a second, and how do you know that Java on the server and TypeScript in the browser give the same answer for the same flag?
+Feature flags are part of my daily stack. There were two questions that I found repeatedly that I could not address from the outside. How is a flag update able to propagate to thousands of open browsers in well under a second? How do I know that the same flag produces the same result in both TypeScript in the browser and Java on the server?
 
-I work mostly in Angular and I also build Java and Quarkus back ends, so this project sits on both sides of that line. I wanted one compact project that shows hexagonal architecture and domain-driven design on a real domain with real rules, not a CRUD toy.
+The only solution I had faith in was a solution I created. I primarily develop in Angular and also write Quarkus and Java on the back end. This project straddles both sides of that line. I implemented both flag evaluators and got them to agree to the last bucket. I also desired one compact project that would demonstrate domain-driven design and hexagonal architecture on a real domain with real business rules rather than a CRUD toy.
 
 ## What is hard about it
 
