@@ -1,0 +1,46 @@
+{
+  "name": "openfeature-web",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/openfeature-web/src",
+  "tags": ["scope:sdk"],
+  "implicitDependencies": ["core"],
+  "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "eslint libs/openfeature-web",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p libs/openfeature-web/tsconfig.json",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "vitest run --coverage --config libs/openfeature-web/vitest.config.ts",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "build": {
+      "dependsOn": ["^build", "core:build"],
+      "executor": "nx:run-commands",
+      "outputs": ["{workspaceRoot}/dist/libs/openfeature-web"],
+      "options": {
+        "command": "tsc -p libs/openfeature-web/tsconfig.lib.json && node scripts/prepare-package.mjs openfeature-web",
+        "cwd": "{workspaceRoot}"
+      },
+      "inputs": [
+        "default",
+        "^default",
+        "{workspaceRoot}/LICENSE",
+        "{workspaceRoot}/scripts/prepare-package.mjs"
+      ]
+    }
+  }
+}

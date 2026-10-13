@@ -11,8 +11,9 @@ Live demo: <https://flagtide.adrianturbinski.pl/>, the admin and the shop side b
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![npm @flagtide/core](https://img.shields.io/npm/v/@flagtide/core?label=%40flagtide%2Fcore)](https://www.npmjs.com/package/@flagtide/core)
 [![npm @flagtide/angular](https://img.shields.io/npm/v/@flagtide/angular?label=%40flagtide%2Fangular)](https://www.npmjs.com/package/@flagtide/angular)
+[![npm @flagtide/openfeature-web-provider](https://img.shields.io/npm/v/@flagtide/openfeature-web-provider?label=%40flagtide%2Fopenfeature-web-provider)](https://www.npmjs.com/package/@flagtide/openfeature-web-provider)
 
-The GIF is `scripts/record-demo.mjs` driving the harness page from the end-to-end suite: the admin and the shop in two iframes, both served from the production images. The shop talks to one server instance and the admin to the other, so every change in the recording crosses PostgreSQL. Both SDK packages are on npm: `npm install @flagtide/angular @flagtide/core`.
+The GIF is `scripts/record-demo.mjs` driving the harness page from the end-to-end suite: the admin and the shop in two iframes, both served from the production images. The shop talks to one server instance and the admin to the other, so every change in the recording crosses PostgreSQL. The SDK packages are on npm: `npm install @flagtide/angular @flagtide/core`. Apps that use [OpenFeature](https://openfeature.dev) can plug flagtide in with `@flagtide/openfeature-web-provider` instead of the Angular package.
 
 ## Why I built this
 
@@ -135,6 +136,7 @@ The Cypress suite measures with a `MutationObserver` in the shop, against the cl
 | --- | --- | --- |
 | `libs/core` | 98.7% | 95.4% |
 | `libs/angular` | 98.8% | 94.9% |
+| `libs/openfeature-web` | 100% | 95.9% |
 | `apps/admin` | 92.9% | 87% |
 | `apps/demo-shop` | 95.2% | 98.4% |
 | server domain | 99.1% | 96.9% |
@@ -183,7 +185,7 @@ pnpm verify
 | `pnpm bench:load` | The 5,000 client propagation test |
 | `pnpm test:counts` and `pnpm report` | Run every test target and print the counts, and print the benchmark and coverage tables above |
 
-The test counts from the last run: 1,327 in the server modules (including the 617 conformance cases in the domain module), 426 in the spec project (every vector is well formed, and the committed files are exactly what the Python oracle and generator produce), 199 in `libs/core`, 39 in `libs/angular` (3 of them render on the server in a Node environment that traps every browser global), 200 in the admin and 64 in the demo shop. The domain has jqwik properties for uniform bucketing (a chi-square test over a million keys), determinism and monotonic rollouts, and the TypeScript side has fast-check versions. The SDK is tested against a fake WebSocket server and with marble tests for reconnect, backoff and the stale watchdog.
+The test counts from the last run: 1,327 in the server modules (including the 617 conformance cases in the domain module), 426 in the spec project (every vector is well formed, and the committed files are exactly what the Python oracle and generator produce), 199 in `libs/core`, 39 in `libs/angular` (3 of them render on the server in a Node environment that traps every browser global), 13 in `libs/openfeature-web` (through the real OpenFeature web SDK), 200 in the admin and 64 in the demo shop. The domain has jqwik properties for uniform bucketing (a chi-square test over a million keys), determinism and monotonic rollouts, and the TypeScript side has fast-check versions. The SDK is tested against a fake WebSocket server and with marble tests for reconnect, backoff and the stale watchdog.
 
 CI is `.github/workflows/ci.yml`: static checks, conformance in both languages (it blocks the other jobs), web, server, licenses, end to end with Lighthouse and the must-have script, and a short load test. It runs on every push to `main` and on every pull request, and the latest run on `main` passes all seven jobs.
 

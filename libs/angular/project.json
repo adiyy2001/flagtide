@@ -51,7 +51,7 @@
         "cwd": "{workspaceRoot}"
       },
       "cache": false,
-      "dependsOn": ["build", "core:build"]
+      "dependsOn": ["build", "core:build", "openfeature-web:build"]
     }
   }
 }

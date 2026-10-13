@@ -62,6 +62,7 @@ function summarize(total) {
 const webProjects = [
   ['libs/core', 'coverage/libs/core/lcov.info', lcov],
   ['libs/angular', 'libs/angular/coverage/angular/coverage-final.json', istanbul],
+  ['libs/openfeature-web', 'coverage/libs/openfeature-web/lcov.info', lcov],
   ['apps/admin', 'apps/admin/coverage/admin/coverage-final.json', istanbul],
   ['apps/demo-shop', 'apps/demo-shop/coverage/demo-shop/coverage-final.json', istanbul],
 ];

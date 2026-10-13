@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../../dist/libs/openfeature-web",
+    "rootDir": "src",
+    "tsBuildInfoFile": "../../dist/libs/openfeature-web/tsconfig.lib.tsbuildinfo",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2024", "DOM"],
+    "types": [],
+    "sourceMap": false,
+    "declarationMap": false,
+    "paths": {
+      "@flagtide/core": ["../../dist/libs/core/index.d.ts"]
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts"]
+}

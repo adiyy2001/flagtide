@@ -1,0 +1,39 @@
+{
+  "name": "@flagtide/openfeature-web-provider",
+  "version": "1.0.0",
+  "description": "OpenFeature web provider for flagtide: flags evaluated locally in the browser and kept current over a WebSocket, behind the vendor neutral OpenFeature API.",
+  "license": "MIT",
+  "author": "Adrian Turbiński",
+  "homepage": "https://github.com/adiyy2001/flagtide/tree/main/libs/openfeature-web#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adiyy2001/flagtide.git",
+    "directory": "libs/openfeature-web"
+  },
+  "bugs": {
+    "url": "https://github.com/adiyy2001/flagtide/issues"
+  },
+  "keywords": [
+    "openfeature",
+    "openfeature-provider",
+    "feature-flags",
+    "feature-toggles",
+    "websocket"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "peerDependencies": {
+    "@flagtide/core": "^1.0.0",
+    "@openfeature/web-sdk": "^1.5.0",
+    "rxjs": "^7.8.0"
+  }
+}

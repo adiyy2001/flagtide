@@ -20,7 +20,8 @@
     "paths": {
       "@flagtide/core": ["./libs/core/src/index.ts"],
       "@flagtide/angular": ["./libs/angular/src/index.ts"],
-      "@flagtide/angular/overrides": ["./libs/angular/overrides/src/index.ts"]
+      "@flagtide/angular/overrides": ["./libs/angular/overrides/src/index.ts"],
+      "@flagtide/openfeature-web-provider": ["./libs/openfeature-web/src/index.ts"]
     }
   }
 }

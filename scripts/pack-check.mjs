@@ -72,6 +72,7 @@ mkdirSync(work, { recursive: true });
 
 const core = pack('core');
 const angular = pack('angular');
+const openfeature = pack('openfeature-web');
 const sources = /(^|\/)(test-support|integration|ssr)\/|\.spec\.|\.ssr-test\.|\.tsbuildinfo$/u;
 expectFiles('core', core, ['package.json', 'README.md', 'LICENSE', 'index.js', 'index.d.ts'], [sources]);
 expectFiles(
@@ -88,21 +89,31 @@ expectFiles(
   ],
   [sources],
 );
+expectFiles(
+  'openfeature-web',
+  openfeature,
+  ['package.json', 'README.md', 'LICENSE', 'index.js', 'index.d.ts'],
+  [sources],
+);
 
 const project = resolve(work, 'consumer');
 const modules = resolve(project, 'node_modules');
 mkdirSync(resolve(modules, '@flagtide'), { recursive: true });
-for (const [name, report] of [
-  ['core', core],
-  ['angular', angular],
+for (const [name, packageName, report] of [
+  ['core', 'core', core],
+  ['angular', 'angular', angular],
+  ['openfeature-web', 'openfeature-web-provider', openfeature],
 ]) {
   const extract = run('tar', ['-xzf', resolve(work, report.filename), '-C', work], work);
   check(extract.ok, `${name}: could not extract the tarball\n${extract.output}`);
-  cpSync(resolve(work, 'package'), resolve(modules, '@flagtide', name), { recursive: true });
+  cpSync(resolve(work, 'package'), resolve(modules, '@flagtide', packageName), { recursive: true });
   rmSync(resolve(work, 'package'), { recursive: true, force: true });
-  checkManifest(name, JSON.parse(readFileSync(resolve(modules, '@flagtide', name, 'package.json'), 'utf8')));
+  checkManifest(
+    name,
+    JSON.parse(readFileSync(resolve(modules, '@flagtide', packageName, 'package.json'), 'utf8')),
+  );
 }
-for (const dependency of ['@angular', 'rxjs', 'tslib']) {
+for (const dependency of ['@angular', '@openfeature', 'rxjs', 'tslib']) {
   symlinkSync(resolve(root, 'node_modules', dependency), resolve(modules, dependency), 'dir');
 }
 writeFileSync(
@@ -115,12 +126,15 @@ import '@angular/compiler';
 import * as core from '@flagtide/core';
 import * as angular from '@flagtide/angular';
 import * as overrides from '@flagtide/angular/overrides';
+import * as openfeature from '@flagtide/openfeature-web-provider';
+import { OpenFeature } from '@openfeature/web-sdk';
 
 const missing = [];
 const expectExports = (label, module, names) => names.forEach((name) => { if (!(name in module)) missing.push(label + '.' + name); });
 expectExports('core', core, ['createFlagtideClient', 'FlagtideClient', 'evaluate', 'fetchSnapshot', 'resolveFlag', 'jsonEquals', 'murmur3x86_32', 'createMemoryStore', 'createBrowserSocketFactory']);
 expectExports('angular', angular, ['provideFlagtide', 'injectFlag', 'FlagtideFlagDirective', 'flagtideGuard', 'Flagtide', 'FlagtideStatus']);
 expectExports('overrides', overrides, ['FlagtideOverridesPanel']);
+expectExports('openfeature', openfeature, ['FlagtideWebProvider', 'toFlagtideContext']);
 if (missing.length > 0) {
   console.error('missing exports: ' + missing.join(', '));
   process.exit(1);
@@ -136,7 +150,12 @@ if (client.value('absent', 'fallback') !== 'fallback') {
   console.error('the packed client did not return the fallback');
   process.exit(1);
 }
-client.stop();
+await OpenFeature.setProviderAndWait(new openfeature.FlagtideWebProvider(client));
+if (OpenFeature.getClient().getBooleanDetails('absent', true).errorCode !== 'FLAG_NOT_FOUND') {
+  console.error('the packed provider did not report a missing flag');
+  process.exit(1);
+}
+await OpenFeature.close();
 console.log('runtime imports ok');
 `;
 writeFileSync(resolve(project, 'runtime.mjs'), runtime);
@@ -149,6 +168,9 @@ import type { FlagtideConfig, ConnectionStatus } from '@flagtide/angular';
 import { FlagtideOverridesPanel } from '@flagtide/angular/overrides';
 import { createFlagtideClient, evaluate } from '@flagtide/core';
 import type { FlagSnapshot, JsonValue } from '@flagtide/core';
+import { FlagtideWebProvider } from '@flagtide/openfeature-web-provider';
+import type { FlagtideWebProviderOptions } from '@flagtide/openfeature-web-provider';
+import type { Provider } from '@openfeature/web-sdk';
 
 const config: FlagtideConfig = { sdkKey: 'k', streamUrl: 'wss://example.test/sdk/v1/stream', context: { key: 'u', attributes: {} } };
 export const providers = provideFlagtide(config);
@@ -160,6 +182,11 @@ export const snapshot = (value: FlagSnapshot): number => value.version;
 export const json = (value: JsonValue): JsonValue => value;
 export const client = createFlagtideClient;
 export const evaluator = evaluate;
+const providerOptions: FlagtideWebProviderOptions = { readyTimeoutMs: 1000 };
+export const provider: Provider = new FlagtideWebProvider(
+  createFlagtideClient({ sdkKey: 'k', streamUrl: 'wss://example.test/sdk/v1/stream' }),
+  providerOptions,
+);
 `;
 writeFileSync(resolve(project, 'consumer.ts'), consumer);
 writeFileSync(
@@ -182,7 +209,7 @@ const typecheck = run(resolve(root, 'node_modules/.bin/tsc'), ['-p', 'tsconfig.j
 check(typecheck.ok, `the packed typings do not compile for a strict consumer\n${typecheck.output}`);
 
 const leftovers = readdirSync(work).filter((name) => name.endsWith('.tgz'));
-check(leftovers.length === 2, `expected 2 tarballs, found ${leftovers.length}`);
+check(leftovers.length === 3, `expected 3 tarballs, found ${leftovers.length}`);
 
 if (failures.length > 0) {
   console.error(`\npack-check failed:\n- ${failures.join('\n- ')}`);
