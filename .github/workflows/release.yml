@@ -1,0 +1,53 @@
+name: release
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  CI: 'true'
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+
+jobs:
+  openfeature-web-provider:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+      - name: Check whether this version is already on npm
+        id: version
+        run: |
+          name=$(node -p "require('./libs/openfeature-web/package.json').name")
+          version=$(node -p "require('./libs/openfeature-web/package.json').version")
+          published=$(npm view "$name@$version" version 2>/dev/null || true)
+          if [ -n "$published" ]; then
+            echo "$name@$version is already published, nothing to release"
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.version.outputs.publish == 'true'
+        run: pnpm install --frozen-lockfile
+      - if: steps.version.outputs.publish == 'true'
+        run: pnpm nx run-many -t lint typecheck test build -p core openfeature-web --skip-nx-cache
+      - if: steps.version.outputs.publish == 'true'
+        run: pnpm nx run angular:pack-check
+      - name: Publish with provenance through npm trusted publishing
+        if: steps.version.outputs.publish == 'true'
+        run: npm publish dist/libs/openfeature-web --provenance --access public
