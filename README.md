@@ -1,10 +1,10 @@
 # flagtide
 
-A self-hosted feature flag service. A Quarkus back end pushes flag changes to every open browser over WebSockets, and an Angular SDK evaluates the flags locally with results that match the server's.
+Self-hosted feature flag service. A Quarkus back end pushes flag changes to all open browsers via WebSockets, and an Angular SDK evaluates the flags locally with results that match the server's.
 
 ![The admin on the left and the demo shop on the right. A flag is switched off and on, a rollout goes from 20 to 60 and back to 30 percent, then the propagation monitor shows p50, p95 and p99.](docs/media/demo.gif)
 
-Live demo: <https://flagtide.adrianturbinski.pl/>, the admin and the shop side by side on the same production images. Anyone can edit the flags, and the data goes back to the seed every hour.
+Live demo available at <https://flagtide.adrianturbinski.pl/>. The admin interface sits right next to the shop, both on the same production images. Flags can be edited by anybody, and the data resets to the seed every hour.
 
 [![CI](https://github.com/adiyy2001/flagtide/actions/workflows/ci.yml/badge.svg)](https://github.com/adiyy2001/flagtide/actions/workflows/ci.yml)
 ![Lowest line coverage of the eight measured areas](docs/media/coverage.svg)
@@ -13,7 +13,7 @@ Live demo: <https://flagtide.adrianturbinski.pl/>, the admin and the shop side b
 [![npm @flagtide/angular](https://img.shields.io/npm/v/@flagtide/angular?label=%40flagtide%2Fangular)](https://www.npmjs.com/package/@flagtide/angular)
 [![npm @flagtide/openfeature-web-provider](https://img.shields.io/npm/v/@flagtide/openfeature-web-provider?label=%40flagtide%2Fopenfeature-web-provider)](https://www.npmjs.com/package/@flagtide/openfeature-web-provider)
 
-The GIF is `scripts/record-demo.mjs` driving the harness page from the end-to-end suite: the admin and the shop in two iframes, both served from the production images. The shop talks to one server instance and the admin to the other, so every change in the recording crosses PostgreSQL. The SDK packages are on npm: `npm install @flagtide/angular @flagtide/core`. Apps that use [OpenFeature](https://openfeature.dev) can plug flagtide in with `@flagtide/openfeature-web-provider` instead of the Angular package.
+That GIF is `scripts/record-demo.mjs` driving the harness page from the end-to-end suite. The page loads the admin and the shop in two iframes, both served from the production images. The shop communicates with one server instance and the admin talks to the other, so every change in the recording traverses PostgreSQL. The SDK packages are available on npm: `npm install @flagtide/angular @flagtide/core`. Applications using [OpenFeature](https://openfeature.dev) can plug flagtide in with `@flagtide/openfeature-web-provider` instead of the Angular package.
 
 ## Why I built this
 
