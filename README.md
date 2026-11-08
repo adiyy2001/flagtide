@@ -19,7 +19,7 @@ That GIF is `scripts/record-demo.mjs` driving the harness page from the end-to-e
 
 Feature flags are part of my daily stack. There were two questions that I found repeatedly that I could not address from the outside. How is a flag update able to propagate to thousands of open browsers in well under a second? How do I know that the same flag produces the same result in both TypeScript in the browser and Java on the server?
 
-The only solution I had faith in was a solution I created. I primarily develop in Angular and also write Quarkus and Java on the back end. This project straddles both sides of that line. I implemented both flag evaluators and got them to agree to the last bucket. I also desired one compact project that would demonstrate domain-driven design and hexagonal architecture on a real domain with real business rules rather than a CRUD toy.
+The only solution I had faith in was a solution I created. I primarily develop in Angular and also write Quarkus and Java on the back end. This project straddles both sides of that line. I implemented both flag evaluators and got them to agree to the last bucket. I also desired one compact project that would demonstrate domain-driven design and hexagonal architecture on a real domain with real business rules rather than a CRUD toy. Now that I have shared test vectors that run against both the Java and TypeScript evaluators in CI, I can answer the second question directly.
 
 ## What is hard about it
 
