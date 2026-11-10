@@ -1,6 +1,6 @@
 {
   "name": "@flagtide/openfeature-web-provider",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "OpenFeature web provider for flagtide: flags evaluated locally in the browser and kept current over a WebSocket, behind the vendor neutral OpenFeature API.",
   "license": "MIT",
   "author": "Adrian Turbiński",
